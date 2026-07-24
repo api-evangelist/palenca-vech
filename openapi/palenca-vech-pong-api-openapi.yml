@@ -1,0 +1,20 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts Pong API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: Pong
+paths:
+  /pong:
+    get:
+      summary: Pong
+      operationId: pong_pong_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Pong

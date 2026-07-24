@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts rappi-income-distribution API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: rappi-income-distribution
+paths:
+  /v1/rappi/income-distribution/recover/custom-range:
+    post:
+      tags:
+      - rappi-income-distribution
+      summary: Recover Rappi Income Distribution Custom Range
+      description: Recover income distribution data for Rappi accounts within a custom date range.
+      operationId: recover_rappi_income_distribution_custom_range_v1_rappi_income_distribution_recover_custom_range_post
+      parameters:
+      - description: Start date in YYYY-MM-DD format
+        required: true
+        schema:
+          type: string
+          title: Start Date
+          description: Start date in YYYY-MM-DD format
+        name: start_date
+        in: query
+      - description: End date in YYYY-MM-DD format
+        required: true
+        schema:
+          type: string
+          title: End Date
+          description: End date in YYYY-MM-DD format
+        name: end_date
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

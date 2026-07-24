@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts internal/status-history API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: internal/status-history
+paths:
+  /v1/internal/status-history/bulk:
+    post:
+      tags:
+      - internal/status-history
+      summary: Save Status History Bulk
+      operationId: save_status_history_bulk_v1_internal_status_history_bulk_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkStatusHistoryRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    BulkStatusHistoryRequest:
+      properties:
+        entries:
+          items:
+            $ref: '#/components/schemas/StatusHistoryEntry'
+          type: array
+          title: Entries
+      type: object
+      required:
+      - entries
+      title: BulkStatusHistoryRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    StatusHistoryEntry:
+      properties:
+        platform_code:
+          type: string
+          title: Platform Code
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+      - platform_code
+      - status
+      title: StatusHistoryEntry
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

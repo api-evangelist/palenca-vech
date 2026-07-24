@@ -1,0 +1,239 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts internal/insights API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: internal/insights
+paths:
+  /v1/internal/insights/accounts/{account_id}:
+    post:
+      tags:
+      - internal/insights
+      summary: Store Insights
+      operationId: store_insights_v1_internal_insights_accounts__account_id__post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_InsightsReport_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/internal/insights/companies/{company_id}/accounts/{account_id}/debug:
+    get:
+      tags:
+      - internal/insights
+      summary: Debug Insights
+      operationId: debug_insights_v1_internal_insights_companies__company_id__accounts__account_id__debug_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    InsightsReport:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        success:
+          type: boolean
+          title: Success
+          default: false
+        warning:
+          type: string
+          title: Warning
+        status:
+          type: string
+          title: Status
+        last_base_salary:
+          type: number
+          title: Last Base Salary
+        last_employment_duration:
+          type: integer
+          title: Last Employment Duration
+        current_situation_duration:
+          type: integer
+          title: Current Situation Duration
+        total_worked_weeks:
+          type: integer
+          title: Total Worked Weeks
+        total_unique_employers:
+          type: integer
+          title: Total Unique Employers
+        ratio_employers_per_year:
+          type: number
+          title: Ratio Employers Per Year
+        total_weeks_unemployed:
+          type: integer
+          title: Total Weeks Unemployed
+        max_unemployed_duration:
+          type: integer
+          title: Max Unemployed Duration
+        current_employer_modifications:
+          type: integer
+          title: Current Employer Modifications
+        median_progression:
+          type: number
+          title: Median Progression
+        employer_change_modifications_positive_progression:
+          type: number
+          title: Employer Change Modifications Positive Progression
+        employer_change_modifications_negative_progression:
+          type: number
+          title: Employer Change Modifications Negative Progression
+        snapshots_1_year_ago:
+          type: number
+          title: Snapshots 1 Year Ago
+        snapshots_3_years_ago:
+          type: number
+          title: Snapshots 3 Years Ago
+        snapshots_5_years_ago:
+          type: number
+          title: Snapshots 5 Years Ago
+      type: object
+      required:
+      - account_id
+      title: InsightsReport
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    BaseResponse_InsightsReport_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/InsightsReport'
+      type: object
+      title: BaseResponse[InsightsReport]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

@@ -1,0 +1,65 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts finsus API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: finsus
+paths:
+  /v1/hola-majo/finsus-notification:
+    post:
+      tags:
+      - finsus
+      summary: Finsus Notification
+      operationId: finsus_notification_v1_hola_majo_finsus_notification_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

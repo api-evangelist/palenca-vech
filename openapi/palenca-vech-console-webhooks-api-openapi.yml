@@ -1,0 +1,805 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts console/webhooks API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: console/webhooks
+paths:
+  /console/webhooks/events:
+    get:
+      tags:
+      - console/webhooks
+      summary: List Webhook Topics
+      operationId: list_webhook_topics_console_webhooks_events_get
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhooksDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks:
+    get:
+      tags:
+      - console/webhooks
+      summary: List Webhooks
+      operationId: list_webhooks_console_companies__company_id__webhooks_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhooksDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - console/webhooks
+      summary: Create Webhook
+      operationId: create_webhook_console_companies__company_id__webhooks_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}:
+    put:
+      tags:
+      - console/webhooks
+      summary: Update Webhook
+      operationId: update_webhook_console_companies__company_id__webhooks__webhook_id__put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - console/webhooks
+      summary: Delete Webhook
+      operationId: delete_webhook_console_companies__company_id__webhooks__webhook_id__delete
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}/status:
+    put:
+      tags:
+      - console/webhooks
+      summary: Update Webhook Status
+      operationId: update_webhook_status_console_companies__company_id__webhooks__webhook_id__status_put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}/logs:
+    get:
+      tags:
+      - console/webhooks
+      summary: Get Webhook
+      operationId: get_webhook_console_companies__company_id__webhooks__webhook_id__logs_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          $ref: '#/components/schemas/WebhookLogStatus'
+        name: status
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: From Date
+        name: from_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: To Date
+        name: to_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Date Field
+          default: created_at
+        name: date_field
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Order By
+          default: -created_at
+        name: order_by
+        in: query
+      - required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/WebhookActions'
+          - type: string
+          title: Event
+        name: event
+        in: query
+      - required: false
+        schema:
+          type: integer
+          title: Items Per Page
+          default: 500
+        name: items_per_page
+        in: query
+      - required: false
+        schema:
+          type: integer
+          title: Page
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasePaginationResponse_WebhookDetailsConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}/logs/{log_id}/retry:
+    post:
+      tags:
+      - console/webhooks
+      summary: Retry Webhook Events
+      operationId: retry_webhook_events_console_companies__company_id__webhooks__webhook_id__logs__log_id__retry_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          title: Log Id
+        name: log_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    WebhooksDataResponse:
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/WebhookDataResponse'
+          type: array
+          title: Webhooks
+      type: object
+      required:
+      - webhooks
+      title: WebhooksDataResponse
+    WebhookActions:
+      enum:
+      - user.created
+      - user.deleted
+      - account.created
+      - account.connected
+      - account.requires_auth
+      - account.needs_auth
+      - profile.updated
+      - employment.created
+      - employment.updated
+      - earnings.updated
+      - events.updated
+      - clean_save.finished
+      - login.created
+      - login.success
+      - login.error
+      - login.incomplete
+      - login.retry
+      - login.failed_refresh
+      title: WebhookActions
+      description: An enumeration.
+    WebhookLogStatus:
+      enum:
+      - success
+      - failed
+      title: WebhookLogStatus
+      description: An enumeration.
+    UpdateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        is_active:
+          type: boolean
+          title: Is Active
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      title: UpdateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        is_active: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    BaseResponse_WebhooksDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhooksDataResponse'
+      type: object
+      title: BaseResponse[WebhooksDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BasePaginationResponse_WebhookDetailsConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDetailsConsoleResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[WebhookDetailsConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    CreateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+          default: false
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      required:
+      - url
+      - name
+      - connect_flow_id
+      - is_sandbox
+      title: CreateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+        events:
+        - '*'
+    WebhookLogConsoleResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        url:
+          type: string
+          title: Url
+        action:
+          type: string
+          title: Action
+        status:
+          type: integer
+          title: Status
+        request_body:
+          type: object
+          title: Request Body
+        response_body:
+          type: object
+          title: Response Body
+        entity:
+          type: string
+          title: Entity
+        entity_id:
+          type: string
+          title: Entity Id
+        environment:
+          type: string
+          title: Environment
+        webhook_id:
+          type: string
+          title: Webhook Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      title: WebhookLogConsoleResponse
+      webhook:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+        url: https://webhook.palenca.com
+        is_sandbox: false
+        events:
+        - '*'
+        created_at: '2022-05-02T03:36:02.436Z'
+        updated_at: '2022-05-02T03:36:02.436Z'
+      logs:
+      - created_at: '2023-03-31T20:32:12.295904+00:00'
+        updated_at: '2023-03-31T20:32:12.295927+00:00'
+        id: 8c069c49-efdf-4230-aa43-2d40f269497f
+        url: https://webhook.site/96bc26e2-bf38-4cd1-8432-4e5a13fe5d60
+        name: testing webhook
+        events:
+        - '*'
+        widget_id: 15574004-c4d6-4e59-bcba-f335993b1400
+        is_sandbox: true
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WebhookConsoleResponse:
+      $id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        events:
+          items: {}
+          type: array
+          title: Events
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        private_key:
+          type: string
+          title: Private Key
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+        auth_required:
+          type: boolean
+          title: Auth Required
+          default: false
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+      type: object
+      required:
+      - company_id
+      - url
+      - name
+      - events
+      - is_sandbox
+      - sign_request
+      title: WebhookConsoleResponse
+      private_key: 68d5110194d1f0c5fd062893d5e2e374
+      url: https://webhook.palenca.com
+      is_sandbox: false
+      is_active: true
+      updated_at: '2022-05-02T03:36:02.436Z'
+      company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+      created_at: '2022-05-02T03:36:02.436Z'
+      events:
+      - '*'
+      sign_request: false
+    PaginationBaseResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        items_per_page:
+          type: integer
+          title: Items Per Page
+        total_items:
+          type: integer
+          title: Total Items
+        total_pages:
+          type: integer
+          title: Total Pages
+      type: object
+      title: PaginationBaseResponse
+    WebhookDetailsConsoleResponse:
+      properties:
+        webhook:
+          $ref: '#/components/schemas/WebhookConsoleResponse'
+        logs:
+          items:
+            $ref: '#/components/schemas/WebhookLogConsoleResponse'
+          type: array
+          title: Logs
+      type: object
+      required:
+      - webhook
+      - logs
+      title: WebhookDetailsConsoleResponse
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    WebhookDataResponse:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+        sign_request:
+          type: boolean
+          title: Sign Request
+        private_key:
+          type: string
+          title: Private Key
+      type: object
+      required:
+      - webhook_id
+      - url
+      - name
+      - is_sandbox
+      title: WebhookDataResponse
+    BaseResponse_WebhookDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDataResponse'
+      type: object
+      title: BaseResponse[WebhookDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

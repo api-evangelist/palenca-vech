@@ -1,0 +1,302 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts internal/companies API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: internal/companies
+paths:
+  /v1/internal/companies:
+    get:
+      tags:
+      - internal/companies
+      summary: Get Companies
+      operationId: get_companies_v1_internal_companies_get
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ListCompaniesResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/internal/companies/{company_id}:
+    patch:
+      tags:
+      - internal/companies
+      summary: Update Company
+      operationId: update_company_v1_internal_companies__company_id__patch
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__internal__companies__UpdateCompanyParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_CompanyResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CompanyDataResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        priority:
+          $ref: '#/components/schemas/CompanyPriority'
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        retries_enabled:
+          type: boolean
+          title: Retries Enabled
+          default: false
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      required:
+      - display_name
+      - company_name
+      - priority
+      - public_api_key
+      - private_api_key
+      title: CompanyDataResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        client_id: c2644819-1879-4219-93ab-86b54fb83467
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        company_name: palenca
+        website: https://palenca.com
+        priority: low
+        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+    CompanyResponse:
+      properties:
+        company:
+          $ref: '#/components/schemas/CompanyDataResponse'
+      type: object
+      required:
+      - company
+      title: CompanyResponse
+    BaseResponse_CompanyResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyResponse'
+      type: object
+      title: BaseResponse[CompanyResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    app__api__schemas__internal__companies__UpdateCompanyParams:
+      properties:
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+      type: object
+      required:
+      - widget_advanced_customization
+      title: UpdateCompanyParams
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse_ListCompaniesResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ListCompaniesResponse'
+      type: object
+      title: BaseResponse[ListCompaniesResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ListCompaniesResponse:
+      properties:
+        companies:
+          items:
+            $ref: '#/components/schemas/CompanyDataResponse'
+          type: array
+          title: Companies
+      type: object
+      required:
+      - companies
+      title: ListCompaniesResponse

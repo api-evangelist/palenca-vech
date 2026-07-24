@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts cron-jobs API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: cron-jobs
+paths:
+  /v1/cron-jobs/balances:
+    post:
+      tags:
+      - cron-jobs
+      summary: Update Balances
+      operationId: update_balances_v1_cron_jobs_balances_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCutoffsAndBalancesParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/cron-jobs/cutoffs:
+    post:
+      tags:
+      - cron-jobs
+      summary: Update Balances
+      operationId: update_balances_v1_cron_jobs_cutoffs_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCutoffsAndBalancesParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/cron-jobs/imss/retry/weeks:
+    post:
+      tags:
+      - cron-jobs
+      summary: Retry Get Weeks
+      operationId: retry_get_weeks_v1_cron_jobs_imss_retry_weeks_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+components:
+  schemas:
+    UpdateCutoffsAndBalancesParams:
+      properties:
+        country:
+          type: string
+          title: Country
+      type: object
+      required:
+      - country
+      title: UpdateCutoffsAndBalancesParams
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

@@ -1,0 +1,3244 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts console API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: console
+paths:
+  /console/companies/{company_id}:
+    get:
+      tags:
+      - console
+      summary: Get Company
+      operationId: get_company_console_companies__company_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_CompanyDataPrivate_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - console
+      summary: Update Company
+      operationId: update_company_console_companies__company_id__patch
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__companies__UpdateCompanyParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_CompanyDataPrivate_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies:
+    post:
+      tags:
+      - console
+      summary: Create Company
+      operationId: create_company_console_companies_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__companies__CreateCompanyParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_CompanyDataPrivate_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/widgets/{widget_id}:
+    get:
+      tags:
+      - console
+      summary: Get Widget
+      operationId: get_widget_console_companies__company_id__widgets__widget_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Widget Id
+        name: widget_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - console
+      summary: Update Company Widget
+      operationId: update_company_widget_console_companies__company_id__widgets__widget_id__put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Widget Id
+        name: widget_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__admin__UpdateWidgetParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/widgets/accounts/{account_id}:
+    get:
+      tags:
+      - console
+      summary: Get Widget Id
+      operationId: get_widget_id_console_companies__company_id__widgets_accounts__account_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/widgets:
+    get:
+      tags:
+      - console
+      summary: List Company Widgets
+      operationId: list_company_widgets_console_companies__company_id__widgets_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetsConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - console
+      summary: Create Company Widget
+      operationId: create_company_widget_console_companies__company_id__widgets_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__admin__CreateWidgetParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/webhooks/events:
+    get:
+      tags:
+      - console
+      summary: List Webhook Topics
+      operationId: list_webhook_topics_console_webhooks_events_get
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhooksDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks:
+    get:
+      tags:
+      - console
+      summary: List Webhooks
+      operationId: list_webhooks_console_companies__company_id__webhooks_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhooksDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - console
+      summary: Create Webhook
+      operationId: create_webhook_console_companies__company_id__webhooks_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}:
+    put:
+      tags:
+      - console
+      summary: Update Webhook
+      operationId: update_webhook_console_companies__company_id__webhooks__webhook_id__put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - console
+      summary: Delete Webhook
+      operationId: delete_webhook_console_companies__company_id__webhooks__webhook_id__delete
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}/status:
+    put:
+      tags:
+      - console
+      summary: Update Webhook Status
+      operationId: update_webhook_status_console_companies__company_id__webhooks__webhook_id__status_put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}/logs:
+    get:
+      tags:
+      - console
+      summary: Get Webhook
+      operationId: get_webhook_console_companies__company_id__webhooks__webhook_id__logs_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: false
+        schema:
+          $ref: '#/components/schemas/WebhookLogStatus'
+        name: status
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: From Date
+        name: from_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: To Date
+        name: to_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Date Field
+          default: created_at
+        name: date_field
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Order By
+          default: -created_at
+        name: order_by
+        in: query
+      - required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/WebhookActions'
+          - type: string
+          title: Event
+        name: event
+        in: query
+      - required: false
+        schema:
+          type: integer
+          title: Items Per Page
+          default: 500
+        name: items_per_page
+        in: query
+      - required: false
+        schema:
+          type: integer
+          title: Page
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasePaginationResponse_WebhookDetailsConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/webhooks/{webhook_id}/logs/{log_id}/retry:
+    post:
+      tags:
+      - console
+      summary: Retry Webhook Events
+      operationId: retry_webhook_events_console_companies__company_id__webhooks__webhook_id__logs__log_id__retry_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Webhook Id
+        name: webhook_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          title: Log Id
+        name: log_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WebhookDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts/{account_id}:
+    get:
+      tags:
+      - console
+      summary: Get Account
+      operationId: get_account_console_companies__company_id__accounts__account_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: Accept-Language
+        name: accept-language
+        in: header
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountsDataConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts:
+    get:
+      tags:
+      - console
+      summary: List Accounts
+      operationId: list_accounts_console_companies__company_id__accounts_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: integer
+          title: Page
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          type: integer
+          title: Items Per Page
+          default: 100
+        name: items_per_page
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Order By
+          default: -created_at
+        name: order_by
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Query
+        name: query
+        in: query
+      - required: false
+        schema:
+          $ref: '#/components/schemas/LoginStatus'
+        name: status
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: From Date
+        name: from_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: To Date
+        name: to_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Date Field
+          default: created_at
+        name: date_field
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountsDataConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts/{account_id}/profile:
+    get:
+      tags:
+      - console
+      summary: Get Profile
+      operationId: get_profile_console_companies__company_id__accounts__account_id__profile_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ProfileDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts/{account_id}/employment:
+    get:
+      tags:
+      - console
+      summary: Get Employment
+      operationId: get_employment_console_companies__company_id__accounts__account_id__employment_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_EmploymentDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts/{account_id}/earnings:
+    get:
+      tags:
+      - console
+      summary: Get Earnings Without Duplicates
+      operationId: get_earnings_without_duplicates_console_companies__company_id__accounts__account_id__earnings_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/DateRange'
+          default: month
+        name: date_range
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_EarningsDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/logins:
+    get:
+      tags:
+      - console
+      summary: List Logins
+      operationId: list_logins_console_companies__company_id__logins_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: integer
+          title: Page
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          type: integer
+          title: Items Per Page
+          default: 100
+        name: items_per_page
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Order By
+          default: -created_at
+        name: order_by
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Query
+        name: query
+        in: query
+      - required: false
+        schema:
+          $ref: '#/components/schemas/LoginStatus'
+        name: status
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: From Date
+        name: from_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: To Date
+        name: to_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Date Field
+          default: created_at
+        name: date_field
+        in: query
+      - required: false
+        schema:
+          $ref: '#/components/schemas/LoginSourceCode'
+        name: source
+        in: query
+      - required: false
+        schema:
+          $ref: '#/components/schemas/PlatformCode'
+        name: platform
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Exclude Platforms
+        name: exclude_platforms
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountsDataConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts/{account_id}/logins:
+    get:
+      tags:
+      - console
+      summary: Get Logins
+      operationId: get_logins_console_companies__company_id__accounts__account_id__logins_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountLoginsDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/accounts/{account_id}/refresh:
+    post:
+      tags:
+      - console
+      summary: Refresh Account
+      operationId: refresh_account_console_companies_accounts__account_id__refresh_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/accounts/retry/{account_id}:
+    post:
+      tags:
+      - console
+      summary: Retry Imss Login
+      operationId: retry_imss_login_console_companies_accounts_retry__account_id__post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts/{account_id}/earnings/exists:
+    get:
+      tags:
+      - console
+      summary: Does Account Have Earnings
+      operationId: does_account_have_earnings_console_companies__company_id__accounts__account_id__earnings_exists_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/accounts/{account_id}/raw-data:
+    get:
+      tags:
+      - console
+      summary: Get Raw Data
+      operationId: get_raw_data_console_companies__company_id__accounts__account_id__raw_data_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/status/{status_details}:
+    get:
+      tags:
+      - console
+      summary: Get Status
+      operationId: get_status_console_status__status_details__get
+      parameters:
+      - required: true
+        schema:
+          $ref: '#/components/schemas/StatusDetails'
+        name: status_details
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_StatusResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/insights/graphs/benchmarks:
+    post:
+      tags:
+      - console
+      summary: Send Platform Benchmarks
+      operationId: send_platform_benchmarks_console_insights_graphs_benchmarks_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlatformBenchmarksParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/insights/graphs/employment/salary-progression:
+    post:
+      tags:
+      - console
+      summary: Get Account Salary Progression Over Time
+      operationId: get_account_salary_progression_over_time_console_insights_graphs_employment_salary_progression_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndividualAccountInsightsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/insights/graphs/gig/earning-detail:
+    post:
+      tags:
+      - console
+      summary: Get Account Earning Detail
+      operationId: get_account_earning_detail_console_insights_graphs_gig_earning_detail_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndividualAccountInsightsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/insights/extended:
+    post:
+      tags:
+      - console
+      summary: Compute Extended Insights
+      operationId: compute_extended_insights_console_insights_extended_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComputeExtendedInsightsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    IdType:
+      enum:
+      - tax
+      - passport
+      - national
+      - social_security_number
+      - individual_taxpayer_registry
+      title: IdType
+      description: An enumeration.
+    EarningDetailConsoleResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date-time
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+        employer:
+          type: string
+          title: Employer
+        debt:
+          type: number
+          title: Debt
+        metadata:
+          type: object
+          title: Metadata
+      type: object
+      required:
+      - account_id
+      - amount
+      - currency
+      - earning_date
+      title: EarningDetailConsoleResponse
+      currency: mxn
+      cash_amount: 10.0
+      count_trips: 2
+      earning_date: '2022-05-02'
+      amount: 100.0
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    EmploymentHistoryStatus:
+      enum:
+      - empty
+      - partial
+      - complete
+      title: EmploymentHistoryStatus
+      description: An enumeration.
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    BasePaginationResponse_WebhookDetailsConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDetailsConsoleResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[WebhookDetailsConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    BaseResponse_AccountsDataConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataConsoleResponse'
+      type: object
+      title: BaseResponse[AccountsDataConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_CompanyDataPrivate_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyDataPrivate'
+      type: object
+      title: BaseResponse[CompanyDataPrivate]
+      example:
+        success: true
+        data: {}
+        error: {}
+    StatusResponse:
+      properties:
+        status_details:
+          type: string
+          title: Status Details
+        status:
+          type: string
+          title: Status
+        code:
+          type: string
+          title: Code
+        message:
+          $ref: '#/components/schemas/TranslationsResponse'
+        recommendation:
+          $ref: '#/components/schemas/TranslationsResponse'
+      type: object
+      required:
+      - message
+      - recommendation
+      title: StatusResponse
+    app__api__schemas__companies__CreateCompanyParams:
+      properties:
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyStatus'
+          - type: string
+          title: Status
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+      type: object
+      required:
+      - display_name
+      - company_name
+      - website
+      title: CreateCompanyParams
+      example:
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        company_name: palenca
+        website: https://palenca.com
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    IndividualAccountInsightsParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      required:
+      - account_id
+      title: IndividualAccountInsightsParams
+    ProfileResponse:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        email:
+          type: string
+          title: Email
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+      type: object
+      title: ProfileResponse
+    AccountLoginsDataResponse:
+      properties:
+        logins:
+          items:
+            $ref: '#/components/schemas/LoginConsoleDataResponse'
+          type: array
+          title: Logins
+      type: object
+      required:
+      - logins
+      title: AccountLoginsDataResponse
+    BaseResponse_StatusResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/StatusResponse'
+      type: object
+      title: BaseResponse[StatusResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    AccountConsoleResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        source:
+          $ref: '#/components/schemas/SourceCode'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        gov_id:
+          type: string
+          title: Gov Id
+      type: object
+      required:
+      - id
+      - user_id
+      title: AccountConsoleResponse
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    BaseResponse_WidgetConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetConsoleResponse'
+      type: object
+      title: BaseResponse[WidgetConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    CurrencyCode:
+      enum:
+      - mxn
+      - usd
+      - cop
+      - clp
+      - ars
+      - pen
+      - brl
+      - crc
+      - pab
+      - bob
+      - ves
+      - dop
+      - brr
+      title: CurrencyCode
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentStatus:
+      enum:
+      - retired
+      - employed
+      - unemployed
+      - unknown
+      - potentially_retired
+      - voluntary_contributions
+      - banned
+      - active
+      title: EmploymentStatus
+      description: An enumeration.
+    PlatformBenchmarksParams:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+      type: object
+      required:
+      - platform
+      - country
+      title: PlatformBenchmarksParams
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    ComputeExtendedInsightsParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+      type: object
+      required:
+      - account_id
+      - company_id
+      title: ComputeExtendedInsightsParams
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    IdInfoBaseResponse:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+      type: object
+      title: IdInfoBaseResponse
+    EmploymentsFilesBaseResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: EmploymentsFilesBaseResponse
+    CreateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+          default: false
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      required:
+      - url
+      - name
+      - connect_flow_id
+      - is_sandbox
+      title: CreateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+        events:
+        - '*'
+    WebhookLogConsoleResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        url:
+          type: string
+          title: Url
+        action:
+          type: string
+          title: Action
+        status:
+          type: integer
+          title: Status
+        request_body:
+          type: object
+          title: Request Body
+        response_body:
+          type: object
+          title: Response Body
+        entity:
+          type: string
+          title: Entity
+        entity_id:
+          type: string
+          title: Entity Id
+        environment:
+          type: string
+          title: Environment
+        webhook_id:
+          type: string
+          title: Webhook Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      title: WebhookLogConsoleResponse
+      webhook:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+        url: https://webhook.palenca.com
+        is_sandbox: false
+        events:
+        - '*'
+        created_at: '2022-05-02T03:36:02.436Z'
+        updated_at: '2022-05-02T03:36:02.436Z'
+      logs:
+      - created_at: '2023-03-31T20:32:12.295904+00:00'
+        updated_at: '2023-03-31T20:32:12.295927+00:00'
+        id: 8c069c49-efdf-4230-aa43-2d40f269497f
+        url: https://webhook.site/96bc26e2-bf38-4cd1-8432-4e5a13fe5d60
+        name: testing webhook
+        events:
+        - '*'
+        widget_id: 15574004-c4d6-4e59-bcba-f335993b1400
+        is_sandbox: true
+    LoginConsoleDataResponse:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        source:
+          $ref: '#/components/schemas/LoginSourceCode'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      title: LoginConsoleDataResponse
+    app__api__schemas__companies__UpdateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+      type: object
+      title: UpdateCompanyParams
+    EmploymentDataBaseResponse:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        employment_info:
+          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
+        employment_history:
+          items:
+            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+          type: array
+          title: Employment History
+      type: object
+      required:
+      - platform
+      - account_id
+      title: EmploymentDataBaseResponse
+    app__api__schemas__admin__UpdateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+        hide_label:
+          type: boolean
+          title: Hide Label
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+        persist_session:
+          type: boolean
+          title: Persist Session
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        redirect_url:
+          type: string
+          title: Redirect Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        webhook_url:
+          type: string
+          title: Webhook Url
+        widget_type:
+          $ref: '#/components/schemas/WidgetType'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: UpdateWidgetParams
+    BaseResponse_WebhookDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDataResponse'
+      type: object
+      title: BaseResponse[WebhookDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    WebhookDetailsConsoleResponse:
+      properties:
+        webhook:
+          $ref: '#/components/schemas/WebhookConsoleResponse'
+        logs:
+          items:
+            $ref: '#/components/schemas/WebhookLogConsoleResponse'
+          type: array
+          title: Logs
+      type: object
+      required:
+      - webhook
+      - logs
+      title: WebhookDetailsConsoleResponse
+    WidgetInternalType:
+      enum:
+      - default_api_calls
+      title: WidgetInternalType
+      description: An enumeration.
+    EarningConsoleDataResponse:
+      properties:
+        date:
+          type: string
+          title: Date
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        gross_pay:
+          type: number
+          title: Gross Pay
+        taxes:
+          type: number
+          title: Taxes
+        deductions:
+          type: number
+          title: Deductions
+        net_pay:
+          type: number
+          title: Net Pay
+        trips:
+          type: integer
+          title: Trips
+        to_date:
+          type: string
+          format: date-time
+          title: To Date
+        from_date:
+          type: string
+          format: date-time
+          title: From Date
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningDetailConsoleResponse'
+          type: array
+          title: Earnings
+      type: object
+      title: EarningConsoleDataResponse
+    BaseResponse_EmploymentDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentDataBaseResponse'
+      type: object
+      title: BaseResponse[EmploymentDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    UpdateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        is_active:
+          type: boolean
+          title: Is Active
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      title: UpdateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        is_active: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    app__api__schemas__admin__CreateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+          default: false
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+          default: false
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+          default: false
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+          default: true
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+          default: true
+        hide_label:
+          type: boolean
+          title: Hide Label
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        persist_session:
+          type: boolean
+          title: Persist Session
+          default: false
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        redirect_url:
+          type: string
+          title: Redirect Url
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        widget_type:
+          allOf:
+          - $ref: '#/components/schemas/WidgetType'
+          default: income_verification
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: CreateWidgetParams
+    AccountsDataConsoleResponse:
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountConsoleResponse'
+          type: array
+          title: Accounts
+      type: object
+      required:
+      - accounts
+      title: AccountsDataConsoleResponse
+    PaginationBaseResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        items_per_page:
+          type: integer
+          title: Items Per Page
+        total_items:
+          type: integer
+          title: Total Items
+        total_pages:
+          type: integer
+          title: Total Pages
+      type: object
+      title: PaginationBaseResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    EmploymentInfoBaseResponse:
+      properties:
+        id_type:
+          $ref: '#/components/schemas/IdType'
+        quoted_weeks:
+          type: integer
+          title: Quoted Weeks
+        discounted_weeks:
+          type: integer
+          title: Discounted Weeks
+        reintegrated_weeks:
+          type: integer
+          title: Reintegrated Weeks
+        end_of_rights:
+          type: string
+          title: End Of Rights
+        status:
+          $ref: '#/components/schemas/EmploymentStatus'
+        employment_files:
+          items:
+            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
+          type: array
+          title: Employment Files
+        employment_history_status:
+          $ref: '#/components/schemas/EmploymentHistoryStatus'
+      type: object
+      title: EmploymentInfoBaseResponse
+    WidgetType:
+      enum:
+      - income_verification
+      title: WidgetType
+      description: An enumeration.
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse_AccountLoginsDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountLoginsDataResponse'
+      type: object
+      title: BaseResponse[AccountLoginsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    WebhookDataResponse:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+        sign_request:
+          type: boolean
+          title: Sign Request
+        private_key:
+          type: string
+          title: Private Key
+      type: object
+      required:
+      - webhook_id
+      - url
+      - name
+      - is_sandbox
+      title: WebhookDataResponse
+    SourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - bulk_upload
+      - console
+      title: SourceCode
+      description: An enumeration.
+    CompanyDataPrivate:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        priority:
+          $ref: '#/components/schemas/CompanyPriority'
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        retries_enabled:
+          type: boolean
+          title: Retries Enabled
+          default: false
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      required:
+      - display_name
+      - company_name
+      - priority
+      - public_api_key
+      - private_api_key
+      title: CompanyDataPrivate
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        client_id: c2644819-1879-4219-93ab-86b54fb83467
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        status: demo
+        company_name: palenca
+        website: https://palenca.com
+        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+        private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+    EmploymentHistoryBaseResponse:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        employer_registration:
+          type: string
+          title: Employer Registration
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: End Date
+        job_title:
+          type: string
+          title: Job Title
+        job_title_code:
+          type: string
+          title: Job Title Code
+        federal_entity:
+          type: string
+          title: Federal Entity
+      type: object
+      title: EmploymentHistoryBaseResponse
+    BaseResponse_WidgetsConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetsConsoleResponse'
+      type: object
+      title: BaseResponse[WidgetsConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    WebhooksDataResponse:
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/WebhookDataResponse'
+          type: array
+          title: Webhooks
+      type: object
+      required:
+      - webhooks
+      title: WebhooksDataResponse
+    BaseResponse_EarningsDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EarningsDataResponse'
+      type: object
+      title: BaseResponse[EarningsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    WebhookActions:
+      enum:
+      - user.created
+      - user.deleted
+      - account.created
+      - account.connected
+      - account.requires_auth
+      - account.needs_auth
+      - profile.updated
+      - employment.created
+      - employment.updated
+      - earnings.updated
+      - events.updated
+      - clean_save.finished
+      - login.created
+      - login.success
+      - login.error
+      - login.incomplete
+      - login.retry
+      - login.failed_refresh
+      title: WebhookActions
+      description: An enumeration.
+    WebhookLogStatus:
+      enum:
+      - success
+      - failed
+      title: WebhookLogStatus
+      description: An enumeration.
+    BaseResponse_WebhooksDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhooksDataResponse'
+      type: object
+      title: BaseResponse[WebhooksDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    WidgetConsoleResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+          default: []
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+          default: false
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+          default: false
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+          default: false
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+          default: true
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+          default: true
+        hide_label:
+          type: boolean
+          title: Hide Label
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        persist_session:
+          type: boolean
+          title: Persist Session
+          default: false
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        redirect_url:
+          type: string
+          title: Redirect Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        webhook_url:
+          type: string
+          title: Webhook Url
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        widget_type:
+          $ref: '#/components/schemas/WidgetType'
+        widget_internal_type:
+          $ref: '#/components/schemas/WidgetInternalType'
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      required:
+      - company_id
+      title: WidgetConsoleResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+        country: mx
+        platform:
+        - uber
+        is_sandbox: false
+        hide_logo: false
+        hide_whatsapp: false
+        hide_consent: false
+        hide_privacy_url: false
+        hide_redirect_url: false
+        require_gov_id: false
+        persist_session: false
+        font_family: Nunito
+        primary_color: '#ea4c89'
+        border_radius: 0px
+        custom_privacy_url: https://palenca.com/privacy
+        redirect_url: https://companydomain.com/
+        whatsapp_number: '+525539043015'
+        webhook_url: https://webhooks.palenca.com/example
+        created_at: '2022-05-02T03:36:02.436Z'
+        updated_at: '2022-05-02T03:36:02.436Z'
+        widget_type: income_verification
+        settings: {}
+    WidgetsConsoleResponse:
+      properties:
+        widgets:
+          items:
+            $ref: '#/components/schemas/WidgetConsoleResponse'
+          type: array
+          title: Widgets
+      type: object
+      required:
+      - widgets
+      title: WidgetsConsoleResponse
+    WebhookConsoleResponse:
+      $id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        events:
+          items: {}
+          type: array
+          title: Events
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        private_key:
+          type: string
+          title: Private Key
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+        auth_required:
+          type: boolean
+          title: Auth Required
+          default: false
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+      type: object
+      required:
+      - company_id
+      - url
+      - name
+      - events
+      - is_sandbox
+      - sign_request
+      title: WebhookConsoleResponse
+      private_key: 68d5110194d1f0c5fd062893d5e2e374
+      url: https://webhook.palenca.com
+      is_sandbox: false
+      is_active: true
+      updated_at: '2022-05-02T03:36:02.436Z'
+      company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+      created_at: '2022-05-02T03:36:02.436Z'
+      events:
+      - '*'
+      sign_request: false
+    LoginSourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - refresh
+      - connect
+      - bulk_upload
+      - console
+      - platform_retry
+      - refresh_earnings
+      - refresh_events
+      - refresh_profile
+      title: LoginSourceCode
+      description: An enumeration.
+    ProfileDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        profile:
+          $ref: '#/components/schemas/ProfileResponse'
+        ids_info:
+          items:
+            $ref: '#/components/schemas/IdInfoBaseResponse'
+          type: array
+          title: Ids Info
+      type: object
+      required:
+      - account_id
+      title: ProfileDataBaseResponse
+    DateRange:
+      enum:
+      - month
+      - week
+      title: DateRange
+      description: An enumeration.
+    BaseResponse_ProfileDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ProfileDataBaseResponse'
+      type: object
+      title: BaseResponse[ProfileDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    TranslationsResponse:
+      properties:
+        en:
+          type: string
+          title: En
+        es:
+          type: string
+          title: Es
+        pt:
+          type: string
+          title: Pt
+      type: object
+      title: TranslationsResponse
+    StatusDetails:
+      enum:
+      - bad_request
+      - banned
+      - invalid_credentials
+      - too_many_requests
+      - service_unavailable
+      - request_timeout
+      - access_forbidden
+      - platform_error
+      - invalid_otp
+      - expired_otp
+      - invalid_nss
+      - invalid_phone
+      - invalid_email
+      - lambda_error
+      - phone_or_code_missing
+      - password_missing
+      - not_registered
+      - login_refused
+      - unknown
+      - invalid_otp_session
+      - invalid_otp_auth_key
+      - needs_auth
+      - requires_auth
+      - curp_not_found
+      - could_not_send_otp
+      - profile_unavailable
+      - no_employment_records
+      - account_setup_incomplete
+      - identity_verification_failed
+      - gov_id_not_in_data_source
+      - gov_id_has_inconsistencies
+      - mfa_deactivation_required
+      - access_token_not_generated
+      - two_factor_auth_required
+      - captcha_bypass_error
+      - invalid_identifier
+      - account_blocked
+      - proxy_error
+      - invalid_captcha
+      - invalid_gov_id
+      - device_authorization_required
+      - max_retries_exceeded
+      - task_create_fail
+      - invalid_cpf
+      - invalid_in_auth_session_id
+      - unable_to_get_uber_metrics
+      - email_otp_validation_pending
+      - login_not_available
+      - invalid_password
+      - unknown_login_type
+      - email_not_validated
+      - already_connected
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - zero_quoted_weeks
+      - proxy_max_retries_exceeded
+      - curp_not_found_in_renapo
+      - nss_not_found_in_imss
+      - renapo_unavailable
+      - service_degradation
+      - server_error
+      - db_constraint_violation
+      - api_forbidden
+      - auth_token_expired
+      - network_max_retries_exceeded
+      - api_service_unavailable_02
+      - api_service_unavailable_08
+      - lambda_timeout
+      - api_service_unavailable
+      - auth_max_attempts_exceeded
+      - browser_navigation_timeout
+      - render_invalid_html
+      - browser_connection_timeout
+      - parser_invalid_pdf
+      - aws_s3_upload_fail
+      - network_connectivity_issues
+      - auth_invalid_token
+      - server_not_found
+      - api_server_error
+      - network_ssl_error
+      - auth_forbidden
+      - api_bad_gateway
+      - api_server_timeout
+      - system_platform_error
+      - api_rate_limit_exceeded
+      - api_renapo_unavailable
+      - user_gov_id_has_inconsistencies
+      - user_ssn_missing
+      - user_curp_not_found_in_renapo
+      - rpci_timeout
+      - pending_data_extraction
+      - employment_info_in_imss
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      - validation_time_expired
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - platform_unavailable
+      - failed_refresh
+      - invalid_schema_response
+      - not_available_in_platform
+      - user_curp_not_in_platform
+      - user_gov_id_not_in_data_source
+      - account_not_found
+      - profile_not_found
+      - unable_to_get_rappi_metrics
+      - captcha_required
+      - captcha_detected
+      - didi_rate_limited
+      - device_risk
+      - cell_rate_limited
+      - resend_limit
+      - didi_rejected
+      - incomplete_profile
+      title: StatusDetails
+      description: An enumeration.
+    EarningsDataResponse:
+      properties:
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningConsoleDataResponse'
+          type: array
+          title: Earnings
+        income_last_month:
+          type: number
+          title: Income Last Month
+        income_last_three_months:
+          type: number
+          title: Income Last Three Months
+      type: object
+      required:
+      - earnings
+      title: EarningsDataResponse

@@ -1,0 +1,1035 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts argyle API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: argyle
+paths:
+  /v1/argyle/create-token:
+    post:
+      tags:
+      - argyle
+      summary: Create Argyle Account
+      operationId: create_argyle_account_v1_argyle_create_token_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateUserArgyleParams'
+              title: Params
+              default: {}
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/refresh-token:
+    post:
+      tags:
+      - argyle
+      summary: Refresh Argyle Token
+      operationId: refresh_argyle_token_v1_argyle_refresh_token_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshArgyleTokenParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/argyle-webhook:
+    post:
+      tags:
+      - argyle
+      summary: Webhook Argyle
+      operationId: webhook_argyle_v1_argyle_argyle_webhook_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/argyle-webhook-90-days:
+    post:
+      tags:
+      - argyle
+      summary: Webhook Argyle 90 Days
+      operationId: webhook_argyle_90_days_v1_argyle_argyle_webhook_90_days_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/process-webhook:
+    post:
+      tags:
+      - argyle
+      summary: Process Webhook
+      operationId: process_webhook_v1_argyle_process_webhook_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/analyze-event-duplicates:
+    post:
+      tags:
+      - argyle
+      summary: Analyze Event Duplicates
+      operationId: analyze_event_duplicates_v1_argyle_analyze_event_duplicates_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/cleanup-duplicate-events:
+    post:
+      tags:
+      - argyle
+      summary: Cleanup Duplicate Events
+      operationId: cleanup_duplicate_events_v1_argyle_cleanup_duplicate_events_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/clean-save-by-account-id:
+    post:
+      tags:
+      - argyle
+      summary: Clean Save By Account Id
+      operationId: clean_save_by_account_id_v1_argyle_clean_save_by_account_id_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/process-login-error:
+    post:
+      tags:
+      - argyle
+      summary: Process Login Error
+      operationId: process_login_error_v1_argyle_process_login_error_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/{account_id}/retrieve-earnings:
+    post:
+      tags:
+      - argyle
+      summary: Retrieve Account Earnings
+      operationId: retrieve_account_earnings_v1_argyle__account_id__retrieve_earnings_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/{account_id}/raw-data:
+    get:
+      tags:
+      - argyle
+      summary: Raw Argyle Data
+      operationId: raw_argyle_data_v1_argyle__account_id__raw_data_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/{account_id}/process-refresh:
+    post:
+      tags:
+      - argyle
+      summary: Process Refresh
+      operationId: process_refresh_v1_argyle__account_id__process_refresh_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/{account_id}/refresh-argyle-uber:
+    post:
+      tags:
+      - argyle
+      summary: Refresh Argyle Uber
+      operationId: refresh_argyle_uber_v1_argyle__account_id__refresh_argyle_uber_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/debug-data:
+    post:
+      tags:
+      - argyle
+      summary: Get Debug Data
+      operationId: get_debug_data_v1_argyle_debug_data_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebugDataArgyleParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/find-by-identifier:
+    get:
+      tags:
+      - argyle
+      summary: Find Argyle Account By Identifier
+      operationId: find_argyle_account_by_identifier_v1_argyle_find_by_identifier_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Identifier
+        name: identifier
+        in: query
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: query
+      - required: true
+        schema:
+          $ref: '#/components/schemas/PlatformCode'
+        name: platform
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/uber-intercept/step1:
+    post:
+      tags:
+      - argyle
+      summary: Uber Intercept Step1
+      operationId: uber_intercept_step1_v1_argyle_uber_intercept_step1_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/uber-intercept/step2:
+    post:
+      tags:
+      - argyle
+      summary: Uber Intercept Step2
+      operationId: uber_intercept_step2_v1_argyle_uber_intercept_step2_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/argyle/uber-intercept/step3:
+    post:
+      tags:
+      - argyle
+      summary: Uber Intercept Step3
+      operationId: uber_intercept_step3_v1_argyle_uber_intercept_step3_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              title: Body
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    AccountBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        gov_id:
+          type: string
+          title: Gov Id
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - account_id
+      title: AccountBaseResponse
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BaseResponse_AccountDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    DebugDataArgyleParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        identifier:
+          type: string
+          title: Identifier
+        data_types:
+          items:
+            $ref: '#/components/schemas/DebugDataType'
+          type: array
+      type: object
+      required:
+      - account_id
+      - user_id
+      title: DebugDataArgyleParams
+      example:
+        account_id: f1932f34-2658-4f3e-8069-0aeeb77dd14e
+        user_id: db48d579-c10d-4ed6-b857-1b1b7f4502c0
+        data_types:
+        - token
+        - webhooks
+    AccountDataBaseResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        alternative_methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        hint:
+          type: string
+          title: Hint
+      type: object
+      title: AccountDataBaseResponse
+      example:
+        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        country: mx
+        platform: uber
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DebugDataType:
+      enum:
+      - token
+      - account
+      - data
+      - webhooks
+      title: DebugDataType
+      description: An enumeration.
+    BaseResponse_AccountBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountBaseResponse'
+      type: object
+      title: BaseResponse[AccountBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    RefreshArgyleTokenParams:
+      properties:
+        argyle_user_id:
+          type: string
+          title: Argyle User Id
+      type: object
+      required:
+      - argyle_user_id
+      title: RefreshArgyleTokenParams
+      example:
+        argyle_user_id: 018e1234-5678-9abc-def0-123456789abc
+    CreateUserArgyleParams:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        gov_id:
+          type: string
+          title: Gov Id
+        redirect_url:
+          type: string
+          title: Redirect Url
+      type: object
+      title: CreateUserArgyleParams
+      example:
+        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        country: mx
+        platform: uber
+    StatusDetails:
+      enum:
+      - bad_request
+      - banned
+      - invalid_credentials
+      - too_many_requests
+      - service_unavailable
+      - request_timeout
+      - access_forbidden
+      - platform_error
+      - invalid_otp
+      - expired_otp
+      - invalid_nss
+      - invalid_phone
+      - invalid_email
+      - lambda_error
+      - phone_or_code_missing
+      - password_missing
+      - not_registered
+      - login_refused
+      - unknown
+      - invalid_otp_session
+      - invalid_otp_auth_key
+      - needs_auth
+      - requires_auth
+      - curp_not_found
+      - could_not_send_otp
+      - profile_unavailable
+      - no_employment_records
+      - account_setup_incomplete
+      - identity_verification_failed
+      - gov_id_not_in_data_source
+      - gov_id_has_inconsistencies
+      - mfa_deactivation_required
+      - access_token_not_generated
+      - two_factor_auth_required
+      - captcha_bypass_error
+      - invalid_identifier
+      - account_blocked
+      - proxy_error
+      - invalid_captcha
+      - invalid_gov_id
+      - device_authorization_required
+      - max_retries_exceeded
+      - task_create_fail
+      - invalid_cpf
+      - invalid_in_auth_session_id
+      - unable_to_get_uber_metrics
+      - email_otp_validation_pending
+      - login_not_available
+      - invalid_password
+      - unknown_login_type
+      - email_not_validated
+      - already_connected
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - zero_quoted_weeks
+      - proxy_max_retries_exceeded
+      - curp_not_found_in_renapo
+      - nss_not_found_in_imss
+      - renapo_unavailable
+      - service_degradation
+      - server_error
+      - db_constraint_violation
+      - api_forbidden
+      - auth_token_expired
+      - network_max_retries_exceeded
+      - api_service_unavailable_02
+      - api_service_unavailable_08
+      - lambda_timeout
+      - api_service_unavailable
+      - auth_max_attempts_exceeded
+      - browser_navigation_timeout
+      - render_invalid_html
+      - browser_connection_timeout
+      - parser_invalid_pdf
+      - aws_s3_upload_fail
+      - network_connectivity_issues
+      - auth_invalid_token
+      - server_not_found
+      - api_server_error
+      - network_ssl_error
+      - auth_forbidden
+      - api_bad_gateway
+      - api_server_timeout
+      - system_platform_error
+      - api_rate_limit_exceeded
+      - api_renapo_unavailable
+      - user_gov_id_has_inconsistencies
+      - user_ssn_missing
+      - user_curp_not_found_in_renapo
+      - rpci_timeout
+      - pending_data_extraction
+      - employment_info_in_imss
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      - validation_time_expired
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - platform_unavailable
+      - failed_refresh
+      - invalid_schema_response
+      - not_available_in_platform
+      - user_curp_not_in_platform
+      - user_gov_id_not_in_data_source
+      - account_not_found
+      - profile_not_found
+      - unable_to_get_rappi_metrics
+      - captcha_required
+      - captcha_detected
+      - didi_rate_limited
+      - device_risk
+      - cell_rate_limited
+      - resend_limit
+      - didi_rejected
+      - incomplete_profile
+      title: StatusDetails
+      description: An enumeration.
+    LoginTypes:
+      enum:
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
+      description: An enumeration.

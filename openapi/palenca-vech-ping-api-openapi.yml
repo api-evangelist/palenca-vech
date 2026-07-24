@@ -1,0 +1,22 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts Ping API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: Ping
+paths:
+  /ping:
+    get:
+      summary: Ping
+      operationId: ping_ping_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Ping Ping Get
+      tags:
+      - Ping

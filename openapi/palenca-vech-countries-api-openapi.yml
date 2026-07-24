@@ -1,0 +1,249 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts countries API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: countries
+paths:
+  /v1/countries:
+    get:
+      tags:
+      - countries
+      summary: List Countries
+      operationId: list_countries_v1_countries_get
+      parameters:
+      - required: false
+        schema:
+          type: boolean
+          title: Only Active
+          default: true
+        name: only_active
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_list_app.api.schemas.responses.CountryDataResponse__'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/countries/{country_id}:
+    patch:
+      tags:
+      - countries
+      summary: Update Country
+      operationId: update_country_v1_countries__country_id__patch
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Country Id
+        name: country_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCountryParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_CountryDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BaseResponse_list_app.api.schemas.responses.CountryDataResponse__:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          items:
+            $ref: '#/components/schemas/CountryDataResponse'
+          type: array
+          title: Data
+      type: object
+      title: BaseResponse[list[app.api.schemas.responses.CountryDataResponse]]
+      example:
+        success: true
+        data: {}
+        error: {}
+    UpdateCountryParams:
+      properties:
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+      type: object
+      title: UpdateCountryParams
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    CountryDataResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        alpha_2:
+          $ref: '#/components/schemas/CountryCode'
+        alpha_3:
+          type: string
+          title: Alpha 3
+        name:
+          type: string
+          title: Name
+        currency:
+          type: string
+          title: Currency
+        calling_code:
+          type: string
+          title: Calling Code
+        timezone:
+          type: string
+          title: Timezone
+        flag:
+          type: string
+          title: Flag
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+      type: object
+      required:
+      - id
+      - alpha_2
+      - alpha_3
+      - name
+      - currency
+      - calling_code
+      - timezone
+      title: CountryDataResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        alpha_2: mx
+        alpha_3: mex
+        name: Mexico
+        currency: MXN
+        calling_code: '52'
+        timezone: America/Mexico_City
+        flag: https://cdn.palenca.com/flags/mx.svg
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse_CountryDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CountryDataResponse'
+      type: object
+      title: BaseResponse[CountryDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

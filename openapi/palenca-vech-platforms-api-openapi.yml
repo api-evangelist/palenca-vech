@@ -1,0 +1,502 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts platforms API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: platforms
+paths:
+  /v1/platforms:
+    get:
+      tags:
+      - platforms
+      summary: List Platforms
+      operationId: list_platforms_v1_platforms_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__'
+    post:
+      tags:
+      - platforms
+      summary: Create Platform
+      operationId: create_platform_v1_platforms_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlatformParams'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/platforms/status:
+    get:
+      tags:
+      - platforms
+      summary: Get Platforms Status
+      operationId: get_platforms_status_v1_platforms_status_get
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: Category
+        name: category
+        in: query
+      - required: false
+        schema:
+          $ref: '#/components/schemas/CountryCode'
+        name: country
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/platforms/{platform_id}:
+    get:
+      tags:
+      - platforms
+      summary: Get Platform
+      operationId: get_platform_v1_platforms__platform_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Platform Id
+        name: platform_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_PlatformDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - platforms
+      summary: Update Platform
+      operationId: update_platform_v1_platforms__platform_id__patch
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Platform Id
+        name: platform_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePlatformParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_PlatformDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/platforms/search:
+    post:
+      tags:
+      - platforms
+      summary: Search Platforms
+      operationId: search_platforms_v1_platforms_search_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchPlatformsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PlatformDataResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        code:
+          $ref: '#/components/schemas/PlatformCode'
+        name:
+          type: string
+          title: Name
+        logo:
+          type: string
+          title: Logo
+        is_active:
+          type: boolean
+          title: Is Active
+        category:
+          $ref: '#/components/schemas/PlatformCategory'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        status:
+          $ref: '#/components/schemas/PlatformStatus'
+      type: object
+      required:
+      - id
+      - code
+      - name
+      - logo
+      - is_active
+      - category
+      - countries
+      title: PlatformDataResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        code: uber
+        name: Uber
+        logo: https://palenca.com/logo.png
+        is_active: true
+        category: gig
+        status: available
+    SearchPlatformsParams:
+      properties:
+        q:
+          type: string
+          title: Q
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      title: SearchPlatformsParams
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          items:
+            $ref: '#/components/schemas/PlatformDataResponse'
+          type: array
+          title: Data
+      type: object
+      title: BaseResponse[list[app.api.schemas.responses.PlatformDataResponse]]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    CreatePlatformParams:
+      properties:
+        code:
+          $ref: '#/components/schemas/PlatformCode'
+        name:
+          type: string
+          title: Name
+        logo:
+          type: string
+          title: Logo
+        is_active:
+          type: boolean
+          title: Is Active
+        category:
+          $ref: '#/components/schemas/PlatformCategory'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+      type: object
+      required:
+      - code
+      - name
+      - logo
+      - is_active
+      - category
+      - countries
+      title: CreatePlatformParams
+    PlatformCategory:
+      enum:
+      - gig
+      - employment
+      title: PlatformCategory
+      description: An enumeration.
+    PlatformStatus:
+      enum:
+      - up
+      - down
+      - degraded
+      - maintenance
+      - deprecated
+      title: PlatformStatus
+      description: An enumeration.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    PaginationSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: PaginationSearchParams
+    BaseResponse_PlatformDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/PlatformDataResponse'
+      type: object
+      title: BaseResponse[PlatformDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    UpdatePlatformParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        logo:
+          type: string
+          title: Logo
+        is_active:
+          type: boolean
+          title: Is Active
+        category:
+          $ref: '#/components/schemas/PlatformCategory'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        status:
+          $ref: '#/components/schemas/PlatformStatus'
+      type: object
+      title: UpdatePlatformParams
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

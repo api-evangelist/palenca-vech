@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts status-history API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: status-history
+paths:
+  /v1/status-history:
+    get:
+      tags:
+      - status-history
+      summary: Get Status History
+      operationId: get_status_history_v1_status_history_get
+      parameters:
+      - required: false
+        schema:
+          type: integer
+          maximum: 365.0
+          minimum: 1.0
+          title: Days
+          default: 90
+        name: days
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

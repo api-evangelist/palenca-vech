@@ -1,0 +1,179 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts imss API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: imss
+paths:
+  /v1/imss/email:
+    post:
+      tags:
+      - imss
+      summary: Manage Employment Email Flow
+      operationId: manage_employment_email_flow_v1_imss_email_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmploymentEmailParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/imss/web-scraping:
+    post:
+      tags:
+      - imss
+      summary: Trigger Imss Web Scraping Process
+      operationId: trigger_imss_web_scraping_process_v1_imss_web_scraping_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImssWebScrapingParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/imss/retry-login/{account_id}:
+    post:
+      tags:
+      - imss
+      summary: Retry Login
+      operationId: retry_login_v1_imss_retry_login__account_id__post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ImssWebScrapingParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        curp:
+          type: string
+          title: Curp
+        nss:
+          type: string
+          title: Nss
+        email:
+          type: string
+          title: Email
+      type: object
+      title: ImssWebScrapingParams
+    EmploymentEmailParams:
+      properties:
+        account_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Account Id
+        curp:
+          type: string
+          title: Curp
+        nss:
+          type: string
+          title: Nss
+        email:
+          type: string
+          title: Email
+        attempts:
+          type: integer
+          title: Attempts
+          default: 0
+      type: object
+      required:
+      - account_id
+      - curp
+      - nss
+      - email
+      title: EmploymentEmailParams
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

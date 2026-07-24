@@ -1,0 +1,20 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts Check Platform Health API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: Check Platform Health
+paths:
+  /check-platform-health:
+    post:
+      summary: Check Platform Health
+      operationId: check_platform_health_check_platform_health_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Check Platform Health

@@ -1,0 +1,361 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts uber-direct-api API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: uber-direct-api
+paths:
+  /v1/uber-direct-api/create-token:
+    post:
+      tags:
+      - uber-direct-api
+      summary: Create Uber Account
+      operationId: create_uber_account_v1_uber_direct_api_create_token_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateUberApiParams'
+              title: Params
+              default: {}
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/uber-direct-api/exchange-code:
+    get:
+      tags:
+      - uber-direct-api
+      summary: Exchange Code
+      operationId: exchange_code_v1_uber_direct_api_exchange_code_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Code
+        name: code
+        in: query
+      - required: true
+        schema:
+          type: string
+          title: State
+        name: state
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/uber-direct-api/{account_id}/clean-save:
+    post:
+      tags:
+      - uber-direct-api
+      summary: Clean Save Account
+      operationId: clean_save_account_v1_uber_direct_api__account_id__clean_save_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/uber-direct-api/{account_id}/refresh-account-without-login:
+    post:
+      tags:
+      - uber-direct-api
+      summary: Refresh Account Without Login
+      operationId: refresh_account_without_login_v1_uber_direct_api__account_id__refresh_account_without_login_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/uber-direct-api/{account_id}/process-batch-job:
+    post:
+      tags:
+      - uber-direct-api
+      summary: Process Batch Job
+      operationId: process_batch_job_v1_uber_direct_api__account_id__process_batch_job_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessBatchJobParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    CreateUberApiParams:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        gov_id:
+          type: string
+          title: Gov Id
+        redirect_url:
+          type: string
+          title: Redirect Url
+      type: object
+      title: CreateUberApiParams
+      example:
+        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        country: mx
+        platform: uber
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    ProcessBatchJobParams:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+        offset:
+          type: integer
+          title: Offset
+          default: 50
+      type: object
+      required:
+      - access_token
+      title: ProcessBatchJobParams
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

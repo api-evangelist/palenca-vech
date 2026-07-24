@@ -1,0 +1,635 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts groups API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: groups
+paths:
+  /v1/groups:
+    get:
+      tags:
+      - groups
+      summary: Get Groups
+      operationId: get_groups_v1_groups_get
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - groups
+      summary: Create Group
+      operationId: create_group_v1_groups_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__groups__CreateGroupParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/groups/{group_id}/companies:
+    post:
+      tags:
+      - groups
+      summary: Add Company In Group
+      operationId: add_company_in_group_v1_groups__group_id__companies_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__companies__CreateCompanyParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/groups/{group_id}/companies/{company_id}:
+    get:
+      tags:
+      - groups
+      summary: Read Company In Group
+      operationId: read_company_in_group_v1_groups__group_id__companies__company_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - groups
+      summary: Delete Company In Group
+      operationId: delete_company_in_group_v1_groups__group_id__companies__company_id__delete
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - groups
+      summary: Edit Company In Group
+      operationId: edit_company_in_group_v1_groups__group_id__companies__company_id__patch
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__admin__UpdateCompanyParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/groups/{group_id}:
+    get:
+      tags:
+      - groups
+      summary: Get Group
+      operationId: get_group_v1_groups__group_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - groups
+      summary: Delete Group
+      operationId: delete_group_v1_groups__group_id__delete
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/groups/delete-accounts:
+    post:
+      tags:
+      - groups
+      summary: Delete Accounts
+      operationId: delete_accounts_v1_groups_delete_accounts_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteAccountsForCompanyParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/groups/{group_id}/usages/search:
+    post:
+      tags:
+      - groups
+      summary: Get Usage
+      operationId: get_usage_v1_groups__group_id__usages_search_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchUsageParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    DeleteAccountsForCompanyParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+        company_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Company Id
+      type: object
+      required:
+      - start_date
+      - end_date
+      - company_id
+      title: DeleteAccountsForCompanyParams
+    app__api__schemas__groups__CreateGroupParams:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - name
+      title: CreateGroupParams
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    app__api__schemas__admin__UpdateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        user:
+          type: string
+          title: User
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      title: UpdateCompanyParams
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    SearchUsageParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchUsageParams
+    app__api__schemas__companies__CreateCompanyParams:
+      properties:
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyStatus'
+          - type: string
+          title: Status
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+      type: object
+      required:
+      - display_name
+      - company_name
+      - website
+      title: CreateCompanyParams
+      example:
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        company_name: palenca
+        website: https://palenca.com
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

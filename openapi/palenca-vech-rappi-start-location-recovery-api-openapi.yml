@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts rappi-start-location-recovery API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: rappi-start-location-recovery
+paths:
+  /v1/rappi/start-location/recover/last-two-weeks:
+    post:
+      tags:
+      - rappi-start-location-recovery
+      summary: Recover Rappi Start Location Last Two Weeks
+      description: 'Recover start_location for Rappi accounts that have delivery events with a missing
+
+        start_location in the last `days` (default 14). Re-parses stored earnings payloads and
+
+        refreshes start_location on the existing event rows.'
+      operationId: recover_rappi_start_location_last_two_weeks_v1_rappi_start_location_recover_last_two_weeks_post
+      parameters:
+      - description: Lookback window in days (default 14)
+        required: false
+        schema:
+          type: integer
+          maximum: 60.0
+          minimum: 1.0
+          title: Days
+          description: Lookback window in days (default 14)
+          default: 14
+        name: days
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

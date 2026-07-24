@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts consents API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: consents
+paths:
+  /v1/consents/{gov_id}:
+    get:
+      tags:
+      - consents
+      summary: Get Consents By Gov Id
+      operationId: get_consents_by_gov_id_v1_consents__gov_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Gov Id
+        name: gov_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/consents/search:
+    post:
+      tags:
+      - consents
+      summary: Search Consents
+      operationId: search_consents_v1_consents_search_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchConsentsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    SearchConsentsParams:
+      properties:
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      title: SearchConsentsParams
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

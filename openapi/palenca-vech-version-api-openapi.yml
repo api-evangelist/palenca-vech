@@ -1,0 +1,22 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts Version API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: Version
+paths:
+  /version:
+    get:
+      summary: Version
+      operationId: version_version_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Version Version Get
+      tags:
+      - Version

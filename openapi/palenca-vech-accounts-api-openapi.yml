@@ -1,0 +1,2883 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: accounts
+paths:
+  /v1/users/{user_id}/accounts:
+    post:
+      tags:
+      - accounts
+      summary: Create User Account
+      operationId: create_user_account_v1_users__user_id__accounts_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: User Id
+        name: user_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      - required: false
+        schema:
+          type: string
+          title: X-Source
+        name: x-source
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountBase'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/last_login:
+    patch:
+      tags:
+      - accounts
+      summary: Update Account Last Login
+      operationId: update_account_last_login_v1_accounts__account_id__last_login_patch
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLoginParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/last-login:
+    get:
+      tags:
+      - accounts
+      summary: Get Account Last Login
+      operationId: get_account_last_login_v1_accounts__account_id__last_login_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts:
+    get:
+      tags:
+      - accounts
+      summary: Get Accounts By Gov Id
+      operationId: get_accounts_by_gov_id_v1_accounts_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Gov Id
+        name: gov_id
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountsDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - accounts
+      summary: Create Account
+      operationId: create_account_v1_accounts_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      - required: false
+        schema:
+          type: string
+          title: X-Source
+        name: x-source
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/validate:
+    post:
+      tags:
+      - accounts
+      summary: Validate Account
+      operationId: validate_account_v1_accounts__account_id__validate_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateAccountParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/resend-otp:
+    post:
+      tags:
+      - accounts
+      summary: Resend Otp
+      operationId: resend_otp_v1_accounts__account_id__resend_otp_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendOtpParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/manage-manual-login:
+    post:
+      tags:
+      - accounts
+      summary: Manage Manual Login
+      operationId: manage_manual_login_v1_accounts__account_id__manage_manual_login_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManageManualLoginParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/no-earnings-gig:
+    get:
+      tags:
+      - accounts
+      summary: Get Gig Accounts Without Earnings
+      operationId: get_gig_accounts_without_earnings_v1_accounts_no_earnings_gig_get
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/logins:
+    get:
+      tags:
+      - accounts
+      summary: Get Logins
+      operationId: get_logins_v1_accounts_logins_get
+      parameters:
+      - required: false
+        schema:
+          type: integer
+          title: Page
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          type: integer
+          title: Items Per Page
+          default: 100
+        name: items_per_page
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Order By
+          default: -created_at
+        name: order_by
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Query
+        name: query
+        in: query
+      - required: false
+        schema:
+          type: string
+          format: uuid
+          title: Bulk Id
+        name: bulk_id
+        in: query
+      - required: false
+        schema:
+          $ref: '#/components/schemas/LoginStatus'
+        name: status
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: From Date
+        name: from_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: To Date
+        name: to_date
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: Date Field
+          default: created_at
+        name: date_field
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountsDataConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/find-by-identifier:
+    get:
+      tags:
+      - accounts
+      summary: Find Account By Identifier
+      operationId: find_account_by_identifier_v1_accounts_find_by_identifier_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          title: Identifier
+        name: identifier
+        in: query
+      - required: true
+        schema:
+          $ref: '#/components/schemas/PlatformCode'
+        name: platform
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}:
+    get:
+      tags:
+      - accounts
+      summary: Retrieve Account
+      operationId: retrieve_account_v1_accounts__account_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: boolean
+          title: Add User Id
+          default: false
+        name: add_user_id
+        in: query
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      - required: false
+        schema:
+          type: string
+          title: Accept-Language
+        name: accept-language
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - accounts
+      summary: Delete Account
+      operationId: delete_account_v1_accounts__account_id__delete
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/profile:
+    get:
+      tags:
+      - accounts
+      summary: Retrieve Account Profile
+      operationId: retrieve_account_profile_v1_accounts__account_id__profile_get
+      parameters:
+      - required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ProfileDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/employment:
+    get:
+      tags:
+      - accounts
+      summary: Retrieve Account Employment
+      operationId: retrieve_account_employment_v1_accounts__account_id__employment_get
+      parameters:
+      - required: true
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasePaginationResponse_EmploymentDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/earnings/search:
+    post:
+      tags:
+      - accounts
+      summary: Retrieve Account Earnings
+      operationId: retrieve_account_earnings_v1_accounts__account_id__earnings_search_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchEarningsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasePaginationResponse_EarningsDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/events/search:
+    post:
+      tags:
+      - accounts
+      summary: Retrieve Account Events
+      operationId: retrieve_account_events_v1_accounts__account_id__events_search_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchEventsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasePaginationResponse_EventsDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/raw_events/search:
+    post:
+      tags:
+      - accounts
+      summary: Retrieve Raw Account Events
+      operationId: retrieve_raw_account_events_v1_accounts__account_id__raw_events_search_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRawEventsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasePaginationResponse_RawEventsDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/refresh-earnings:
+    post:
+      tags:
+      - accounts
+      summary: Refresh Earnings
+      operationId: refresh_earnings_v1_accounts_refresh_earnings_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/refresh-events:
+    post:
+      tags:
+      - accounts
+      summary: Refresh Events
+      operationId: refresh_events_v1_accounts_refresh_events_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/restore:
+    post:
+      tags:
+      - accounts
+      summary: Restore Account Info
+      operationId: restore_account_info_v1_accounts__account_id__restore_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/insights:
+    get:
+      tags:
+      - accounts
+      summary: Retrieve Account Insights
+      operationId: retrieve_account_insights_v1_accounts__account_id__insights_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/authenticate:
+    post:
+      tags:
+      - accounts
+      summary: Authenticate Account
+      operationId: authenticate_account_v1_accounts__account_id__authenticate_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/worker:
+    put:
+      tags:
+      - accounts
+      summary: Update Account
+      operationId: update_account_v1_accounts__account_id__worker_put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountWorkerParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/insights-gig:
+    get:
+      tags:
+      - accounts
+      summary: Retrieve Gig Account Insights
+      operationId: retrieve_gig_account_insights_v1_accounts__account_id__insights_gig_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/logins/failed/retry:
+    post:
+      tags:
+      - accounts
+      summary: Retry Account Failed Login
+      operationId: retry_account_failed_login_v1_accounts__account_id__logins_failed_retry_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/retry:
+    post:
+      tags:
+      - accounts
+      summary: Retry Account Login
+      operationId: retry_account_login_v1_accounts__account_id__retry_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_AccountDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/earnings:
+    post:
+      tags:
+      - accounts
+      summary: Create Account Earnings
+      operationId: create_account_earnings_v1_accounts__account_id__earnings_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEarningsParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ProfileDataBaseResponse_'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ProfileDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/profiles:
+    post:
+      tags:
+      - accounts
+      summary: Create Account Profile
+      operationId: create_account_profile_v1_accounts__account_id__profiles_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProfileParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ProfileDataBaseResponse_'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ProfileDataBaseResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/insights-pdfs:
+    post:
+      tags:
+      - accounts
+      summary: Create Account Pdf Insights
+      operationId: create_account_pdf_insights_v1_accounts__account_id__insights_pdfs_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/clinic:
+    get:
+      tags:
+      - accounts
+      summary: Retrieve Account Clinic
+      operationId: retrieve_account_clinic_v1_accounts__account_id__clinic_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/raw-data:
+    get:
+      tags:
+      - accounts
+      summary: Get Raw Data
+      operationId: get_raw_data_v1_accounts__account_id__raw_data_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/user:
+    get:
+      tags:
+      - accounts
+      summary: Retrieve Users Accounts
+      operationId: retrieve_users_accounts_v1_accounts__account_id__user_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_UserRetrievalDataResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - accounts
+      summary: Reassign Account User
+      operationId: reassign_account_user_v1_accounts__account_id__user_patch
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReassignAccountUserRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ReassignAccountUserResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/consignados:
+    get:
+      tags:
+      - accounts
+      summary: Get Consignados
+      operationId: get_consignados_v1_accounts__account_id__consignados_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/backfill-worker-role:
+    post:
+      tags:
+      - accounts
+      summary: Backfill Worker Role
+      operationId: backfill_worker_role_v1_accounts__account_id__backfill_worker_role_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/resend-webhook:
+    post:
+      tags:
+      - accounts
+      summary: Resend Webhook
+      operationId: resend_webhook_v1_accounts__account_id__resend_webhook_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_dict_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    UserRetrievalDataResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        external_id:
+          type: string
+          title: External Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+      type: object
+      required:
+      - user_id
+      - widget_id
+      title: UserRetrievalDataResponse
+    IdType:
+      enum:
+      - tax
+      - passport
+      - national
+      - social_security_number
+      - individual_taxpayer_registry
+      title: IdType
+      description: An enumeration.
+    AccountBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        gov_id:
+          type: string
+          title: Gov Id
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - account_id
+      title: AccountBaseResponse
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    EmploymentHistoryStatus:
+      enum:
+      - empty
+      - partial
+      - complete
+      title: EmploymentHistoryStatus
+      description: An enumeration.
+    UpdateAccountWorkerParams:
+      properties:
+        worker_id:
+          type: string
+          title: Worker Id
+      type: object
+      title: UpdateAccountWorkerParams
+    AccountsDataConsoleResponse:
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountConsoleResponse'
+          type: array
+          title: Accounts
+      type: object
+      required:
+      - accounts
+      title: AccountsDataConsoleResponse
+    EventType:
+      enum:
+      - delivery
+      - ride
+      - bonus
+      - adjustment
+      - debt
+      title: EventType
+      description: An enumeration.
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    BaseResponse_AccountsDataConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataConsoleResponse'
+      type: object
+      title: BaseResponse[AccountsDataConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    AccountsDataResponse:
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountBaseResponse'
+          type: array
+          title: Accounts
+      type: object
+      required:
+      - accounts
+      title: AccountsDataResponse
+    CreateAccountParams:
+      properties:
+        encrypted_data:
+          type: string
+          title: Encrypted Data
+        encrypted_symmetric_key:
+          type: string
+          title: Encrypted Symmetric Key
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        identifier_type:
+          $ref: '#/components/schemas/IdentifierTypes'
+        password:
+          type: string
+          title: Password
+        worker_id:
+          type: string
+          title: Worker Id
+        phone_number:
+          type: string
+          title: Phone Number
+        method:
+          $ref: '#/components/schemas/LoginTypes'
+        email:
+          type: string
+          title: Email
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        gov_id:
+          type: string
+          title: Gov Id
+        hcaptcha_response:
+          type: string
+          title: Hcaptcha Response
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        source:
+          $ref: '#/components/schemas/SourceCode'
+      type: object
+      title: CreateAccountParams
+      example:
+        country: mx
+        platform: uber
+        identifier: user@example.com
+        identifier_type: email
+        password: s3cur3p4s5w0rd
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    InsightsStatusDetails:
+      enum:
+      - empty_employment_events
+      - empty_employment_history
+      - login_not_success
+      - timeout_request
+      - lambda_error
+      - pending
+      title: InsightsStatusDetails
+      description: An enumeration.
+    ProfileResponse:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        email:
+          type: string
+          title: Email
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+      type: object
+      title: ProfileResponse
+    BaseResponse_ReassignAccountUserResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ReassignAccountUserResponse'
+      type: object
+      title: BaseResponse[ReassignAccountUserResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    AccountConsoleResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        source:
+          $ref: '#/components/schemas/SourceCode'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        gov_id:
+          type: string
+          title: Gov Id
+      type: object
+      required:
+      - id
+      - user_id
+      title: AccountConsoleResponse
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    EventsBaseResponse:
+      properties:
+        event_id:
+          type: string
+          title: Event Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        timezone:
+          type: string
+          title: Timezone
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        duration_sec:
+          type: integer
+          title: Duration Sec
+        distance_km:
+          type: number
+          title: Distance Km
+        start_location:
+          type: string
+          title: Start Location
+        end_location:
+          type: string
+          title: End Location
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+        cash_amount:
+          type: number
+          title: Cash Amount
+        additional_timestamps:
+          items:
+            type: object
+          type: array
+          title: Additional Timestamps
+      type: object
+      title: EventsBaseResponse
+    CurrencyCode:
+      enum:
+      - mxn
+      - usd
+      - cop
+      - clp
+      - ars
+      - pen
+      - brl
+      - crc
+      - pab
+      - bob
+      - ves
+      - dop
+      - brr
+      title: CurrencyCode
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentStatus:
+      enum:
+      - retired
+      - employed
+      - unemployed
+      - unknown
+      - potentially_retired
+      - voluntary_contributions
+      - banned
+      - active
+      title: EmploymentStatus
+      description: An enumeration.
+    BaseResponse_AccountDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    SearchEarningsParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchEarningsParams
+    BasePaginationResponse_EventsDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EventsDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[EventsDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    IdInfoBaseResponse:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+      type: object
+      title: IdInfoBaseResponse
+    RawEventsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        raw_events:
+          items:
+            type: object
+          type: array
+          title: Raw Events
+          default: []
+      type: object
+      required:
+      - account_id
+      title: RawEventsDataBaseResponse
+    EmploymentsFilesBaseResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: EmploymentsFilesBaseResponse
+    InsightsStatus:
+      enum:
+      - computed_not_saved
+      - incomplete
+      - success
+      - error
+      title: InsightsStatus
+      description: An enumeration.
+    ReassignAccountUserRequest:
+      properties:
+        smart:
+          type: boolean
+          title: Smart
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+      type: object
+      title: ReassignAccountUserRequest
+    ManageManualLoginParams:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+        worker_id:
+          type: string
+          title: Worker Id
+        should_send_email:
+          type: boolean
+          title: Should Send Email
+          default: true
+      type: object
+      required:
+      - access_token
+      title: ManageManualLoginParams
+    ReassignAccountUserResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        new_user_id:
+          type: string
+          format: uuid
+          title: New User Id
+        old_user_id:
+          type: string
+          format: uuid
+          title: Old User Id
+        old_user_deleted:
+          type: boolean
+          title: Old User Deleted
+      type: object
+      required:
+      - account_id
+      - new_user_id
+      - old_user_id
+      - old_user_deleted
+      title: ReassignAccountUserResponse
+    AccountDataBaseResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        alternative_methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        hint:
+          type: string
+          title: Hint
+      type: object
+      title: AccountDataBaseResponse
+      example:
+        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        country: mx
+        platform: uber
+    Cookie:
+      properties:
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+        domain:
+          type: string
+          title: Domain
+      type: object
+      title: Cookie
+    BaseResponse_dict_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          type: object
+          title: Data
+      type: object
+      title: BaseResponse[dict]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentDataBaseResponse:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        employment_info:
+          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
+        employment_history:
+          items:
+            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+          type: array
+          title: Employment History
+      type: object
+      required:
+      - platform
+      - account_id
+      title: EmploymentDataBaseResponse
+    UpdateLoginParams:
+      properties:
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        insights_status:
+          $ref: '#/components/schemas/InsightsStatus'
+        insights_status_details:
+          $ref: '#/components/schemas/InsightsStatusDetails'
+        should_notify_webhook:
+          type: boolean
+          title: Should Notify Webhook
+          default: false
+        login_id:
+          type: string
+          format: uuid
+          title: Login Id
+      type: object
+      title: UpdateLoginParams
+    BasePaginationResponse_EmploymentDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[EmploymentDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    ValidateAccountParams:
+      properties:
+        encrypted_data:
+          type: string
+          title: Encrypted Data
+        encrypted_symmetric_key:
+          type: string
+          title: Encrypted Symmetric Key
+        otp_code:
+          type: string
+          title: Otp Code
+        alternative_method:
+          $ref: '#/components/schemas/LoginTypes'
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        cookies:
+          items:
+            $ref: '#/components/schemas/Cookie'
+          type: array
+          title: Cookies
+          default: []
+      type: object
+      title: ValidateAccountParams
+      example:
+        otp_code: '12345'
+    ResendOtpParams:
+      properties:
+        phone_number:
+          type: string
+          title: Phone Number
+      type: object
+      required:
+      - phone_number
+      title: ResendOtpParams
+      example:
+        phone_number: '5511999998888'
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams
+    BaseResponse_AccountsDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataResponse'
+      type: object
+      title: BaseResponse[AccountsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EventsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        events:
+          items:
+            $ref: '#/components/schemas/EventsBaseResponse'
+          type: array
+          title: Events
+      type: object
+      required:
+      - account_id
+      title: EventsDataBaseResponse
+    PaginationBaseResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        items_per_page:
+          type: integer
+          title: Items Per Page
+        total_items:
+          type: integer
+          title: Total Items
+        total_pages:
+          type: integer
+          title: Total Pages
+      type: object
+      title: PaginationBaseResponse
+    EarningsWithEmployerResponse:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+        employer:
+          type: string
+          title: Employer
+      type: object
+      title: EarningsWithEmployerResponse
+    CreateAccountBase:
+      properties:
+        encrypted_data:
+          type: string
+          title: Encrypted Data
+        encrypted_symmetric_key:
+          type: string
+          title: Encrypted Symmetric Key
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        identifier_type:
+          $ref: '#/components/schemas/IdentifierTypes'
+        password:
+          type: string
+          title: Password
+        worker_id:
+          type: string
+          title: Worker Id
+        phone_number:
+          type: string
+          title: Phone Number
+        method:
+          $ref: '#/components/schemas/LoginTypes'
+        email:
+          type: string
+          title: Email
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        gov_id:
+          type: string
+          title: Gov Id
+        hcaptcha_response:
+          type: string
+          title: Hcaptcha Response
+      type: object
+      title: CreateAccountBase
+      example:
+        country: mx
+        platform: uber
+        identifier: user@example.com
+        identifier_type: email
+        password: s3cur3p4s5w0rd
+    CreateProfileParams:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        phone:
+          type: string
+          title: Phone
+        email:
+          type: string
+          title: Email
+        address:
+          type: string
+          title: Address
+        city_name:
+          type: string
+          title: City Name
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+        picture_url:
+          type: string
+          title: Picture Url
+        is_manual:
+          type: boolean
+          title: Is Manual
+          default: false
+      type: object
+      required:
+      - first_name
+      - last_name
+      title: CreateProfileParams
+      example:
+        first_name: Ongtuan
+        last_name: Engullen
+    BaseResponse_AccountBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountBaseResponse'
+      type: object
+      title: BaseResponse[AccountBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentInfoBaseResponse:
+      properties:
+        id_type:
+          $ref: '#/components/schemas/IdType'
+        quoted_weeks:
+          type: integer
+          title: Quoted Weeks
+        discounted_weeks:
+          type: integer
+          title: Discounted Weeks
+        reintegrated_weeks:
+          type: integer
+          title: Reintegrated Weeks
+        end_of_rights:
+          type: string
+          title: End Of Rights
+        status:
+          $ref: '#/components/schemas/EmploymentStatus'
+        employment_files:
+          items:
+            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
+          type: array
+          title: Employment Files
+        employment_history_status:
+          $ref: '#/components/schemas/EmploymentHistoryStatus'
+      type: object
+      title: EmploymentInfoBaseResponse
+    PaymentMethod:
+      enum:
+      - cash
+      - card
+      - online_bank
+      title: PaymentMethod
+      description: An enumeration.
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BasePaginationResponse_EarningsDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EarningsDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[EarningsDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    CreateEarningParam:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date-time
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+      type: object
+      required:
+      - amount
+      - currency
+      - earning_date
+      title: CreateEarningParam
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - bulk_upload
+      - console
+      title: SourceCode
+      description: An enumeration.
+    EarningsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        earnings:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/EarningsBaseResponse'
+            - $ref: '#/components/schemas/EarningsWithEmployerResponse'
+          type: array
+          title: Earnings
+      type: object
+      required:
+      - account_id
+      title: EarningsDataBaseResponse
+    EmploymentHistoryBaseResponse:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        employer_registration:
+          type: string
+          title: Employer Registration
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: End Date
+        job_title:
+          type: string
+          title: Job Title
+        job_title_code:
+          type: string
+          title: Job Title Code
+        federal_entity:
+          type: string
+          title: Federal Entity
+      type: object
+      title: EmploymentHistoryBaseResponse
+    BaseResponse_UserRetrievalDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserRetrievalDataResponse'
+      type: object
+      title: BaseResponse[UserRetrievalDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    SearchEventsParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchEventsParams
+    CreateEarningsParams:
+      properties:
+        earnings:
+          items:
+            $ref: '#/components/schemas/CreateEarningParam'
+          type: array
+          title: Earnings
+        is_manual:
+          type: boolean
+          title: Is Manual
+          default: false
+      type: object
+      required:
+      - earnings
+      title: CreateEarningsParams
+    IdentifierTypes:
+      enum:
+      - email
+      - phone
+      - rfc
+      title: IdentifierTypes
+      description: An enumeration.
+    EarningsBaseResponse:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+      type: object
+      title: EarningsBaseResponse
+    SearchRawEventsParams:
+      properties:
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 5
+            page: 1
+      type: object
+      title: SearchRawEventsParams
+    ProfileDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        profile:
+          $ref: '#/components/schemas/ProfileResponse'
+        ids_info:
+          items:
+            $ref: '#/components/schemas/IdInfoBaseResponse'
+          type: array
+          title: Ids Info
+      type: object
+      required:
+      - account_id
+      title: ProfileDataBaseResponse
+    BasePaginationResponse_RawEventsDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/RawEventsDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[RawEventsDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    BaseResponse_ProfileDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ProfileDataBaseResponse'
+      type: object
+      title: BaseResponse[ProfileDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    StatusDetails:
+      enum:
+      - bad_request
+      - banned
+      - invalid_credentials
+      - too_many_requests
+      - service_unavailable
+      - request_timeout
+      - access_forbidden
+      - platform_error
+      - invalid_otp
+      - expired_otp
+      - invalid_nss
+      - invalid_phone
+      - invalid_email
+      - lambda_error
+      - phone_or_code_missing
+      - password_missing
+      - not_registered
+      - login_refused
+      - unknown
+      - invalid_otp_session
+      - invalid_otp_auth_key
+      - needs_auth
+      - requires_auth
+      - curp_not_found
+      - could_not_send_otp
+      - profile_unavailable
+      - no_employment_records
+      - account_setup_incomplete
+      - identity_verification_failed
+      - gov_id_not_in_data_source
+      - gov_id_has_inconsistencies
+      - mfa_deactivation_required
+      - access_token_not_generated
+      - two_factor_auth_required
+      - captcha_bypass_error
+      - invalid_identifier
+      - account_blocked
+      - proxy_error
+      - invalid_captcha
+      - invalid_gov_id
+      - device_authorization_required
+      - max_retries_exceeded
+      - task_create_fail
+      - invalid_cpf
+      - invalid_in_auth_session_id
+      - unable_to_get_uber_metrics
+      - email_otp_validation_pending
+      - login_not_available
+      - invalid_password
+      - unknown_login_type
+      - email_not_validated
+      - already_connected
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - zero_quoted_weeks
+      - proxy_max_retries_exceeded
+      - curp_not_found_in_renapo
+      - nss_not_found_in_imss
+      - renapo_unavailable
+      - service_degradation
+      - server_error
+      - db_constraint_violation
+      - api_forbidden
+      - auth_token_expired
+      - network_max_retries_exceeded
+      - api_service_unavailable_02
+      - api_service_unavailable_08
+      - lambda_timeout
+      - api_service_unavailable
+      - auth_max_attempts_exceeded
+      - browser_navigation_timeout
+      - render_invalid_html
+      - browser_connection_timeout
+      - parser_invalid_pdf
+      - aws_s3_upload_fail
+      - network_connectivity_issues
+      - auth_invalid_token
+      - server_not_found
+      - api_server_error
+      - network_ssl_error
+      - auth_forbidden
+      - api_bad_gateway
+      - api_server_timeout
+      - system_platform_error
+      - api_rate_limit_exceeded
+      - api_renapo_unavailable
+      - user_gov_id_has_inconsistencies
+      - user_ssn_missing
+      - user_curp_not_found_in_renapo
+      - rpci_timeout
+      - pending_data_extraction
+      - employment_info_in_imss
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      - validation_time_expired
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - platform_unavailable
+      - failed_refresh
+      - invalid_schema_response
+      - not_available_in_platform
+      - user_curp_not_in_platform
+      - user_gov_id_not_in_data_source
+      - account_not_found
+      - profile_not_found
+      - unable_to_get_rappi_metrics
+      - captcha_required
+      - captcha_detected
+      - didi_rate_limited
+      - device_risk
+      - cell_rate_limited
+      - resend_limit
+      - didi_rejected
+      - incomplete_profile
+      title: StatusDetails
+      description: An enumeration.
+    LoginTypes:
+      enum:
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
+      description: An enumeration.

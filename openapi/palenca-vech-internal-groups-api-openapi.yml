@@ -1,0 +1,505 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts internal/groups API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: internal/groups
+paths:
+  /v1/internal/groups:
+    get:
+      tags:
+      - internal/groups
+      summary: Get Companies Groups
+      operationId: get_companies_groups_v1_internal_groups_get
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_ListGroupsResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - internal/groups
+      summary: Create Companies Group
+      operationId: create_companies_group_v1_internal_groups_post
+      parameters:
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__internal__groups__CreateGroupParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_GroupResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/internal/groups/{group_id}:
+    get:
+      tags:
+      - internal/groups
+      summary: Get Companies Group
+      operationId: get_companies_group_v1_internal_groups__group_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_GroupResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - internal/groups
+      summary: Update Companies Group
+      operationId: update_companies_group_v1_internal_groups__group_id__put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Group Id
+        name: group_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_GroupResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    BaseResponse_GroupResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/GroupResponse'
+      type: object
+      title: BaseResponse[GroupResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    GroupResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        admin:
+          $ref: '#/components/schemas/GroupAdminResponse'
+        companies:
+          items:
+            $ref: '#/components/schemas/Company'
+          type: array
+          title: Companies
+          default: []
+        privacy_url:
+          type: string
+          title: Privacy Url
+      type: object
+      required:
+      - id
+      - name
+      - admin
+      title: GroupResponse
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    Company:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        priority:
+          $ref: '#/components/schemas/CompanyPriority'
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        retries_enabled:
+          type: boolean
+          title: Retries Enabled
+          default: false
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      required:
+      - display_name
+      - company_name
+      - priority
+      - public_api_key
+      - private_api_key
+      title: Company
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ListGroupsResponse:
+      properties:
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupResponse'
+          type: array
+          title: Groups
+      type: object
+      required:
+      - groups
+      title: ListGroupsResponse
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    UpdateGroupParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        admin_id:
+          type: string
+          format: uuid
+          title: Admin Id
+        companies:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Companies
+        privacy_url:
+          type: string
+          title: Privacy Url
+      type: object
+      required:
+      - name
+      - admin_id
+      - companies
+      title: UpdateGroupParams
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    app__api__schemas__internal__groups__CreateGroupParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        admin_id:
+          type: string
+          format: uuid
+          title: Admin Id
+        companies:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Companies
+        privacy_url:
+          type: string
+          title: Privacy Url
+      type: object
+      required:
+      - name
+      - admin_id
+      - companies
+      title: CreateGroupParams
+    BaseResponse_ListGroupsResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ListGroupsResponse'
+      type: object
+      title: BaseResponse[ListGroupsResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    GroupAdminResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        priority:
+          $ref: '#/components/schemas/CompanyPriority'
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        retries_enabled:
+          type: boolean
+          title: Retries Enabled
+          default: false
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      required:
+      - display_name
+      - company_name
+      - priority
+      - public_api_key
+      - private_api_key
+      title: GroupAdminResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

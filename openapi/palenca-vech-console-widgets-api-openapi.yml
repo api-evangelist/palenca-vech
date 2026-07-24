@@ -1,0 +1,698 @@
+openapi: 3.1.0
+info:
+  title: Palenca accounts console/widgets API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: console/widgets
+paths:
+  /console/companies/{company_id}/widgets/{widget_id}:
+    get:
+      tags:
+      - console/widgets
+      summary: Get Widget
+      operationId: get_widget_console_companies__company_id__widgets__widget_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Widget Id
+        name: widget_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - console/widgets
+      summary: Update Company Widget
+      operationId: update_company_widget_console_companies__company_id__widgets__widget_id__put
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Widget Id
+        name: widget_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__admin__UpdateWidgetParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/widgets/accounts/{account_id}:
+    get:
+      tags:
+      - console/widgets
+      summary: Get Widget Id
+      operationId: get_widget_id_console_companies__company_id__widgets_accounts__account_id__get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Account Id
+        name: account_id
+        in: path
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /console/companies/{company_id}/widgets:
+    get:
+      tags:
+      - console/widgets
+      summary: List Company Widgets
+      operationId: list_company_widgets_console_companies__company_id__widgets_get
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetsConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - console/widgets
+      summary: Create Company Widget
+      operationId: create_company_widget_console_companies__company_id__widgets_post
+      parameters:
+      - required: true
+        schema:
+          type: string
+          format: uuid
+          title: Company Id
+        name: company_id
+        in: path
+      - required: false
+        schema:
+          type: string
+          title: X-Api-Key
+        name: x-api-key
+        in: header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__schemas__admin__CreateWidgetParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse_WidgetConsoleResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    BaseResponse_WidgetsConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetsConsoleResponse'
+      type: object
+      title: BaseResponse[WidgetsConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    WidgetInternalType:
+      enum:
+      - default_api_calls
+      title: WidgetInternalType
+      description: An enumeration.
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    app__api__schemas__admin__CreateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+          default: false
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+          default: false
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+          default: false
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+          default: true
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+          default: true
+        hide_label:
+          type: boolean
+          title: Hide Label
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        persist_session:
+          type: boolean
+          title: Persist Session
+          default: false
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        redirect_url:
+          type: string
+          title: Redirect Url
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        widget_type:
+          allOf:
+          - $ref: '#/components/schemas/WidgetType'
+          default: income_verification
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: CreateWidgetParams
+    WidgetConsoleResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+          default: []
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+          default: false
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+          default: false
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+          default: false
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+          default: true
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+          default: true
+        hide_label:
+          type: boolean
+          title: Hide Label
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        persist_session:
+          type: boolean
+          title: Persist Session
+          default: false
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        redirect_url:
+          type: string
+          title: Redirect Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        webhook_url:
+          type: string
+          title: Webhook Url
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        widget_type:
+          $ref: '#/components/schemas/WidgetType'
+        widget_internal_type:
+          $ref: '#/components/schemas/WidgetInternalType'
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      required:
+      - company_id
+      title: WidgetConsoleResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+        country: mx
+        platform:
+        - uber
+        is_sandbox: false
+        hide_logo: false
+        hide_whatsapp: false
+        hide_consent: false
+        hide_privacy_url: false
+        hide_redirect_url: false
+        require_gov_id: false
+        persist_session: false
+        font_family: Nunito
+        primary_color: '#ea4c89'
+        border_radius: 0px
+        custom_privacy_url: https://palenca.com/privacy
+        redirect_url: https://companydomain.com/
+        whatsapp_number: '+525539043015'
+        webhook_url: https://webhooks.palenca.com/example
+        created_at: '2022-05-02T03:36:02.436Z'
+        updated_at: '2022-05-02T03:36:02.436Z'
+        widget_type: income_verification
+        settings: {}
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WidgetsConsoleResponse:
+      properties:
+        widgets:
+          items:
+            $ref: '#/components/schemas/WidgetConsoleResponse'
+          type: array
+          title: Widgets
+      type: object
+      required:
+      - widgets
+      title: WidgetsConsoleResponse
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    WidgetType:
+      enum:
+      - income_verification
+      title: WidgetType
+      description: An enumeration.
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    app__api__schemas__admin__UpdateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+        hide_label:
+          type: boolean
+          title: Hide Label
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+        persist_session:
+          type: boolean
+          title: Persist Session
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        redirect_url:
+          type: string
+          title: Redirect Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        webhook_url:
+          type: string
+          title: Webhook Url
+        widget_type:
+          $ref: '#/components/schemas/WidgetType'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: UpdateWidgetParams
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    BaseResponse_WidgetConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetConsoleResponse'
+      type: object
+      title: BaseResponse[WidgetConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
