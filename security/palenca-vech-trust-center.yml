@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.palenca.com/mx/seguridad
+summary: >-
+  Palenca's public security/trust page documents its information-security program:
+  ISO/IEC 27001 certification (downloadable certificate), annual CREST-accredited
+  penetration testing, and AWS/GCP infrastructure. There is no separate hosted
+  trust-center portal (e.g. SafeBase/Vanta); this is the security page itself.
+url: https://www.palenca.com/mx/seguridad
+certifications:
+- name: ISO/IEC 27001
+  status: certified
+  since: '2022'
+  artifact: downloadable ISO 27001 certificate (2022)
+attestations:
+- name: CREST-accredited penetration testing
+  cadence: annual
+infrastructure_providers: [AWS, GCP]
+data_privacy:
+  privacy_policy: https://assets.palenca.com/landing/files/privacy-end-users-spanish.pdf
+  privacy_page: https://www.palenca.com/privacidad
+contact: soporte@palenca.com
+docs: https://www.palenca.com/mx/seguridad

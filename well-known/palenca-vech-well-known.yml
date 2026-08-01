@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: probed
+source: live HTTP probes of Palenca hosts
+summary: >-
+  Probed standard /.well-known/ and discovery paths across Palenca hosts. No
+  security.txt, OIDC, OAuth AS, api-catalog, or ai-plugin manifests are published.
+  An llms.txt discovery index IS published on the docs host (captured separately).
+probes:
+- {host: 'https://api.palenca.com', path: /.well-known/security.txt, status: 404}
+- {host: 'https://palenca.com', path: /.well-known/security.txt, status: 404}
+- {host: 'https://developers.palenca.com', path: /.well-known/security.txt, status: 404}
+- {host: 'https://api.palenca.com', path: /.well-known/openid-configuration, status: 404}
+- {host: 'https://api.palenca.com', path: /.well-known/oauth-authorization-server, status: 404}
+- {host: 'https://api.palenca.com', path: /.well-known/api-catalog, status: 404}
+- {host: 'https://api.palenca.com', path: /openapi.json, status: 200, file: ../openapi/palenca-vech-openapi.json}
+discovery:
+- {type: LLMsTxt, url: 'https://developers.palenca.com/llms.txt', status: 200, file: ../llms/palenca-vech-llms.txt}

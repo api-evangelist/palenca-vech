@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.palenca.com/docs/widget-overview
+api: Palenca API
+summary: >-
+  The Palenca Widget is a client-side, embeddable component that lets formal and gig
+  economy workers securely connect their platform accounts and share income data.
+  It is distinct from a server SDK. Delivered as a hosted public link, a web embed
+  (CDN/ES6), and a mobile integration.
+families:
+- family: Palenca Widget
+  description: End-user account-linking flow that captures worker consent and credentials.
+  surfaces:
+  - name: Public Link and Web
+    type: hosted / web embed
+    docs: https://developers.palenca.com/docs/public-link-and-web
+  - name: CDN & ES6
+    type: JavaScript loader (CDN script + ES6 module)
+    docs: https://developers.palenca.com/docs/cdn-es6
+  - name: Mobile App
+    type: mobile integration
+    docs: https://developers.palenca.com/docs/mobile-app
+config:
+  associated_with: widget_id (create/retrieve via /v1/widgets)
+docs: https://developers.palenca.com/docs/widget-overview

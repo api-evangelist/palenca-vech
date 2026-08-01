@@ -1,0 +1,60 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.palenca.com/docs/webhooks
+type: Webhooks
+api: Palenca API
+summary: >-
+  Palenca delivers real-time events to a subscriber URL via HTTP POST with a JSON
+  body. Webhooks are created and managed in the Console or via the /v1/webhooks API,
+  associated with a widget, optionally request-signed, and support sandbox mode.
+  The provider does not publish an AsyncAPI document; this is the webhook catalog
+  derived from the docs and the OpenAPI WebhookActions enum.
+delivery:
+  transport: HTTP POST
+  content_type: application/json
+  request_signing: optional (sign_request flag on webhook create/update)
+  sandbox_mode: supported (is_sandbox flag)
+  sandbox_delivery_delay_seconds: 30
+  extraction_latency_seconds: 10-180
+events:
+- user.created
+- user.deleted
+- account.created
+- account.connected
+- account.requires_auth
+- account.needs_auth
+- profile.updated
+- employment.created
+- employment.updated
+- earnings.updated
+- events.updated
+- clean_save.finished
+- login.created
+- login.success
+- login.error
+- login.incomplete
+- login.retry
+- login.failed_refresh
+management_operations:
+- method: POST
+  path: /v1/webhooks
+  operationId: create_webhook_v1_webhooks_post
+- method: GET
+  path: /v1/webhooks
+  operationId: list_webhooks_v1_webhooks_get
+- method: GET
+  path: /v1/webhooks/{webhook_id}
+  operationId: retrieve_webhook_v1_webhooks__webhook_id__get
+- method: PUT
+  path: /v1/webhooks/{webhook_id}
+  operationId: update_webhook_v1_webhooks__webhook_id__put
+- method: DELETE
+  path: /v1/webhooks/{webhook_id}
+  operationId: delete_webhook_v1_webhooks__webhook_id__delete
+- method: POST
+  path: /v1/logins/{login_id}/send-webhook
+  operationId: send_login_webhook_v1_logins__login_id__send_webhook_post
+- method: POST
+  path: /v1/accounts/{account_id}/resend-webhook
+  operationId: resend_webhook_v1_accounts__account_id__resend_webhook_post
+docs: https://developers.palenca.com/docs/webhooks

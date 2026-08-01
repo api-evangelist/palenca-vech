@@ -1,0 +1,45 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.palenca.com/mx/seguridad
+api: Palenca API
+summary: >-
+  Conformance and compliance posture for Palenca. Palenca holds an ISO/IEC 27001
+  information-security certification and undergoes annual CREST-accredited penetration
+  testing; infrastructure runs on AWS and GCP. Standards conformance below is derived
+  from the OpenAPI and documented behavior.
+compliance:
+- program: ISO/IEC 27001
+  status: certified
+  since: '2022'
+  evidence: https://www.palenca.com/mx/seguridad
+- program: CREST-accredited penetration testing
+  status: annual
+  evidence: https://www.palenca.com/mx/seguridad
+- program: SOC 2
+  status: not-published
+- program: PCI DSS
+  status: not-published
+standards:
+- id: oauth2
+  conforms: false
+  evidence: Auth is a static x-api-key header; no OAuth 2.0 flows declared.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery/endpoints.
+- id: rfc9457
+  conforms: false
+  evidence: Errors use a custom error_code JSON body, not application/problem+json.
+- id: pagination
+  conforms: true
+  evidence: Search endpoints accept date-range + pagination options.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key mechanism documented.
+- id: rate_limiting
+  conforms: true
+  evidence: Global 120/60s limit with X-RateLimit-* headers and 429 responses.
+- id: openapi
+  conforms: true
+  evidence: OpenAPI 3.1.0 published at https://api.palenca.com/openapi.json (208 operations).
+infrastructure: [AWS, GCP]
+docs: https://www.palenca.com/mx/seguridad

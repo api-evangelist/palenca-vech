@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.palenca.com/docs/rate-limits
+api: Palenca API
+summary: >-
+  Palenca enforces a single global rate limit of 120 requests per 60-second window
+  across all endpoints. Exceeding it returns 429 Too Many Requests until the next
+  window. Current status is exposed via X-RateLimit-* response headers.
+scope: global
+rate_limits:
+- name: global
+  limit_count: 120
+  window_seconds: 60
+  applies_to: all endpoints (combined)
+  on_exceed_status: 429
+headers:
+- name: X-RateLimit-Limit
+  meaning: Maximum requests allowed per minute window
+- name: X-RateLimit-Remaining
+  meaning: Requests remaining in the current window
+- name: X-RateLimit-Reset
+  meaning: Unix timestamp when the window resets
+- name: X-Request-Id
+  meaning: Unique request identifier for tracing/support
+error:
+  status: 429
+  code: too_many_requests
+docs: https://developers.palenca.com/docs/rate-limits

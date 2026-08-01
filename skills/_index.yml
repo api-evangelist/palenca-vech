@@ -1,0 +1,13 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/palenca-vech-openapi.json
+type: AgentSkill
+api: Palenca API
+summary: Packaged Agent Skills for the marquee Palenca flows, grounded in real operationIds.
+skills:
+- name: palenca-verify-worker-income
+  file: palenca-vech-verify-worker-income.md
+  description: Create a user, launch a Widget login, and read back profile, employment, and earnings.
+- name: palenca-manage-webhooks
+  file: palenca-vech-manage-webhooks.md
+  description: Subscribe to and manage real-time Palenca webhooks for login and account events.

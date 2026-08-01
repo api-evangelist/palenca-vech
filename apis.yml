@@ -1,7 +1,14 @@
 aid: palenca-vech
 name: Palenca (Vech)
-description: Palenca (Vech) is a company surfaced as a portfolio company of 500-global and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Palenca is a Latin American income and employment verification API (headquartered
+  in Mexico, backed by 500 Global). Through a single REST API and an embeddable Widget,
+  workers securely connect their gig-economy platform (Uber, Rappi, DiDi, inDriver,
+  iFood, PedidosYa) and formal-economy sources (IMSS, ISSSTE, CDT/Carteira de Trabalho)
+  to share verified income, earnings, employment history, and account data with fintechs,
+  banks, and lenders. Palenca serves Mexico and Brazil, exposes users, accounts, logins,
+  earnings, consents, insights, and webhooks resources, and ships a JS/CDN/ES6 widget
+  and mobile SDKs for end-user account linking.
 url: https://raw.githubusercontent.com/api-evangelist/palenca-vech/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,17 +16,1186 @@ x-backed-by:
 - 500-global
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.palenca.com/favicon.ico
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Income Verification
+- Employment Verification
+- Fintech
+- Gig Economy
+- Latin America
+- Identity
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: palenca-vech:palenca-vech-accounts-api
+  name: Palenca (Vech) accounts API
+  description: The accounts API from Palenca (Vech) — 34 operation(s) for accounts.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-admin-api
+  name: Palenca (Vech) admin API
+  description: The admin API from Palenca (Vech) — 4 operation(s) for admin.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - admin
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-admin-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-argyle-api
+  name: Palenca (Vech) argyle API
+  description: The argyle API from Palenca (Vech) — 18 operation(s) for argyle.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - argyle
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-argyle-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-check-platform-health-api
+  name: Palenca (Vech) Check Platform Health API
+  description: >-
+    The Check Platform Health API from Palenca (Vech) — 1 operation(s) for check platform health.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - Check Platform Health
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-check-platform-health-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-companies-api
+  name: Palenca (Vech) companies API
+  description: The companies API from Palenca (Vech) — 5 operation(s) for companies.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - companies
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-companies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-consents-api
+  name: Palenca (Vech) consents API
+  description: The consents API from Palenca (Vech) — 2 operation(s) for consents.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - consents
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-consents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-console-accounts-api
+  name: Palenca (Vech) console/accounts API
+  description: The console/accounts API from Palenca (Vech) — 11 operation(s) for console/accounts.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - console/accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-console-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-console-api
+  name: Palenca (Vech) console API
+  description: The console API from Palenca (Vech) — 27 operation(s) for console.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - console
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-console-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-console-companies-api
+  name: Palenca (Vech) console/companies API
+  description: The console/companies API from Palenca (Vech) — 2 operation(s) for console/companies.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - console/companies
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-console-companies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-console-insights-api
+  name: Palenca (Vech) console/insights API
+  description: The console/insights API from Palenca (Vech) — 4 operation(s) for console/insights.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - console/insights
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-console-insights-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-console-status-api
+  name: Palenca (Vech) console/status API
+  description: The console/status API from Palenca (Vech) — 1 operation(s) for console/status.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - console/status
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-console-status-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-console-webhooks-api
+  name: Palenca (Vech) console/webhooks API
+  description: The console/webhooks API from Palenca (Vech) — 6 operation(s) for console/webhooks.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - console/webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-console-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-console-widgets-api
+  name: Palenca (Vech) console/widgets API
+  description: The console/widgets API from Palenca (Vech) — 3 operation(s) for console/widgets.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - console/widgets
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-console-widgets-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-countries-api
+  name: Palenca (Vech) countries API
+  description: The countries API from Palenca (Vech) — 2 operation(s) for countries.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - countries
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-countries-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-cpf-api
+  name: Palenca (Vech) cpf API
+  description: The cpf API from Palenca (Vech) — 1 operation(s) for cpf.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - cpf
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-cpf-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-cron-jobs-api
+  name: Palenca (Vech) cron-jobs API
+  description: The cron-jobs API from Palenca (Vech) — 3 operation(s) for cron-jobs.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - cron-jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-cron-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-finsus-api
+  name: Palenca (Vech) finsus API
+  description: The finsus API from Palenca (Vech) — 1 operation(s) for finsus.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - finsus
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-finsus-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-groups-api
+  name: Palenca (Vech) groups API
+  description: The groups API from Palenca (Vech) — 6 operation(s) for groups.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - groups
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-health-api
+  name: Palenca (Vech) health API
+  description: The health API from Palenca (Vech) — 1 operation(s) for health.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - health
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-health-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-imss-api
+  name: Palenca (Vech) imss API
+  description: The imss API from Palenca (Vech) — 3 operation(s) for imss.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - imss
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-imss-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-insights-api
+  name: Palenca (Vech) insights API
+  description: The insights API from Palenca (Vech) — 7 operation(s) for insights.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - insights
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-insights-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-insights-report-api
+  name: Palenca (Vech) insights-report API
+  description: The insights-report API from Palenca (Vech) — 3 operation(s) for insights-report.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - insights-report
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-insights-report-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-accounts-api
+  name: Palenca (Vech) internal/accounts API
+  description: The internal/accounts API from Palenca (Vech) — 5 operation(s) for internal/accounts.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal/accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-api
+  name: Palenca (Vech) internal API
+  description: The internal API from Palenca (Vech) — 20 operation(s) for internal.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-bulks-api
+  name: Palenca (Vech) internal/bulks API
+  description: The internal/bulks API from Palenca (Vech) — 2 operation(s) for internal/bulks.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal/bulks
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-bulks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-companies-api
+  name: Palenca (Vech) internal/companies API
+  description: The internal/companies API from Palenca (Vech) — 2 operation(s) for internal/companies.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal/companies
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-companies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-groups-api
+  name: Palenca (Vech) internal/groups API
+  description: The internal/groups API from Palenca (Vech) — 2 operation(s) for internal/groups.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal/groups
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-indriver-api
+  name: Palenca (Vech) internal/indriver API
+  description: The internal/indriver API from Palenca (Vech) — 1 operation(s) for internal/indriver.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal/indriver
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-indriver-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-insights-api
+  name: Palenca (Vech) internal/insights API
+  description: The internal/insights API from Palenca (Vech) — 2 operation(s) for internal/insights.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal/insights
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-insights-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-internal-status-history-api
+  name: Palenca (Vech) internal/status-history API
+  description: >-
+    The internal/status-history API from Palenca (Vech) — 1 operation(s) for internal/status-history.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - internal/status-history
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-internal-status-history-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-link-api
+  name: Palenca (Vech) link API
+  description: The link API from Palenca (Vech) — 1 operation(s) for link.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - link
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-link-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-logins-api
+  name: Palenca (Vech) logins API
+  description: The logins API from Palenca (Vech) — 5 operation(s) for logins.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - logins
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-logins-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-ping-api
+  name: Palenca (Vech) Ping API
+  description: The Ping API from Palenca (Vech) — 1 operation(s) for ping.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - Ping
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-ping-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-platforms-api
+  name: Palenca (Vech) platforms API
+  description: The platforms API from Palenca (Vech) — 4 operation(s) for platforms.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - platforms
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-platforms-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-pong-api
+  name: Palenca (Vech) Pong API
+  description: The Pong API from Palenca (Vech) — 1 operation(s) for pong.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - Pong
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-pong-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-rappi-income-distribution-api
+  name: Palenca (Vech) rappi-income-distribution API
+  description: >-
+    The rappi-income-distribution API from Palenca (Vech) — 1 operation(s) for rappi-income-distribution.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - rappi-income-distribution
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-rappi-income-distribution-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-rappi-start-location-recovery-api
+  name: Palenca (Vech) rappi-start-location-recovery API
+  description: >-
+    The rappi-start-location-recovery API from Palenca (Vech) — 1 operation(s) for rappi-start-location-recovery.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - rappi-start-location-recovery
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-rappi-start-location-recovery-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-status-history-api
+  name: Palenca (Vech) status-history API
+  description: The status-history API from Palenca (Vech) — 1 operation(s) for status-history.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - status-history
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-status-history-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-uber-direct-api-api
+  name: Palenca (Vech) uber-direct-api API
+  description: The uber-direct-api API from Palenca (Vech) — 5 operation(s) for uber-direct-api.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - uber-direct-api
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-uber-direct-api-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-uber-income-distribution-api
+  name: Palenca (Vech) uber-income-distribution API
+  description: >-
+    The uber-income-distribution API from Palenca (Vech) — 1 operation(s) for uber-income-distribution.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - uber-income-distribution
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-uber-income-distribution-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-users-api
+  name: Palenca (Vech) users API
+  description: The users API from Palenca (Vech) — 7 operation(s) for users.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-v1-api
+  name: Palenca (Vech) v1 API
+  description: The v1 API from Palenca (Vech) — 147 operation(s) for v1.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - v1
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-version-api
+  name: Palenca (Vech) Version API
+  description: The Version API from Palenca (Vech) — 1 operation(s) for version.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-version-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-webhooks-api
+  name: Palenca (Vech) webhooks API
+  description: The webhooks API from Palenca (Vech) — 3 operation(s) for webhooks.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+- aid: palenca-vech:palenca-vech-widgets-api
+  name: Palenca (Vech) widgets API
+  description: The widgets API from Palenca (Vech) — 3 operation(s) for widgets.
+  humanURL: https://developers.palenca.com/docs/getting-started
+  baseURL: https://api.palenca.com
+  tags:
+  - widgets
+  properties:
+  - type: OpenAPI
+    url: openapi/palenca-vech-widgets-api-openapi.yml
+  - type: Documentation
+    url: https://developers.palenca.com/docs/getting-started
+  - type: APIReference
+    url: https://developers.palenca.com/reference/create_user_v1_users_post
+  - type: Authentication
+    url: authentication/palenca-vech-authentication.yml
+  - type: RateLimits
+    url: rate-limits/palenca-vech-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/palenca-vech-problem-types.yml
+  - type: Sandbox
+    url: sandbox/palenca-vech-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/palenca-vech-webhooks.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
 common:
 - type: Website
   url: https://palenca.com
+- type: OpenAPI
+  url: openapi/palenca-vech-openapi.json
+- type: RateLimits
+  url: rate-limits/palenca-vech-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/palenca-vech-problem-types.yml
+- type: Sandbox
+  url: sandbox/palenca-vech-sandbox.yml
+- type: MCPServer
+  url: mcp/palenca-vech-mcp.yml
+- type: DeveloperPortal
+  url: https://developers.palenca.com
+- type: Documentation
+  url: https://developers.palenca.com/docs/getting-started
+- type: APIReference
+  url: https://developers.palenca.com/reference/create_user_v1_users_post
+- type: GettingStarted
+  url: https://developers.palenca.com/docs/getting-started-1
+- type: Authentication
+  url: authentication/palenca-vech-authentication.yml
+- type: LLMsTxt
+  url: llms/palenca-vech-llms.txt
+- type: Conventions
+  url: conventions/palenca-vech-conventions.yml
+- type: Lifecycle
+  url: lifecycle/palenca-vech-lifecycle.yml
+- type: StatusPage
+  url: https://status.palenca.com
+- type: Conformance
+  url: conformance/palenca-vech-conformance.yml
+- type: Compliance
+  url: conformance/palenca-vech-conformance.yml
+- type: TrustCenter
+  url: security/palenca-vech-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/palenca-vech-vulnerability-disclosure.yml
+- type: Security
+  url: security/palenca-vech-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/palenca-vech-domain-security.yml
+- type: Webhooks
+  url: asyncapi/palenca-vech-webhooks.yml
+- type: Components
+  url: components/palenca-vech-components.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/palenca-vech-well-known.yml
+- type: Blog
+  url: https://blog.palenca.com
+- type: Support
+  url: https://www.palenca.com/mx/contacto
+- type: SignUp
+  url: https://console.palenca.com/sign/up
+- type: Login
+  url: https://console.palenca.com/sign/in
+- type: TermsOfService
+  url: https://assets.palenca.com/landing/files/tc_palenca_es.pdf
+- type: PrivacyPolicy
+  url: https://assets.palenca.com/landing/files/privacy-end-users-spanish.pdf

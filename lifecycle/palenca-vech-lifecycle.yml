@@ -1,0 +1,26 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.palenca.com/docs/environments-and-authentication
+api: Palenca API
+summary: >-
+  Versioning and operational lifecycle for the Palenca API. The API is versioned in
+  the URI path (/v1); the OpenAPI document reports version 2.0.0. Real-time status
+  and incident history are published at status.palenca.com.
+versioning:
+  style: uri_path
+  current_version: v1
+  spec_version: 2.0.0
+status_page:
+  url: https://status.palenca.com
+  provides: real-time API status and incidents
+deprecation:
+  policy_documented: false
+  sunset_header: null
+  deprecation_header: null
+  note: No formal deprecation/Sunset (RFC 8594) policy found in public docs.
+sla:
+  documented: false
+support:
+  security_contact: soporte@palenca.com
+  contact_page: https://www.palenca.com/mx/contacto
+docs: https://developers.palenca.com/docs/environments-and-authentication

@@ -1,0 +1,76 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/palenca-vech-openapi.json
+status: candidate
+type: MCPServer
+api: Palenca API
+summary: >-
+  Candidate MCP server surface derived from Palenca's public /v1 OpenAPI operations.
+  Palenca does not publish an official hosted/remote MCP server; this is a proposed
+  read/write tool set mapping the marquee income- and employment-verification
+  operations. Auth via x-api-key. Not an official Palenca product.
+transport: proposed (stdio or streamable-http)
+auth:
+  type: apiKey
+  header: x-api-key
+tools:
+- name: create_user
+  operationId: create_user_v1_users_post
+  method: POST
+  path: /v1/users
+  description: Register a new formal or gig economy worker.
+- name: retrieve_user
+  operationId: retrieve_user_v1_users__user_id__get
+  method: GET
+  path: /v1/users/{user_id}
+  description: Get a user by ID.
+- name: list_users
+  operationId: list_users_v1_users_search_post
+  method: POST
+  path: /v1/users/search
+  description: Paginated list of users created within a date range.
+- name: retrieve_user_accounts
+  operationId: retrieve_user_accounts_v1_users__user_id__accounts_get
+  method: GET
+  path: /v1/users/{user_id}/accounts
+  description: Return a user's connected accounts.
+- name: retrieve_account
+  operationId: retrieve_account_v1_accounts__account_id__get
+  method: GET
+  path: /v1/accounts/{account_id}
+  description: Get an account by ID.
+- name: retrieve_account_profile
+  operationId: retrieve_account_profile_v1_accounts__account_id__profile_get
+  method: GET
+  path: /v1/accounts/{account_id}/profile
+  description: Return personal/profile information for an account.
+- name: retrieve_account_employment
+  operationId: retrieve_account_employment_mexico_v1_accounts__account_id__employment_get-1
+  method: GET
+  path: /v1/accounts/{account_id}/employment
+  description: Return the employment history of an account.
+- name: retrieve_account_earnings
+  operationId: retrieve_account_earnings_v1_accounts__account_id__earnings_search_post
+  method: POST
+  path: /v1/accounts/{account_id}/earnings/search
+  description: Paginated earnings data for a gig-economy account.
+- name: list_account_logins
+  operationId: list_account_logins_v1_accounts__account_id__logins_get
+  method: GET
+  path: /v1/accounts/{account_id}/logins
+  description: List logins for a specific account.
+- name: create_webhook
+  operationId: create_webhook_v1_webhooks_post
+  method: POST
+  path: /v1/webhooks
+  description: Create a webhook subscription associated with a widget.
+- name: list_webhooks
+  operationId: list_webhooks_v1_webhooks_get
+  method: GET
+  path: /v1/webhooks
+  description: List the account's webhooks.
+- name: search_consents
+  operationId: search_consents_v1_consents_search_post
+  method: POST
+  path: /v1/consents/search
+  description: Search consents within a date range with pagination.

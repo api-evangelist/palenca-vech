@@ -1,0 +1,113 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.palenca.com/docs/errors-and-warnings
+api: Palenca API
+format: json
+summary: >-
+  Palenca returns errors as a JSON body carrying a machine-readable error code and
+  an HTTP status. The OpenAPI declares FastAPI-style 422 validation errors on 202
+  operations; the docs error reference below enriches the code/status/remediation.
+  Warnings (non-fatal) are surfaced on successful account connections. Not RFC 9457.
+envelope_field: error_code
+errors:
+- code: missing_api_key
+  http: 401
+  meaning: The x-api-key header is missing.
+  action: Include the x-api-key header and retry.
+- code: invalid_api_key
+  http: 401
+  meaning: The API key is invalid.
+  action: Retry with a valid API key.
+- code: bad_request
+  http: 422
+  meaning: Request not valid, often a missing required parameter.
+  action: Review the request and correct parameters.
+- code: invalid_credentials
+  http: 401
+  meaning: Login credentials provided are invalid.
+  action: Ask the user to retry with valid credentials.
+- code: platform_unavailable
+  http: 503
+  meaning: The source platform is currently unavailable.
+  action: Retry later or contact support.
+- code: too_many_requests
+  http: 429
+  meaning: Rate limited (common with IMSS/ISSSTE platforms).
+  action: Retry the login the following day.
+- code: service_unavailable
+  http: 503
+  meaning: The service is currently unavailable.
+  action: Retry later or contact support.
+- code: request_timeout
+  http: 504
+  meaning: Login failed due to a timeout.
+  action: Retry later or contact support.
+- code: platform_error
+  http: 422
+  meaning: There was an error with the source platform.
+  action: Retry later or contact support.
+- code: invalid_otp
+  http: 401
+  meaning: The OTP provided is invalid.
+  action: Ask the user to retry with a valid OTP.
+- code: expired_otp
+  http: 401
+  meaning: The OTP provided is expired.
+  action: Ask the user to retry with a valid OTP.
+- code: email_not_validated
+  http: 400
+  meaning: The email used is not validated.
+  action: Verify the email in the app, then retry.
+- code: invalid_phone_number
+  http: 422
+  meaning: The phone number provided is invalid.
+  action: Ask the user to retry with a valid phone number.
+- code: invalid_email
+  http: 422
+  meaning: The email address provided is invalid.
+  action: Ask the user to retry with a valid email address.
+- code: login_refused
+  http: 400
+  meaning: Login attempt blocked by the platform (common in Uber).
+  action: Ask the user to retry login after 30 minutes.
+- code: invalid_otp_auth_key
+  http: 401
+  meaning: Platform error during OTP auth.
+  action: Retry later or contact support.
+- code: could_not_send_otp
+  http: 401
+  meaning: Error sending the OTP code.
+  action: Ask the user to resend the OTP code.
+- code: unable_to_get_performance
+  http: 403
+  meaning: Platform error retrieving performance data.
+  action: Retry later or contact support.
+- code: recent_login_successful
+  http: 412
+  meaning: The account successfully logged in less than 12 hours ago.
+  action: Reuse recent data or retry after 12 hours.
+- code: invalid_otp_session
+  http: 401
+  meaning: Platform error with the OTP session.
+  action: Retry later or contact support.
+warnings:
+  note: >-
+    Warnings are returned alongside a successful connection when a factor prevents
+    obtaining employment/income data. Visible in the Palenca Console.
+  values:
+  - code: banned
+    meaning: The worker is banned from the platform.
+  - code: not_registered
+    meaning: The worker is not registered on the platform.
+  - code: rider_account
+    meaning: User registered as a rider, not a driver.
+  - code: fleet_account
+    meaning: Account belongs to a fleet; data cannot be obtained.
+  - code: incomplete_profile_data
+    meaning: Key profile information was unavailable.
+  - code: id_mismatch
+    meaning: Recovered account ID does not match the user's set ID.
+spec_evidence:
+  status_422_operations: 202
+  spec_error_schema: HTTPValidationError (FastAPI/Pydantic)
+docs: https://developers.palenca.com/docs/errors-and-warnings

@@ -1,0 +1,45 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.palenca.com/docs
+api: Palenca API
+summary: >-
+  Cross-cutting runtime semantics for the Palenca API, sourced from the developer
+  docs and derived from the OpenAPI. REST/JSON over HTTPS TLS 1.3+, API-key auth,
+  a single global rate limit, per-request tracing, and paginated search endpoints.
+authentication:
+  style: api_key_header
+  header: x-api-key
+  see: authentication/palenca-vech-authentication.yml
+transport:
+  protocol: https
+  tls_min_version: '1.3'
+  content_type: application/json
+versioning:
+  style: uri_path
+  current_path_prefix: /v1
+  spec_version: 2.0.0
+pagination:
+  style: search-endpoint
+  pattern: >-
+    List operations are POST ..._search endpoints (users, logins, consents, earnings)
+    that accept a date range plus pagination options and return a paginated list.
+  see: lifecycle/palenca-vech-lifecycle.yml
+request_tracing:
+  header: X-Request-Id
+  direction: response
+  note: Unique per request; provide to support when troubleshooting.
+rate_limit_signaling:
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  on_exceed: 429 too_many_requests
+  see: rate-limits/palenca-vech-rate-limits.yml
+error_envelope:
+  shape: JSON body with machine-readable error_code + HTTP status
+  format: not-rfc9457
+  see: errors/palenca-vech-problem-types.yml
+idempotency:
+  supported: false
+  note: No idempotency-key mechanism is documented in the Palenca API.
+webhooks:
+  supported: true
+  events: [login.created, login.success, login.incomplete, login.error]
+  see: asyncapi/palenca-vech-webhooks.yml

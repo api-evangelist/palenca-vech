@@ -1,0 +1,48 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.palenca.com/docs/sandbox-testing
+api: Palenca API
+summary: >-
+  Palenca provides an independent Sandbox environment with its own API keys. Sandbox
+  logins use "magic identifiers" to deterministically simulate any login outcome,
+  OTP flow, or account warning without hitting a live platform.
+environments:
+- name: sandbox
+  base_url: https://sandbox.palenca.com
+  key_scope: sandbox API key required (magic identifiers have no effect in production)
+- name: production
+  base_url: https://api.palenca.com
+magic_identifiers:
+  email_format: <platform>+<case>@palenca-tests.com
+  email_example: uber+invalid_credentials@palenca-tests.com
+  phone_format: fixed phone number per case (per-platform table published by engineering)
+platform_support:
+  email: [uber, rappi]
+  phone: [rappi, didi, didi_food, ifood, indriver, pedidos_ya, noventa_nove]
+test_cases:
+  final_states:
+  - {case: success, status: success}
+  - {case: incomplete, status: incomplete}
+  - {case: invalid_credentials, status: error, status_detail: invalid_credentials}
+  - {case: login_refused, status: error, status_detail: login_refused}
+  - {case: platform_unavailable, status: error, status_detail: platform_unavailable}
+  - {case: request_timeout, status: error, status_detail: request_timeout}
+  - {case: platform_error, status: error, status_detail: platform_error}
+  - {case: recent_login_successful, status: error, status_detail: recent_login_successful}
+  - {case: not_registered, status: error, status_detail: not_registered}
+  - {case: banned, status: error, status_detail: banned}
+  otp_flow_2_step:
+  - invalid_otp
+  - expired_otp
+  - could_not_send_otp
+  - invalid_otp_auth_key
+  - invalid_otp_session
+  account_warnings:
+  - rider_account
+  - fleet_account
+  - incomplete_profile_data
+  - id_mismatch
+webhooks:
+  sandbox_delivery_delay_seconds: 30
+  events: [login.created, login.success, login.incomplete, login.error]
+docs: https://developers.palenca.com/docs/sandbox-testing

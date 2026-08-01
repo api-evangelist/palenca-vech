@@ -1,0 +1,50 @@
+# Palenca Documentation
+
+> Documentation for Palenca
+
+## Guides
+- [Introduction](https://developers.palenca.com/docs/getting-started.md): Discover why Palenca is the #1 Income Verification API in LATAM.
+- [Developer Quickstart](https://developers.palenca.com/docs/getting-started-1.md): Complete this guide before moving on to the rest of our tutorials.
+- [Sandbox Testing](https://developers.palenca.com/docs/sandbox-testing.md): Use magic identifiers to simulate any login outcome in the sandbox — no live platform credentials required.
+- [Tutorial: Integrate Gig Platforms](https://developers.palenca.com/docs/tutorial-integrate-with-imss-copy.md): A hands-on guide to get your application up and running with our Gig Economy integrations.
+- [Available Integrations](https://developers.palenca.com/docs/available-platforms.md): Take a look at the Formal and Gig Economy Integrations we have.
+- [Users and Accounts](https://developers.palenca.com/docs/entities-and-logins.md): Make the most of our API by understanding these basic concepts.
+- [Logins](https://developers.palenca.com/docs/login-states.md): Read this brief guide to better understand one of our most used entities.
+- [Webhooks](https://developers.palenca.com/docs/webhooks.md): Streamline your workflow with real-time webhook notifications.
+- [API Environment & Security](https://developers.palenca.com/docs/environments-and-authentication.md)
+- [Errors and Warnings](https://developers.palenca.com/docs/errors-and-warnings.md)
+- [Rate Limits](https://developers.palenca.com/docs/rate-limits.md): Become familiar with our rate limits to prevent unexpected errors.
+- [Account](https://developers.palenca.com/docs/accounts.md): Discover the account information and the account associated to a given user.
+- [Profile](https://developers.palenca.com/docs/profile-information-formal-economy-copy.md): Discover the personal information we retrieve from Gig Economy integrations.
+- [Earnings](https://developers.palenca.com/docs/earnings.md): Earnings represent payments to Gig Economy workers.
+- [Overview](https://developers.palenca.com/docs/widget-overview.md): The Palenca Widget lets workers securely connect their accounts and share income data easily.
+- [Public Link and Web](https://developers.palenca.com/docs/public-link-and-web.md)
+- [CDN & ES6](https://developers.palenca.com/docs/cdn-es6.md)
+- [Mobile App](https://developers.palenca.com/docs/mobile-app.md)
+
+## API Reference
+- [Create User](https://developers.palenca.com/reference/create_user_v1_users_post.md): Register a new user in Palenca. A user represents a formal or gig economy worker.
+- [Retrieve User](https://developers.palenca.com/reference/retrieve_user_v1_users__user_id__get.md): Get a user by ID.
+- [Delete User](https://developers.palenca.com/reference/delete_user_v1_users__user_id__delete.md): Delete a user and its accounts.
+- [Retrieve User Accounts](https://developers.palenca.com/reference/retrieve_user_v1_users__user_id__get_accounts.md): Returns a given user's accounts.
+- [List Users](https://developers.palenca.com/reference/list_users_v1_users_search_post.md): Returns a paginated list of users created within a date range.
+- [Retrieve Account User](https://developers.palenca.com/reference/retrieve_user_v1_users__user_id__get_user.md): Returns the user to which this account belongs.
+- [Retrieve Account](https://developers.palenca.com/reference/retrieve_account_v1_accounts__account_id__get.md): Get an account by ID.
+- [Delete Account](https://developers.palenca.com/reference/delete_account_v1_accounts__account_id__delete.md): Delete an account by ID.
+- [Reassign Account](https://developers.palenca.com/reference/reassign-account-to-a-different-user.md)
+- [List Account Logins](https://developers.palenca.com/reference/list_account_logins_v1_accounts__account_id__logins_get.md): Returns a list of logins for a specific account.
+- [List Logins](https://developers.palenca.com/reference/list_logins_v1_logins_search_post.md): Returns a paginated list of logins created within a date range.
+- [Retrieve Widget](https://developers.palenca.com/reference/get_widget_v1_widgets__widget_id__get.md): Returns the widget corresponding to the specified id.
+- [Create Webhook](https://developers.palenca.com/reference/create_webhook_v1_webhooks_post.md): Create a new webhook. Check out our [documentation page](https://developers.palenca.com/docs/webhooks#/) about webhooks.
+- [List Webhooks](https://developers.palenca.com/reference/list_webhooks_v1_webhooks_get.md): Returns your account's webhooks and their details.
+- [Retrieve Webhook](https://developers.palenca.com/reference/retrieve_webhook_v1_webhooks__webhook_id__get.md): Get a webhook by ID
+- [Update Webhook](https://developers.palenca.com/reference/update_webhook_v1_webhooks__webhook_id__put.md): Update a webhook by ID.
+- [Delete Webhook](https://developers.palenca.com/reference/delete_webhook_v1_webhooks__webhook_id__delete.md): Delete a webhook by ID.
+- [Retrieve Consents by Government ID](https://developers.palenca.com/reference/retrieve_consent_v1_consents__gov_id_id__get.md): Returns the consents corresponding to the specified Government ID.
+- [Search Consents](https://developers.palenca.com/reference/search_consents_v1_consents_search_post.md): Searches for consents within a specified date range with pagination options.
+- [Retrieve Account Profile](https://developers.palenca.com/reference/retrieve_account_profile_v1_accounts__account_id__profile_get.md): Returns personal information about an account.
+- [Retrieve Account Employment History](https://developers.palenca.com/reference/retrieve_account_employment_mexico_v1_accounts__account_id__employment_get-1.md): Returns the employment history of an account.
+- [Retrieve payment history of a Carteira de Trabalho account](https://developers.palenca.com/reference/retrieve_account_gig_earnings_v1_accounts__account_id__earnings_search_post.md): Returns a paginated list of the payment records of a CDT account.
+- [Retrieve Account Earnings](https://developers.palenca.com/reference/retrieve_account_earnings_v1_accounts__account_id__earnings_search_post.md): Returns a paginated list with the earnings data of a Gig Economy account.
+- [Retrieve a User's Aggregated Earnings](https://developers.palenca.com/reference/retrieve-a-users-aggregated-earnings.md)
+- [Retrieve Account Consignados](https://developers.palenca.com/reference/retrieve_account_consignados_v1_accounts__account_id__consignados_get-1.md): Returns consignados information about an account including consignado profile and offers. This endpoint is only available for CDT accounts.
