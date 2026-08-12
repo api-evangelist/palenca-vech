@@ -1137,10 +1137,12 @@ x-enrichment:
   artifacts_added: 18
   pass: local-v1
 common:
+- type: Overlay
+  url: overlays/palenca-vech-openapi-overlay.yaml
 - type: Website
   url: https://palenca.com
 - type: OpenAPI
-  url: openapi/palenca-vech-openapi.json
+  url: openapi/_original/palenca-vech-openapi.json
 - type: RateLimits
   url: rate-limits/palenca-vech-rate-limits.yml
 - type: ErrorCatalog
