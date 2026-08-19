@@ -1,0 +1,863 @@
+{
+  "item": [
+    {
+      "id": "a182bacf-05e2-4b67-b6a3-8fe3602df0ff",
+      "name": "widgets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c7c403ec-370f-4eea-b9af-1f334d70d912",
+          "name": "Get Widgets",
+          "request": {
+            "name": "Get Widgets",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a9298c8-ac45-4275-9401-a347daee0cdb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company_id\": \"fcee4e50-c32a-4cc7-bc88-4d885ce47242\",\n    \"country\": \"mx\",\n    \"platform\": [\n      \"uber\"\n    ],\n    \"is_sandbox\": false,\n    \"hide_logo\": false,\n    \"hide_whatsapp\": false,\n    \"hide_consent\": false,\n    \"hide_privacy_url\": false,\n    \"hide_redirect_url\": false,\n    \"require_gov_id\": false,\n    \"persist_session\": false,\n    \"font_family\": \"Nunito\",\n    \"primary_color\": \"#ea4c89\",\n    \"border_radius\": \"0px\",\n    \"custom_privacy_url\": \"https://palenca.com/privacy\",\n    \"redirect_url\": \"https://mycustomredirection.com/privacy\",\n    \"whatsapp_number\": \"+525539043015\",\n    \"webhook_url\": \"https://webhooks.palenca.com/example\",\n    \"settings\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "791355b7-ac30-4069-ad80-0d17a90fe7da",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company_id\": \"fcee4e50-c32a-4cc7-bc88-4d885ce47242\",\n    \"country\": \"mx\",\n    \"platform\": [\n      \"uber\"\n    ],\n    \"is_sandbox\": false,\n    \"hide_logo\": false,\n    \"hide_whatsapp\": false,\n    \"hide_consent\": false,\n    \"hide_privacy_url\": false,\n    \"hide_redirect_url\": false,\n    \"require_gov_id\": false,\n    \"persist_session\": false,\n    \"font_family\": \"Nunito\",\n    \"primary_color\": \"#ea4c89\",\n    \"border_radius\": \"0px\",\n    \"custom_privacy_url\": \"https://palenca.com/privacy\",\n    \"redirect_url\": \"https://mycustomredirection.com/privacy\",\n    \"whatsapp_number\": \"+525539043015\",\n    \"webhook_url\": \"https://webhooks.palenca.com/example\",\n    \"settings\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "541d7ce3-9122-4fc5-9c99-943d7043d97d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cab68a9-591b-43ed-acab-4e735e749636",
+          "name": "Create Widget",
+          "request": {
+            "name": "Create Widget",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"is_sandbox\": false,\n  \"require_gov_id\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b56c30a-92ff-47dc-8fd1-4f8f2ca83508",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"is_sandbox\": false,\n  \"require_gov_id\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company_id\": \"fcee4e50-c32a-4cc7-bc88-4d885ce47242\",\n    \"country\": \"mx\",\n    \"platform\": [\n      \"uber\"\n    ],\n    \"is_sandbox\": false,\n    \"hide_logo\": false,\n    \"hide_whatsapp\": false,\n    \"hide_consent\": false,\n    \"hide_privacy_url\": false,\n    \"hide_redirect_url\": false,\n    \"require_gov_id\": false,\n    \"persist_session\": false,\n    \"font_family\": \"Nunito\",\n    \"primary_color\": \"#ea4c89\",\n    \"border_radius\": \"0px\",\n    \"custom_privacy_url\": \"https://palenca.com/privacy\",\n    \"redirect_url\": \"https://mycustomredirection.com/privacy\",\n    \"whatsapp_number\": \"+525539043015\",\n    \"webhook_url\": \"https://webhooks.palenca.com/example\",\n    \"settings\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "255e8f84-1231-4981-9b62-c213cf5540ad",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"is_sandbox\": false,\n  \"require_gov_id\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company_id\": \"fcee4e50-c32a-4cc7-bc88-4d885ce47242\",\n    \"country\": \"mx\",\n    \"platform\": [\n      \"uber\"\n    ],\n    \"is_sandbox\": false,\n    \"hide_logo\": false,\n    \"hide_whatsapp\": false,\n    \"hide_consent\": false,\n    \"hide_privacy_url\": false,\n    \"hide_redirect_url\": false,\n    \"require_gov_id\": false,\n    \"persist_session\": false,\n    \"font_family\": \"Nunito\",\n    \"primary_color\": \"#ea4c89\",\n    \"border_radius\": \"0px\",\n    \"custom_privacy_url\": \"https://palenca.com/privacy\",\n    \"redirect_url\": \"https://mycustomredirection.com/privacy\",\n    \"whatsapp_number\": \"+525539043015\",\n    \"webhook_url\": \"https://webhooks.palenca.com/example\",\n    \"settings\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d75762fb-4f89-439a-824e-9d0ba8105a4b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"is_sandbox\": false,\n  \"require_gov_id\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75247afd-7254-4ab1-978f-bfd2c3e93010",
+          "name": "Get Widget",
+          "request": {
+            "name": "Get Widget",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "widgets",
+                ":widget_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "widget_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86f99c3b-d779-484b-9a61-9471ac86e409",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "widget_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company_id\": \"fcee4e50-c32a-4cc7-bc88-4d885ce47242\",\n    \"country\": \"mx\",\n    \"platform\": [\n      \"uber\"\n    ],\n    \"is_sandbox\": false,\n    \"hide_logo\": false,\n    \"hide_whatsapp\": false,\n    \"hide_consent\": false,\n    \"hide_privacy_url\": false,\n    \"hide_redirect_url\": false,\n    \"require_gov_id\": false,\n    \"persist_session\": false,\n    \"font_family\": \"Nunito\",\n    \"primary_color\": \"#ea4c89\",\n    \"border_radius\": \"0px\",\n    \"custom_privacy_url\": \"https://palenca.com/privacy\",\n    \"redirect_url\": \"https://mycustomredirection.com/privacy\",\n    \"whatsapp_number\": \"+525539043015\",\n    \"webhook_url\": \"https://webhooks.palenca.com/example\",\n    \"settings\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "366e1864-5b3d-4251-8387-35b769021946",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "widget_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bed7f13f-1c81-4b63-861e-a92f30cc9958",
+          "name": "Update Widget",
+          "request": {
+            "name": "Update Widget",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "widgets",
+                ":widget_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "widget_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"require_gov_id\": false,\n  \"hide_logo\": \"<boolean>\",\n  \"hide_whatsapp\": \"<boolean>\",\n  \"hide_consent\": \"<boolean>\",\n  \"font_family\": \"<string>\",\n  \"primary_color\": \"<string>\",\n  \"border_radius\": \"<string>\",\n  \"custom_privacy_url\": \"<string>\",\n  \"whatsapp_number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b585ea4a-9fc0-4656-b538-eed1fcd8f444",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "widget_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"require_gov_id\": false,\n  \"hide_logo\": \"<boolean>\",\n  \"hide_whatsapp\": \"<boolean>\",\n  \"hide_consent\": \"<boolean>\",\n  \"font_family\": \"<string>\",\n  \"primary_color\": \"<string>\",\n  \"border_radius\": \"<string>\",\n  \"custom_privacy_url\": \"<string>\",\n  \"whatsapp_number\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company_id\": \"fcee4e50-c32a-4cc7-bc88-4d885ce47242\",\n    \"country\": \"mx\",\n    \"platform\": [\n      \"uber\"\n    ],\n    \"is_sandbox\": false,\n    \"hide_logo\": false,\n    \"hide_whatsapp\": false,\n    \"hide_consent\": false,\n    \"hide_privacy_url\": false,\n    \"hide_redirect_url\": false,\n    \"require_gov_id\": false,\n    \"persist_session\": false,\n    \"font_family\": \"Nunito\",\n    \"primary_color\": \"#ea4c89\",\n    \"border_radius\": \"0px\",\n    \"custom_privacy_url\": \"https://palenca.com/privacy\",\n    \"redirect_url\": \"https://mycustomredirection.com/privacy\",\n    \"whatsapp_number\": \"+525539043015\",\n    \"webhook_url\": \"https://webhooks.palenca.com/example\",\n    \"settings\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c0a307c-3cb3-4aec-94c4-d52b04653ac8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "widget_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"require_gov_id\": false,\n  \"hide_logo\": \"<boolean>\",\n  \"hide_whatsapp\": \"<boolean>\",\n  \"hide_consent\": \"<boolean>\",\n  \"font_family\": \"<string>\",\n  \"primary_color\": \"<string>\",\n  \"border_radius\": \"<string>\",\n  \"custom_privacy_url\": \"<string>\",\n  \"whatsapp_number\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e17b35da-bd7a-4676-a777-63d9575331d7",
+          "name": "Get Widget Setup",
+          "request": {
+            "name": "Get Widget Setup",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "widgets",
+                ":widget_id",
+                "setup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "widget_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "299503c3-d4d1-42f1-b66d-af6aca2eb521",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets",
+                    ":widget_id",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "widget_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company\": {\n      \"display_name\": \"string\",\n      \"company_name\": \"string\",\n      \"priority\": \"string\",\n      \"public_api_key\": \"string\",\n      \"private_api_key\": \"string\",\n      \"created_at\": \"1956-07-26T11:56:09.355Z\",\n      \"updated_at\": \"1980-10-10T23:13:22.172Z\",\n      \"id\": \"2dbeef86-6a16-630e-a66f-d434800d71b0\",\n      \"client_id\": \"string\",\n      \"logo\": \"string\",\n      \"status\": \"string\",\n      \"website\": \"string\",\n      \"public_encryption_key\": \"string\",\n      \"private_encryption_key\": \"string\",\n      \"require_encryption\": false,\n      \"owner\": \"string\",\n      \"refresh\": false,\n      \"refresh_frequency\": 580,\n      \"retries_enabled\": false,\n      \"group_id\": \"4d432593-d455-6b39-b41d-4f923104a13a\",\n      \"data_controller\": true,\n      \"widget_advanced_customization\": false\n    },\n    \"widget\": {\n      \"company_id\": \"fcee4e50-c32a-4cc7-bc88-4d885ce47242\",\n      \"country\": \"mx\",\n      \"platform\": [\n        \"uber\"\n      ],\n      \"is_sandbox\": false,\n      \"hide_logo\": false,\n      \"hide_whatsapp\": false,\n      \"hide_consent\": false,\n      \"hide_privacy_url\": false,\n      \"hide_redirect_url\": false,\n      \"require_gov_id\": false,\n      \"persist_session\": false,\n      \"font_family\": \"Nunito\",\n      \"primary_color\": \"#ea4c89\",\n      \"border_radius\": \"0px\",\n      \"custom_privacy_url\": \"https://palenca.com/privacy\",\n      \"redirect_url\": \"https://mycustomredirection.com/privacy\",\n      \"whatsapp_number\": \"+525539043015\",\n      \"webhook_url\": \"https://webhooks.palenca.com/example\",\n      \"settings\": {}\n    },\n    \"platforms\": [\n      {\n        \"id\": \"a1cefdb4-b1e0-ec05-8378-bed30b2dca9e\",\n        \"code\": \"string\",\n        \"name\": \"string\",\n        \"logo\": \"string\",\n        \"is_active\": false,\n        \"category\": \"string\",\n        \"countries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1995-05-25T15:28:26.549Z\",\n        \"updated_at\": \"1955-11-16T15:19:32.522Z\",\n        \"status\": \"string\"\n      },\n      {\n        \"id\": \"e889b35d-2a2f-40f4-192c-14beb791065d\",\n        \"code\": \"string\",\n        \"name\": \"string\",\n        \"logo\": \"string\",\n        \"is_active\": true,\n        \"category\": \"string\",\n        \"countries\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1994-08-13T05:24:37.786Z\",\n        \"updated_at\": \"2016-10-05T19:08:54.462Z\",\n        \"status\": \"string\"\n      }\n    ],\n    \"countries\": [\n      {\n        \"id\": \"9b0032fb-00a5-52d6-b402-993b2b439dae\",\n        \"alpha_2\": \"string\",\n        \"alpha_3\": \"string\",\n        \"name\": \"string\",\n        \"currency\": \"string\",\n        \"calling_code\": \"string\",\n        \"timezone\": \"string\",\n        \"created_at\": \"1993-08-29T15:21:47.373Z\",\n        \"updated_at\": \"1960-01-07T01:34:36.715Z\",\n        \"flag\": \"string\",\n        \"is_active\": true\n      },\n      {\n        \"id\": \"03271f36-f9b1-af40-3da6-f5655dedeb61\",\n        \"alpha_2\": \"string\",\n        \"alpha_3\": \"string\",\n        \"name\": \"string\",\n        \"currency\": \"string\",\n        \"calling_code\": \"string\",\n        \"timezone\": \"string\",\n        \"created_at\": \"1971-12-03T16:54:11.619Z\",\n        \"updated_at\": \"1998-04-27T22:24:11.421Z\",\n        \"flag\": \"string\",\n        \"is_active\": true\n      }\n    ],\n    \"group\": {\n      \"id\": \"c0ee8eba-8f78-68b9-9713-9d0d7152a1b7\",\n      \"name\": \"string\",\n      \"admin\": {\n        \"display_name\": \"string\",\n        \"company_name\": \"string\",\n        \"priority\": \"string\",\n        \"public_api_key\": \"string\",\n        \"private_api_key\": \"string\",\n        \"created_at\": \"1985-04-27T00:08:46.128Z\",\n        \"updated_at\": \"1974-05-20T22:37:22.248Z\",\n        \"id\": \"9f82cc2b-7930-a6d6-8fa7-b93b60613092\",\n        \"client_id\": \"string\",\n        \"logo\": \"string\",\n        \"status\": \"string\",\n        \"website\": \"string\",\n        \"public_encryption_key\": \"string\",\n        \"private_encryption_key\": \"string\",\n        \"require_encryption\": false,\n        \"owner\": \"string\",\n        \"refresh\": false,\n        \"refresh_frequency\": 2786,\n        \"retries_enabled\": false,\n        \"group_id\": \"e681249f-d200-50e8-9353-ab6ee3e423e9\",\n        \"data_controller\": true,\n        \"widget_advanced_customization\": false\n      },\n      \"created_at\": \"1994-12-24T11:09:01.518Z\",\n      \"updated_at\": \"1964-12-18T22:10:53.978Z\",\n      \"privacy_url\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28642ed1-b452-46ba-a940-684af5fa08c2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "widgets",
+                    ":widget_id",
+                    "setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "widget_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8c2b73b0-a3f9-4a44-9432-a02ac95b8a3b",
+    "name": "Palenca accounts widgets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Palenca API",
+      "type": "text/plain"
+    }
+  }
+}

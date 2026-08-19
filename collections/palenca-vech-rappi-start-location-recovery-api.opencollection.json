@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts rappi-start-location-recovery API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "rappi-start-location-recovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Recover Rappi Start Location Last Two Weeks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/rappi/start-location/recover/last-two-weeks",
+            "params": [
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Lookback window in days (default 14)"
+              }
+            ]
+          },
+          "docs": "Recover start_location for Rappi accounts that have delivery events with a missing\nstart_location in the last `days` (default 14). Re-parses stored earnings payloads and\nrefreshes start_location on the existing event rows."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

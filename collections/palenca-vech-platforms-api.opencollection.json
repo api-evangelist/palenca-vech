@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts platforms API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "platforms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Platforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/platforms"
+          },
+          "docs": "List Platforms"
+        },
+        {
+          "info": {
+            "name": "Create Platform",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/platforms",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Platform"
+        },
+        {
+          "info": {
+            "name": "Get Platforms Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/platforms/status",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get Platforms Status"
+        },
+        {
+          "info": {
+            "name": "Get Platform",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/platforms/:platform_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "platform_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Platform"
+        },
+        {
+          "info": {
+            "name": "Update Platform",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/platforms/:platform_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "platform_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Platform"
+        },
+        {
+          "info": {
+            "name": "Search Platforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/platforms/search",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Platforms"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

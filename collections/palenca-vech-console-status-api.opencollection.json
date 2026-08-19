@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts console/status API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "console/status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/console/status/:status_details",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "status_details",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

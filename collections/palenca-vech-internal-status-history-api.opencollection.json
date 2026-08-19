@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts internal/status-history API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "internal/status-history",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Save Status History Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/internal/status-history/bulk",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save Status History Bulk"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

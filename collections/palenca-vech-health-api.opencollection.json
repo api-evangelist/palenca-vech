@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts health API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Platform Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/health/:platform_code",
+            "params": [
+              {
+                "name": "platform_code",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Platform Health"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

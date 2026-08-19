@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts status-history API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "status-history",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Status History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/status-history",
+            "params": [
+              {
+                "name": "days",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get Status History"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

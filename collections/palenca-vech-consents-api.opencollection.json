@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts consents API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "consents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Consents By Gov Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/consents/:gov_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "gov_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Consents By Gov Id"
+        },
+        {
+          "info": {
+            "name": "Search Consents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/consents/search",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Consents"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

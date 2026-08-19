@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts imss API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "imss",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Manage Employment Email Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/imss/email",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manage Employment Email Flow"
+        },
+        {
+          "info": {
+            "name": "Trigger Imss Web Scraping Process",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/imss/web-scraping",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger Imss Web Scraping Process"
+        },
+        {
+          "info": {
+            "name": "Retry Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/imss/retry-login/:account_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retry Login"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

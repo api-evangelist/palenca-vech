@@ -4,11 +4,10 @@ source: openapi/palenca-vech-openapi.json
 status: candidate
 type: MCPServer
 api: Palenca API
-summary: >-
-  Candidate MCP server surface derived from Palenca's public /v1 OpenAPI operations.
-  Palenca does not publish an official hosted/remote MCP server; this is a proposed
-  read/write tool set mapping the marquee income- and employment-verification
-  operations. Auth via x-api-key. Not an official Palenca product.
+summary: Candidate MCP server surface derived from Palenca's public /v1 OpenAPI operations. Palenca does
+  not publish an official hosted/remote MCP server; this is a proposed read/write tool set mapping the
+  marquee income- and employment-verification operations. Auth via x-api-key. Not an official Palenca
+  product.
 transport: proposed (stdio or streamable-http)
 auth:
   type: apiKey
@@ -74,3 +73,9 @@ tools:
   method: POST
   path: /v1/consents/search
   description: Search consents within a date range with pagination.
+deployment:
+  mode: none
+  verified: derived
+  tools: 12
+  checked: '2026-08-12'
+  source: catalog MCP census

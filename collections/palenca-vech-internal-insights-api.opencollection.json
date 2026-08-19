@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts internal/insights API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "internal/insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Store Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/internal/insights/accounts/:account_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Store Insights"
+        },
+        {
+          "info": {
+            "name": "Debug Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/internal/insights/companies/:company_id/accounts/:account_id/debug",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Debug Insights"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

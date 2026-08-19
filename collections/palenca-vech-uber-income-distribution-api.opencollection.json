@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts uber-income-distribution API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "uber-income-distribution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Recover Uber Income Distribution Custom Range",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/uber/income-distribution/recover/custom-range",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date in YYYY-MM-DD format"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date in YYYY-MM-DD format"
+              }
+            ]
+          },
+          "docs": "Recover income distribution data for Uber accounts within a custom date range.\n\nParameters:\n- start_date: Start date in YYYY-MM-DD format\n- end_date: End date in YYYY-MM-DD format"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

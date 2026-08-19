@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts internal/indriver API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "internal/indriver",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Reprocess inDriver events for accounts in a timeframe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/internal/indriver/reprocess-events",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reprocesses events for all inDriver accounts created in the specified month/year. This will extract events from earnings data that may have been missed. Deduplication ensures no duplicate events are created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

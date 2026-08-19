@@ -1,0 +1,648 @@
+{
+  "item": [
+    {
+      "id": "14f04ae2-31ad-498e-bb4c-cbe88e6f22e8",
+      "name": "internal/groups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1030b51c-7db5-4c57-88ed-18f95bc7003a",
+          "name": "Get Companies Groups",
+          "request": {
+            "name": "Get Companies Groups",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "internal",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a50a6d79-deb7-4ab3-bfe2-ebc287245fa5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"groups\": [\n      {\n        \"id\": \"c5be9305-9381-75fa-ee29-3c6bdc8335e4\",\n        \"name\": \"string\",\n        \"admin\": {\n          \"display_name\": \"string\",\n          \"company_name\": \"string\",\n          \"priority\": \"string\",\n          \"public_api_key\": \"string\",\n          \"private_api_key\": \"string\",\n          \"created_at\": \"2023-10-11T23:41:12.874Z\",\n          \"updated_at\": \"1970-01-18T21:10:20.188Z\",\n          \"id\": \"36ff1240-55d4-f6fa-2f0e-90a8ada17210\",\n          \"client_id\": \"string\",\n          \"logo\": \"string\",\n          \"status\": \"string\",\n          \"website\": \"string\",\n          \"public_encryption_key\": \"string\",\n          \"private_encryption_key\": \"string\",\n          \"require_encryption\": false,\n          \"owner\": \"string\",\n          \"refresh\": false,\n          \"refresh_frequency\": 6602,\n          \"retries_enabled\": false,\n          \"group_id\": \"bae46166-7486-49be-4148-1b4a23ef99b7\",\n          \"data_controller\": true,\n          \"widget_advanced_customization\": false\n        },\n        \"created_at\": \"2016-12-11T10:34:58.053Z\",\n        \"updated_at\": \"2015-10-05T02:57:21.032Z\",\n        \"privacy_url\": \"string\"\n      },\n      {\n        \"id\": \"8249f443-78dd-71a4-e2c5-614f4b9b2af2\",\n        \"name\": \"string\",\n        \"admin\": {\n          \"display_name\": \"string\",\n          \"company_name\": \"string\",\n          \"priority\": \"string\",\n          \"public_api_key\": \"string\",\n          \"private_api_key\": \"string\",\n          \"created_at\": \"1970-09-17T14:52:50.353Z\",\n          \"updated_at\": \"1960-10-07T15:02:02.100Z\",\n          \"id\": \"b1b5647a-da6b-be5e-cb31-3d52a794bed5\",\n          \"client_id\": \"string\",\n          \"logo\": \"string\",\n          \"status\": \"string\",\n          \"website\": \"string\",\n          \"public_encryption_key\": \"string\",\n          \"private_encryption_key\": \"string\",\n          \"require_encryption\": false,\n          \"owner\": \"string\",\n          \"refresh\": false,\n          \"refresh_frequency\": 4439,\n          \"retries_enabled\": false,\n          \"group_id\": \"7292a998-aa3c-f154-1cfe-3f8e5675980f\",\n          \"data_controller\": true,\n          \"widget_advanced_customization\": false\n        },\n        \"created_at\": \"2020-04-26T16:31:06.327Z\",\n        \"updated_at\": \"1988-08-23T08:05:43.661Z\",\n        \"privacy_url\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d212a740-d9b3-4685-bf97-59f80e9ab05a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83ac3917-56d1-4d5e-a873-5a926ba1de70",
+          "name": "Create Companies Group",
+          "request": {
+            "name": "Create Companies Group",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "internal",
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"admin_id\": \"<uuid>\",\n  \"companies\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"privacy_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "076b7bad-dc51-4e5e-b0a3-91ce41d41480",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"admin_id\": \"<uuid>\",\n  \"companies\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"privacy_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"id\": \"922fb763-0ccf-7251-e659-05fd6f0d9a1a\",\n    \"name\": \"string\",\n    \"admin\": {\n      \"display_name\": \"string\",\n      \"company_name\": \"string\",\n      \"priority\": \"string\",\n      \"public_api_key\": \"string\",\n      \"private_api_key\": \"string\",\n      \"created_at\": \"1947-07-21T11:10:58.017Z\",\n      \"updated_at\": \"2025-12-31T16:33:01.865Z\",\n      \"id\": \"dc11b541-b2fb-eb79-c490-856afaef0622\",\n      \"client_id\": \"string\",\n      \"logo\": \"string\",\n      \"status\": \"string\",\n      \"website\": \"string\",\n      \"public_encryption_key\": \"string\",\n      \"private_encryption_key\": \"string\",\n      \"require_encryption\": false,\n      \"owner\": \"string\",\n      \"refresh\": false,\n      \"refresh_frequency\": 1720,\n      \"retries_enabled\": false,\n      \"group_id\": \"0de500ab-97b2-caaf-88c7-e29f8b5e3c2c\",\n      \"data_controller\": true,\n      \"widget_advanced_customization\": false\n    },\n    \"created_at\": \"2023-11-01T04:47:05.849Z\",\n    \"updated_at\": \"2012-10-18T03:46:15.452Z\",\n    \"privacy_url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f10d799d-7088-4086-a343-1f1d0e6af4ad",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"admin_id\": \"<uuid>\",\n  \"companies\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"privacy_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f14d88ce-3c5f-4eb0-b90a-85ca1764008e",
+          "name": "Get Companies Group",
+          "request": {
+            "name": "Get Companies Group",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "internal",
+                "groups",
+                ":group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "group_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "39bae47d-bd93-4a27-b794-0bbc11d2f791",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "group_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"id\": \"922fb763-0ccf-7251-e659-05fd6f0d9a1a\",\n    \"name\": \"string\",\n    \"admin\": {\n      \"display_name\": \"string\",\n      \"company_name\": \"string\",\n      \"priority\": \"string\",\n      \"public_api_key\": \"string\",\n      \"private_api_key\": \"string\",\n      \"created_at\": \"1947-07-21T11:10:58.017Z\",\n      \"updated_at\": \"2025-12-31T16:33:01.865Z\",\n      \"id\": \"dc11b541-b2fb-eb79-c490-856afaef0622\",\n      \"client_id\": \"string\",\n      \"logo\": \"string\",\n      \"status\": \"string\",\n      \"website\": \"string\",\n      \"public_encryption_key\": \"string\",\n      \"private_encryption_key\": \"string\",\n      \"require_encryption\": false,\n      \"owner\": \"string\",\n      \"refresh\": false,\n      \"refresh_frequency\": 1720,\n      \"retries_enabled\": false,\n      \"group_id\": \"0de500ab-97b2-caaf-88c7-e29f8b5e3c2c\",\n      \"data_controller\": true,\n      \"widget_advanced_customization\": false\n    },\n    \"created_at\": \"2023-11-01T04:47:05.849Z\",\n    \"updated_at\": \"2012-10-18T03:46:15.452Z\",\n    \"privacy_url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97ef339d-1d65-4b7f-8b8d-a7e52b13f858",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "group_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9e1c137-db8a-47aa-84e3-757c966c9148",
+          "name": "Update Companies Group",
+          "request": {
+            "name": "Update Companies Group",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "internal",
+                "groups",
+                ":group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "group_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"admin_id\": \"<uuid>\",\n  \"companies\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"privacy_url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85edc3fe-bfdb-4c18-86d1-0f94b1a2c861",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "group_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"admin_id\": \"<uuid>\",\n  \"companies\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"privacy_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"id\": \"922fb763-0ccf-7251-e659-05fd6f0d9a1a\",\n    \"name\": \"string\",\n    \"admin\": {\n      \"display_name\": \"string\",\n      \"company_name\": \"string\",\n      \"priority\": \"string\",\n      \"public_api_key\": \"string\",\n      \"private_api_key\": \"string\",\n      \"created_at\": \"1947-07-21T11:10:58.017Z\",\n      \"updated_at\": \"2025-12-31T16:33:01.865Z\",\n      \"id\": \"dc11b541-b2fb-eb79-c490-856afaef0622\",\n      \"client_id\": \"string\",\n      \"logo\": \"string\",\n      \"status\": \"string\",\n      \"website\": \"string\",\n      \"public_encryption_key\": \"string\",\n      \"private_encryption_key\": \"string\",\n      \"require_encryption\": false,\n      \"owner\": \"string\",\n      \"refresh\": false,\n      \"refresh_frequency\": 1720,\n      \"retries_enabled\": false,\n      \"group_id\": \"0de500ab-97b2-caaf-88c7-e29f8b5e3c2c\",\n      \"data_controller\": true,\n      \"widget_advanced_customization\": false\n    },\n    \"created_at\": \"2023-11-01T04:47:05.849Z\",\n    \"updated_at\": \"2012-10-18T03:46:15.452Z\",\n    \"privacy_url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46410c9b-d6b7-4005-9745-97ca9a2a59ef",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "group_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"admin_id\": \"<uuid>\",\n  \"companies\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"privacy_url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9db11664-4333-459f-8115-280aef56893f",
+    "name": "Palenca accounts internal/groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Palenca API",
+      "type": "text/plain"
+    }
+  }
+}

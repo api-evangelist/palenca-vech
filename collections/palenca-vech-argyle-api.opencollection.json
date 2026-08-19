@@ -1,0 +1,346 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts argyle API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "argyle",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Argyle Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/create-token",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Argyle Account"
+        },
+        {
+          "info": {
+            "name": "Refresh Argyle Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/refresh-token",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refresh Argyle Token"
+        },
+        {
+          "info": {
+            "name": "Webhook Argyle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/argyle-webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Webhook Argyle"
+        },
+        {
+          "info": {
+            "name": "Webhook Argyle 90 Days",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/argyle-webhook-90-days",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Webhook Argyle 90 Days"
+        },
+        {
+          "info": {
+            "name": "Process Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/process-webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Process Webhook"
+        },
+        {
+          "info": {
+            "name": "Analyze Event Duplicates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/analyze-event-duplicates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Analyze Event Duplicates"
+        },
+        {
+          "info": {
+            "name": "Cleanup Duplicate Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/cleanup-duplicate-events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cleanup Duplicate Events"
+        },
+        {
+          "info": {
+            "name": "Clean Save By Account Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/clean-save-by-account-id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clean Save By Account Id"
+        },
+        {
+          "info": {
+            "name": "Process Login Error",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/process-login-error",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Process Login Error"
+        },
+        {
+          "info": {
+            "name": "Retrieve Account Earnings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/:account_id/retrieve-earnings",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve Account Earnings"
+        },
+        {
+          "info": {
+            "name": "Raw Argyle Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/argyle/:account_id/raw-data",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Raw Argyle Data"
+        },
+        {
+          "info": {
+            "name": "Process Refresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/:account_id/process-refresh",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Process Refresh"
+        },
+        {
+          "info": {
+            "name": "Refresh Argyle Uber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/:account_id/refresh-argyle-uber",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Refresh Argyle Uber"
+        },
+        {
+          "info": {
+            "name": "Get Debug Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/debug-data",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get Debug Data"
+        },
+        {
+          "info": {
+            "name": "Find Argyle Account By Identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/argyle/find-by-identifier",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Find Argyle Account By Identifier"
+        },
+        {
+          "info": {
+            "name": "Uber Intercept Step1",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/uber-intercept/step1",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uber Intercept Step1"
+        },
+        {
+          "info": {
+            "name": "Uber Intercept Step2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/uber-intercept/step2",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uber Intercept Step2"
+        },
+        {
+          "info": {
+            "name": "Uber Intercept Step3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/argyle/uber-intercept/step3",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uber Intercept Step3"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

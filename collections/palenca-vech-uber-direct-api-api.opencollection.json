@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts uber-direct-api API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "uber-direct-api",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Uber Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/uber-direct-api/create-token",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Uber Account"
+        },
+        {
+          "info": {
+            "name": "Exchange Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/uber-direct-api/exchange-code",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Exchange Code"
+        },
+        {
+          "info": {
+            "name": "Clean Save Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/uber-direct-api/:account_id/clean-save",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Clean Save Account"
+        },
+        {
+          "info": {
+            "name": "Refresh Account Without Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/uber-direct-api/:account_id/refresh-account-without-login",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Refresh Account Without Login"
+        },
+        {
+          "info": {
+            "name": "Process Batch Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/uber-direct-api/:account_id/process-batch-job",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Process Batch Job"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

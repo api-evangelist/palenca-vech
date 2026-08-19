@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts Pong API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pong",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pong",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/pong"
+          },
+          "docs": "Pong"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

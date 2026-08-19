@@ -1,0 +1,340 @@
+{
+  "item": [
+    {
+      "id": "98d9aecc-7751-4b14-87ae-0797d0029db9",
+      "name": "internal/companies",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2a879730-d14c-4d6d-ac82-d13f60f7ab8d",
+          "name": "Get Companies",
+          "request": {
+            "name": "Get Companies",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "internal",
+                "companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d248906e-16e6-4311-a33d-3ddc205bfb1c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"companies\": [\n      {\n        \"display_name\": \"string\",\n        \"company_name\": \"string\",\n        \"priority\": \"string\",\n        \"public_api_key\": \"string\",\n        \"private_api_key\": \"string\",\n        \"created_at\": \"2005-06-17T02:47:45.451Z\",\n        \"updated_at\": \"1998-06-20T14:54:01.326Z\",\n        \"id\": \"002da897-54b8-3229-c3e6-644d782e47dc\",\n        \"client_id\": \"string\",\n        \"logo\": \"string\",\n        \"status\": \"string\",\n        \"website\": \"string\",\n        \"public_encryption_key\": \"string\",\n        \"private_encryption_key\": \"string\",\n        \"require_encryption\": false,\n        \"owner\": \"string\",\n        \"refresh\": false,\n        \"refresh_frequency\": 1783,\n        \"retries_enabled\": false,\n        \"group_id\": \"beba63da-6c86-6e90-914c-124878a3487c\",\n        \"data_controller\": true,\n        \"widget_advanced_customization\": false\n      },\n      {\n        \"display_name\": \"string\",\n        \"company_name\": \"string\",\n        \"priority\": \"string\",\n        \"public_api_key\": \"string\",\n        \"private_api_key\": \"string\",\n        \"created_at\": \"1956-04-18T20:56:23.029Z\",\n        \"updated_at\": \"1964-07-28T13:46:45.099Z\",\n        \"id\": \"79182426-08e5-a0bd-7ac6-87a7ddf6e6da\",\n        \"client_id\": \"string\",\n        \"logo\": \"string\",\n        \"status\": \"string\",\n        \"website\": \"string\",\n        \"public_encryption_key\": \"string\",\n        \"private_encryption_key\": \"string\",\n        \"require_encryption\": false,\n        \"owner\": \"string\",\n        \"refresh\": false,\n        \"refresh_frequency\": 2617,\n        \"retries_enabled\": false,\n        \"group_id\": \"c89b25aa-77ed-9383-bb0c-de12ebede5b3\",\n        \"data_controller\": true,\n        \"widget_advanced_customization\": false\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a4c47ba-63bc-4c4f-b852-37c239a6d354",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "230dc5a9-e7c2-4363-84c6-7b94456a398c",
+          "name": "Update Company",
+          "request": {
+            "name": "Update Company",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "internal",
+                "companies",
+                ":company_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "x-api-key",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"widget_advanced_customization\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43811d71-c315-489d-85c9-8657a7ac2646",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "companies",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"widget_advanced_customization\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"location\": \"string\"\n      }\n    ]\n  },\n  \"data\": {\n    \"company\": {\n      \"display_name\": \"string\",\n      \"company_name\": \"string\",\n      \"priority\": \"string\",\n      \"public_api_key\": \"string\",\n      \"private_api_key\": \"string\",\n      \"created_at\": \"2026-04-29T09:02:44.337Z\",\n      \"updated_at\": \"2010-08-24T03:46:54.776Z\",\n      \"id\": \"6ebb7827-49fa-fc0e-df99-463715f6bb65\",\n      \"client_id\": \"string\",\n      \"logo\": \"string\",\n      \"status\": \"string\",\n      \"website\": \"string\",\n      \"public_encryption_key\": \"string\",\n      \"private_encryption_key\": \"string\",\n      \"require_encryption\": false,\n      \"owner\": \"string\",\n      \"refresh\": false,\n      \"refresh_frequency\": 4850,\n      \"retries_enabled\": false,\n      \"group_id\": \"3e15aada-cd47-84ef-c348-358dd9ff9208\",\n      \"data_controller\": true,\n      \"widget_advanced_customization\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a57c34d4-b297-4d82-bfd3-bc034358049b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "internal",
+                    "companies",
+                    ":company_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "key": "x-api-key",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"widget_advanced_customization\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "24787b8c-a8f0-42f9-bc65-dde5cd76266e",
+    "name": "Palenca accounts internal/companies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Palenca API",
+      "type": "text/plain"
+    }
+  }
+}

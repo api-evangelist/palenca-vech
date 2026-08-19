@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Palenca accounts logins API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "logins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Manual Logins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/logins/manual-incomplete",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "Platform code to filter the logins"
+              }
+            ]
+          },
+          "docs": "Manual Logins"
+        },
+        {
+          "info": {
+            "name": "Get Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/logins/:login_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "accept-language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "login_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Login"
+        },
+        {
+          "info": {
+            "name": "Get Logins For Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/accounts/:account_id/logins",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "accept-language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Logins For Account"
+        },
+        {
+          "info": {
+            "name": "Send Login Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/logins/:login_id/send-webhook",
+            "params": [
+              {
+                "name": "login_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Send Login Webhook"
+        },
+        {
+          "info": {
+            "name": "List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/logins/search",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List Users"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
