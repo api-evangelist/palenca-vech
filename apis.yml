@@ -52,6 +52,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Account
+  tags_raw:
   - accounts
   properties:
   - type: OpenAPI
@@ -76,6 +78,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Admin
+  tags_raw:
   - admin
   properties:
   - type: OpenAPI
@@ -149,6 +153,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Companies
+  tags_raw:
   - companies
   properties:
   - type: OpenAPI
@@ -173,6 +179,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Consents
+  tags_raw:
   - consents
   properties:
   - type: OpenAPI
@@ -221,6 +229,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Console
+  tags_raw:
   - console
   properties:
   - type: OpenAPI
@@ -365,6 +375,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Countries
+  tags_raw:
   - countries
   properties:
   - type: OpenAPI
@@ -389,6 +401,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - CPF
+  tags_raw:
   - cpf
   properties:
   - type: OpenAPI
@@ -413,6 +427,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Cron Jobs
+  tags_raw:
   - cron-jobs
   properties:
   - type: OpenAPI
@@ -461,6 +477,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Group
+  tags_raw:
   - groups
   properties:
   - type: OpenAPI
@@ -485,6 +503,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Health
+  tags_raw:
   - health
   properties:
   - type: OpenAPI
@@ -533,6 +553,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Insights
+  tags_raw:
   - insights
   properties:
   - type: OpenAPI
@@ -581,6 +603,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Internal Accounts
+  tags_raw:
   - internal/accounts
   properties:
   - type: OpenAPI
@@ -605,6 +629,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Internal
+  tags_raw:
   - internal
   properties:
   - type: OpenAPI
@@ -774,6 +800,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Link
+  tags_raw:
   - link
   properties:
   - type: OpenAPI
@@ -798,6 +826,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Logins
+  tags_raw:
   - logins
   properties:
   - type: OpenAPI
@@ -846,6 +876,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Platforms
+  tags_raw:
   - platforms
   properties:
   - type: OpenAPI
@@ -1017,6 +1049,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -1089,6 +1123,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI
@@ -1113,6 +1149,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Widgets
+  tags_raw:
   - widgets
   properties:
   - type: OpenAPI
