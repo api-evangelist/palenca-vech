@@ -2,15 +2,15 @@
 kin_checks:
   slug: palenca-vech
   schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  scored_at: '2026-08-28'
+  run_ts: 2026-08-28T221322
   note: Actionable checks only (missed + partial). earned/na are every other check
     in rubric/scoring-0.15.1.yml; counts below let you verify that.
   counts:
     total: 130
-    earned: 42
-    partial: 17
-    missed: 47
+    earned: 44
+    partial: 13
+    missed: 49
     na: 24
   checks:
   - id: well_known_published
@@ -19,24 +19,30 @@ kin_checks:
     status: missed
   - id: openapi_3_2
     status: missed
-    detail: 0 of 45 openapi documents pass
+    detail: 0 of 7 openapi documents pass
   - id: openapi_3_0
     status: missed
-    detail: 0 of 45 openapi documents pass
+    detail: 0 of 7 openapi documents pass
   - id: info_complete
     status: missed
-    detail: 0 of 45 openapi documents pass
+    detail: 0 of 7 openapi documents pass
+  - id: servers_defined
+    status: missed
+    detail: 0 of 7 openapi documents pass
+  - id: operations_description_coverage
+    status: missed
+    detail: 0 of 7 openapi documents pass
   - id: examples_present
     status: missed
   - id: security_schemes_defined
     status: missed
-    detail: 0 of 45 openapi documents pass
+    detail: 0 of 7 openapi documents pass
   - id: security_applied
     status: missed
-    detail: 0 of 45 openapi documents pass
+    detail: 0 of 7 openapi documents pass
   - id: webhooks_or_callbacks
     status: missed
-    detail: 0 of 45 openapi documents pass
+    detail: 0 of 7 openapi documents pass
   - id: json_schema_present
     status: missed
   - id: json_schema_per_resource
@@ -114,30 +120,14 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
-  - id: servers_defined
-    status: partial
-    earned: 2.53
-    detail: 38 of 45 openapi documents pass
-  - id: operations_description_coverage
-    status: partial
-    earned: 0.53
-    detail: 4 of 45 openapi documents pass
-  - id: operations_operation_ids
-    status: partial
-    earned: 3.91
-    detail: 44 of 45 openapi documents pass
-  - id: response_coverage
-    status: partial
-    earned: 4.89
-    detail: 44 of 45 openapi documents pass
   - id: error_responses_documented
     status: partial
-    earned: 3.64
-    detail: 41 of 45 openapi documents pass
+    earned: 1.71
+    detail: 3 of 7 openapi documents pass
   - id: components_reuse
     status: partial
-    earned: 1.93
-    detail: 29 of 45 openapi documents pass
+    earned: 1.29
+    detail: 3 of 7 openapi documents pass
   - id: lifecycle_documented
     status: partial
     earned: 0.25
