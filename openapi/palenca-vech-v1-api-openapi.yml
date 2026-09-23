@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Palenca accounts v1 API
+  title: Palenca V1 API
   description: Palenca API
   version: 2.0.0
 tags:
@@ -5497,70 +5497,92 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UserRetrievalDataResponse:
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    SearchEventsParams:
       properties:
-        user_id:
+        start_date:
           type: string
-          format: uuid
-          title: User Id
-        external_id:
+          title: Start Date
+        end_date:
           type: string
-          title: External Id
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
       type: object
       required:
-      - user_id
-      - widget_id
-      title: UserRetrievalDataResponse
-    AccountDataWithExternalIDBaseResponse:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        alternative_methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        hint:
-          type: string
-          title: Hint
-        external_id:
-          type: string
-          title: External Id
-      type: object
-      title: AccountDataWithExternalIDBaseResponse
-      example:
-        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        country: mx
-        platform: uber
-    UpdateAccountWorkerParams:
-      properties:
-        worker_id:
-          type: string
-          title: Worker Id
-      type: object
-      title: UpdateAccountWorkerParams
-    Company:
+      - start_date
+      - end_date
+      title: SearchEventsParams
+    CompanyDataResponse:
       properties:
         created_at:
           type: string
@@ -5642,8 +5664,130 @@ components:
       - priority
       - public_api_key
       - private_api_key
-      title: Company
-    CreateAccountParams:
+      title: CompanyDataResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        client_id: c2644819-1879-4219-93ab-86b54fb83467
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        company_name: palenca
+        website: https://palenca.com
+        priority: low
+        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+    CreateUserAndAccountParams:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceCode'
+          default: api
+        gov_id:
+          type: string
+          title: Gov Id
+      type: object
+      required:
+      - country
+      - platform
+      - identifier
+      title: CreateUserAndAccountParams
+      example:
+        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        external_id: '1234567890'
+    CreateEarningParam:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date-time
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+      type: object
+      required:
+      - amount
+      - currency
+      - earning_date
+      title: CreateEarningParam
+    UpdateAccountWorkerParams:
+      properties:
+        worker_id:
+          type: string
+          title: Worker Id
+      type: object
+      title: UpdateAccountWorkerParams
+    BaseResponse_GroupResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/GroupResponse'
+      type: object
+      title: BaseResponse[GroupResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_UserRetrievalDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserRetrievalDataResponse'
+      type: object
+      title: BaseResponse[UserRetrievalDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    AuthorizeLinkParams:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+      type: object
+      required:
+      - connect_flow_id
+      title: AuthorizeLinkParams
+      example:
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    CreateAccountBase:
       properties:
         encrypted_data:
           type: string
@@ -5684,21 +5828,45 @@ components:
         hcaptcha_response:
           type: string
           title: Hcaptcha Response
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        source:
-          $ref: '#/components/schemas/SourceCode'
       type: object
-      title: CreateAccountParams
+      title: CreateAccountBase
       example:
         country: mx
         platform: uber
         identifier: user@example.com
         identifier_type: email
         password: s3cur3p4s5w0rd
-    BaseResponse_AccountListDataResponse_:
+    UserDataResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        external_id:
+          type: string
+          title: External Id
+      type: object
+      required:
+      - user_id
+      title: UserDataResponse
+    ImssWebScrapingParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        curp:
+          type: string
+          title: Curp
+        nss:
+          type: string
+          title: Nss
+        email:
+          type: string
+          title: Email
+      type: object
+      title: ImssWebScrapingParams
+    BasePaginationResponse_EmploymentsFilesBaseResponse_:
       properties:
         success:
           type: boolean
@@ -5707,9 +5875,343 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/AccountListDataResponse'
+          $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
       type: object
-      title: BaseResponse[AccountListDataResponse]
+      title: BasePaginationResponse[EmploymentsFilesBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    WidgetConsentMethod:
+      enum:
+      - tap_accept_button
+      - tap_continue_button
+      - tap_accept_checkbox
+      title: WidgetConsentMethod
+      description: An enumeration.
+    UpdatePlatformParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        logo:
+          type: string
+          title: Logo
+        is_active:
+          type: boolean
+          title: Is Active
+        category:
+          $ref: '#/components/schemas/PlatformCategory'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        status:
+          $ref: '#/components/schemas/PlatformStatus'
+      type: object
+      title: UpdatePlatformParams
+    BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          items:
+            $ref: '#/components/schemas/PlatformDataResponse'
+          type: array
+          title: Data
+      type: object
+      title: BaseResponse[list[app.api.schemas.responses.PlatformDataResponse]]
+      example:
+        success: true
+        data: {}
+        error: {}
+    InsightsReport:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        success:
+          type: boolean
+          title: Success
+          default: false
+        warning:
+          type: string
+          title: Warning
+        status:
+          type: string
+          title: Status
+        last_base_salary:
+          type: number
+          title: Last Base Salary
+        last_employment_duration:
+          type: integer
+          title: Last Employment Duration
+        current_situation_duration:
+          type: integer
+          title: Current Situation Duration
+        total_worked_weeks:
+          type: integer
+          title: Total Worked Weeks
+        total_unique_employers:
+          type: integer
+          title: Total Unique Employers
+        ratio_employers_per_year:
+          type: number
+          title: Ratio Employers Per Year
+        total_weeks_unemployed:
+          type: integer
+          title: Total Weeks Unemployed
+        max_unemployed_duration:
+          type: integer
+          title: Max Unemployed Duration
+        current_employer_modifications:
+          type: integer
+          title: Current Employer Modifications
+        median_progression:
+          type: number
+          title: Median Progression
+        employer_change_modifications_positive_progression:
+          type: number
+          title: Employer Change Modifications Positive Progression
+        employer_change_modifications_negative_progression:
+          type: number
+          title: Employer Change Modifications Negative Progression
+        snapshots_1_year_ago:
+          type: number
+          title: Snapshots 1 Year Ago
+        snapshots_3_years_ago:
+          type: number
+          title: Snapshots 3 Years Ago
+        snapshots_5_years_ago:
+          type: number
+          title: Snapshots 5 Years Ago
+      type: object
+      required:
+      - account_id
+      title: InsightsReport
+    CreateEmploymentFileParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        employment_info_id:
+          type: string
+          format: uuid
+          title: Employment Info Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: CreateEmploymentFileParams
+    BaseResponse_list_app.api.schemas.responses.CountryDataResponse__:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          items:
+            $ref: '#/components/schemas/CountryDataResponse'
+          type: array
+          title: Data
+      type: object
+      title: BaseResponse[list[app.api.schemas.responses.CountryDataResponse]]
+      example:
+        success: true
+        data: {}
+        error: {}
+    InsightsStatus:
+      enum:
+      - computed_not_saved
+      - incomplete
+      - success
+      - error
+      title: InsightsStatus
+      description: An enumeration.
+    PaginationBaseResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        items_per_page:
+          type: integer
+          title: Items Per Page
+        total_items:
+          type: integer
+          title: Total Items
+        total_pages:
+          type: integer
+          title: Total Pages
+      type: object
+      title: PaginationBaseResponse
+    CreateUberApiParams:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        gov_id:
+          type: string
+          title: Gov Id
+        redirect_url:
+          type: string
+          title: Redirect Url
+      type: object
+      title: CreateUberApiParams
+      example:
+        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        country: mx
+        platform: uber
+    PaymentMethod:
+      enum:
+      - cash
+      - card
+      - online_bank
+      title: PaymentMethod
+      description: An enumeration.
+    PlatformCategory:
+      enum:
+      - gig
+      - employment
+      title: PlatformCategory
+      description: An enumeration.
+    CreateEmploymentEventsParams:
+      properties:
+        employment_events:
+          items:
+            $ref: '#/components/schemas/EmploymentEventInput'
+          type: array
+          title: Employment Events
+      type: object
+      title: CreateEmploymentEventsParams
+    BaseResponse_EmploymentHistoryBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+      type: object
+      title: BaseResponse[EmploymentHistoryBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    BasePaginationResponse_EmploymentDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[EmploymentDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    ManageManualLoginParams:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+        worker_id:
+          type: string
+          title: Worker Id
+        should_send_email:
+          type: boolean
+          title: Should Send Email
+          default: true
+      type: object
+      required:
+      - access_token
+      title: ManageManualLoginParams
+    UserRetrievalListDataResponse:
+      properties:
+        users:
+          items:
+            $ref: '#/components/schemas/UserRetrievalDataResponse'
+          type: array
+          title: Users
+      type: object
+      title: UserRetrievalListDataResponse
+    BaseResponse_CountryDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CountryDataResponse'
+      type: object
+      title: BaseResponse[CountryDataResponse]
       example:
         success: true
         data: {}
@@ -5732,23 +6234,97 @@ components:
       - do
       title: CountryCode
       description: An enumeration.
-    ProfileResponse:
+    IdType:
+      enum:
+      - tax
+      - passport
+      - national
+      - social_security_number
+      - individual_taxpayer_registry
+      title: IdType
+      description: An enumeration.
+    BaseResponse_AccountsDataConsoleResponse_:
       properties:
-        first_name:
-          type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        email:
-          type: string
-          title: Email
-        birthday:
-          type: string
-          format: date
-          title: Birthday
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataConsoleResponse'
       type: object
-      title: ProfileResponse
+      title: BaseResponse[AccountsDataConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    SearchPlatformsParams:
+      properties:
+        q:
+          type: string
+          title: Q
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      title: SearchPlatformsParams
+    LoginSourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - refresh
+      - connect
+      - bulk_upload
+      - console
+      - platform_retry
+      - refresh_earnings
+      - refresh_events
+      - refresh_profile
+      title: LoginSourceCode
+      description: An enumeration.
+    ListCompanyDataResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        widgets_ids:
+          items:
+            type: string
+          type: array
+          title: Widgets Ids
+        company_name:
+          type: string
+          title: Company Name
+        display_name:
+          type: string
+          title: Display Name
+        private_api_key:
+          type: string
+          title: Private Api Key
+      type: object
+      required:
+      - id
+      - widgets_ids
+      - company_name
+      - display_name
+      - private_api_key
+      title: ListCompanyDataResponse
+    ValidateCPFParams:
+      properties:
+        cpf:
+          type: string
+          title: Cpf
+      type: object
+      required:
+      - cpf
+      title: ValidateCPFParams
     BaseResponse_ReprocessEventsResponse_:
       properties:
         success:
@@ -5765,57 +6341,30 @@ components:
         success: true
         data: {}
         error: {}
-    UserRetrievalListDataResponse:
+    BulkStatusHistoryRequest:
       properties:
-        users:
+        entries:
           items:
-            $ref: '#/components/schemas/UserRetrievalDataResponse'
+            $ref: '#/components/schemas/StatusHistoryEntry'
           type: array
-          title: Users
-      type: object
-      title: UserRetrievalListDataResponse
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}
-    WidgetSetupDataResponse:
-      properties:
-        company:
-          $ref: '#/components/schemas/CompanyDataResponse'
-        widget:
-          $ref: '#/components/schemas/WidgetDataResponse'
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformDataResponse'
-          type: array
-          title: Platforms
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryDataResponse'
-          type: array
-          title: Countries
-        group:
-          $ref: '#/components/schemas/GroupResponse'
+          title: Entries
       type: object
       required:
-      - company
-      - widget
-      - platforms
-      - countries
-      title: WidgetSetupDataResponse
-    BasePaginationResponse_EventsDataBaseResponse_:
+      - entries
+      title: BulkStatusHistoryRequest
+    IdInfoBaseResponse:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+      type: object
+      title: IdInfoBaseResponse
+    BasePaginationResponse_EarningsDataBaseResponse_:
       properties:
         success:
           type: boolean
@@ -5824,407 +6373,17 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/EventsDataBaseResponse'
+          $ref: '#/components/schemas/EarningsDataBaseResponse'
         pagination:
           $ref: '#/components/schemas/PaginationBaseResponse'
       type: object
-      title: BasePaginationResponse[EventsDataBaseResponse]
+      title: BasePaginationResponse[EarningsDataBaseResponse]
       example:
         success: true
         data: {}
         error: {}
         pagination: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    InsightsStatus:
-      enum:
-      - computed_not_saved
-      - incomplete
-      - success
-      - error
-      title: InsightsStatus
-      description: An enumeration.
-    WorkerParams:
-      properties:
-        id:
-          type: string
-          title: Id
-      type: object
-      required:
-      - id
-      title: WorkerParams
-    ValidateCPFParams:
-      properties:
-        cpf:
-          type: string
-          title: Cpf
-      type: object
-      required:
-      - cpf
-      title: ValidateCPFParams
-    BaseResponse_ListLoginBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ListLoginBaseResponse'
-      type: object
-      title: BaseResponse[ListLoginBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse_WidgetSetupDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WidgetSetupDataResponse'
-      type: object
-      title: BaseResponse[WidgetSetupDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ManageManualLoginParams:
-      properties:
-        access_token:
-          type: string
-          title: Access Token
-        worker_id:
-          type: string
-          title: Worker Id
-        should_send_email:
-          type: boolean
-          title: Should Send Email
-          default: true
-      type: object
-      required:
-      - access_token
-      title: ManageManualLoginParams
-    AuthorizeLinkParams:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-      type: object
-      required:
-      - connect_flow_id
-      title: AuthorizeLinkParams
-      example:
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
-    CreateUserAndAccountInternalParams:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        external_id:
-          type: string
-          title: External Id
-        user_id:
-          type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        bulk_id:
-          type: string
-          format: uuid
-          title: Bulk Id
-        source:
-          allOf:
-          - $ref: '#/components/schemas/SourceCode'
-          default: api
-        gov_id:
-          type: string
-          title: Gov Id
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-      type: object
-      required:
-      - country
-      - platform
-      - identifier
-      - company_id
-      title: CreateUserAndAccountInternalParams
-      example:
-        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        external_id: '1234567890'
-    PlatformDataResponse:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        code:
-          $ref: '#/components/schemas/PlatformCode'
-        name:
-          type: string
-          title: Name
-        logo:
-          type: string
-          title: Logo
-        is_active:
-          type: boolean
-          title: Is Active
-        category:
-          $ref: '#/components/schemas/PlatformCategory'
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-        status:
-          $ref: '#/components/schemas/PlatformStatus'
-      type: object
-      required:
-      - id
-      - code
-      - name
-      - logo
-      - is_active
-      - category
-      - countries
-      title: PlatformDataResponse
-      example:
-        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        code: uber
-        name: Uber
-        logo: https://palenca.com/logo.png
-        is_active: true
-        category: gig
-        status: available
-    UpdateCutoffsAndBalancesParams:
-      properties:
-        country:
-          type: string
-          title: Country
-      type: object
-      required:
-      - country
-      title: UpdateCutoffsAndBalancesParams
-    SearchPlatformsParams:
-      properties:
-        q:
-          type: string
-          title: Q
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      title: SearchPlatformsParams
-    CompanyStatus:
-      enum:
-      - internal_test
-      - active
-      - demo
-      - pilot
-      - sandbox
-      - read_permissions_disabled
-      - write_permissions_disabled
-      - suspended
-      title: CompanyStatus
-      description: An enumeration.
-    ValidateAccountParams:
-      properties:
-        encrypted_data:
-          type: string
-          title: Encrypted Data
-        encrypted_symmetric_key:
-          type: string
-          title: Encrypted Symmetric Key
-        otp_code:
-          type: string
-          title: Otp Code
-        alternative_method:
-          $ref: '#/components/schemas/LoginTypes'
-        username:
-          type: string
-          title: Username
-        password:
-          type: string
-          title: Password
-        cookies:
-          items:
-            $ref: '#/components/schemas/Cookie'
-          type: array
-          title: Cookies
-          default: []
-      type: object
-      title: ValidateAccountParams
-      example:
-        otp_code: '12345'
-    EventsDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        events:
-          items:
-            $ref: '#/components/schemas/EventsBaseResponse'
-          type: array
-          title: Events
-      type: object
-      required:
-      - account_id
-      title: EventsDataBaseResponse
-    PaginationBaseResponse:
-      properties:
-        page:
-          type: integer
-          title: Page
-        items_per_page:
-          type: integer
-          title: Items Per Page
-        total_items:
-          type: integer
-          title: Total Items
-        total_pages:
-          type: integer
-          title: Total Pages
-      type: object
-      title: PaginationBaseResponse
-    EarningsWithEmployerResponse:
-      properties:
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        earning_date:
-          type: string
-          format: date
-          title: Earning Date
-        cash_amount:
-          type: number
-          title: Cash Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-        employer:
-          type: string
-          title: Employer
-      type: object
-      title: EarningsWithEmployerResponse
-    app__api__schemas__widgets__CreateWidgetParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-          default: []
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformCode'
-          type: array
-          default: []
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-          default: false
-        require_gov_id:
-          type: boolean
-          title: Require Gov Id
-          default: false
-      type: object
-      title: CreateWidgetParams
-    DebugDataType:
-      enum:
-      - token
-      - account
-      - data
-      - webhooks
-      title: DebugDataType
-      description: An enumeration.
-    CreateEmploymentEventsParams:
-      properties:
-        employment_events:
-          items:
-            $ref: '#/components/schemas/EmploymentEventInput'
-          type: array
-          title: Employment Events
-      type: object
-      title: CreateEmploymentEventsParams
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
-    SourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - bulk_upload
-      - console
-      title: SourceCode
-      description: An enumeration.
-    BaseResponse_EarningsAggregatedResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EarningsAggregatedResponse'
-      type: object
-      title: BaseResponse[EarningsAggregatedResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    SearchUsageParams:
+    DeleteAccountsForCompanyParams:
       properties:
         start_date:
           type: string
@@ -6240,64 +6399,29 @@ components:
             items_per_page: 100
             page: 1
         company_id:
-          type: string
-          format: uuid
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
           title: Company Id
       type: object
       required:
       - start_date
       - end_date
-      title: SearchUsageParams
-    BaseResponse_AccountDataWithExternalIDBaseResponse_:
+      - company_id
+      title: DeleteAccountsForCompanyParams
+    RefreshEarningsParams:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountDataWithExternalIDBaseResponse'
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        end_days_offset:
+          type: integer
+          title: End Days Offset
+          default: 10
       type: object
-      title: BaseResponse[AccountDataWithExternalIDBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BasePaginationResponse_RawEventsDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/RawEventsDataBaseResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
-      type: object
-      title: BasePaginationResponse[RawEventsDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
-    SendWebhookTimeoutParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-      type: object
-      required:
-      - account_id
-      - webhook_id
-      title: SendWebhookTimeoutParams
+      title: RefreshEarningsParams
     GroupAdminResponse:
       properties:
         created_at:
@@ -6381,94 +6505,46 @@ components:
       - public_api_key
       - private_api_key
       title: GroupAdminResponse
-    LoginTypes:
-      enum:
-      - curp
-      - otp
-      - totp
-      - pilot
-      - email_otp
-      - credentials
-      - phone_voice_otp
-      - phone_whatsapp_otp
-      title: LoginTypes
-      description: An enumeration.
-    ListCompanyDataResponse:
+    DebugDataArgyleParams:
       properties:
-        id:
+        account_id:
           type: string
           format: uuid
-          title: Id
-        widgets_ids:
+          title: Account Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        identifier:
+          type: string
+          title: Identifier
+        data_types:
           items:
-            type: string
+            $ref: '#/components/schemas/DebugDataType'
           type: array
-          title: Widgets Ids
-        company_name:
-          type: string
-          title: Company Name
-        display_name:
-          type: string
-          title: Display Name
-        private_api_key:
-          type: string
-          title: Private Api Key
       type: object
       required:
-      - id
-      - widgets_ids
-      - company_name
-      - display_name
-      - private_api_key
-      title: ListCompanyDataResponse
-    GetEarningsParams:
+      - account_id
+      - user_id
+      title: DebugDataArgyleParams
+      example:
+        account_id: f1932f34-2658-4f3e-8069-0aeeb77dd14e
+        user_id: db48d579-c10d-4ed6-b857-1b1b7f4502c0
+        data_types:
+        - token
+        - webhooks
+    ListGroupsResponse:
       properties:
-        weeks:
-          type: integer
-          title: Weeks
-        offset:
-          type: integer
-          title: Offset
-        offset_days:
-          type: integer
-          title: Offset Days
-        date_threshold:
-          type: string
-          title: Date Threshold
-        offset_start:
-          type: integer
-          title: Offset Start
-          default: 0
-        offset_stop:
-          type: integer
-          title: Offset Stop
-          default: 2
-        trips_loop_round:
-          type: integer
-          title: Trips Loop Round
-          default: 10
-        first_journey_id:
-          type: string
-          title: First Journey Id
-        first_day_offset:
-          type: integer
-          title: First Day Offset
-        last_day_offset:
-          type: integer
-          title: Last Day Offset
-        days_to_fetch:
-          type: integer
-          title: Days To Fetch
-        start_offset_days:
-          type: integer
-          title: Start Offset Days
-        login_id:
-          type: string
-          format: uuid
-          title: Login Id
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupResponse'
+          type: array
+          title: Groups
       type: object
-      title: GetEarningsParams
-    DeleteAccountsForCompanyParams:
+      required:
+      - groups
+      title: ListGroupsResponse
+    SearchUsageParams:
       properties:
         start_date:
           type: string
@@ -6484,77 +6560,38 @@ components:
             items_per_page: 100
             page: 1
         company_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: string
+          type: string
+          format: uuid
           title: Company Id
       type: object
       required:
       - start_date
       - end_date
-      - company_id
-      title: DeleteAccountsForCompanyParams
-    AccountBaseResponse:
+      title: SearchUsageParams
+    BaseResponse_PlatformDataResponse_:
       properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        worker_id:
-          type: string
-          title: Worker Id
-        gov_id:
-          type: string
-          title: Gov Id
-        last_successful_connection:
-          type: string
-          format: date-time
-          title: Last Successful Connection
-        warning:
-          $ref: '#/components/schemas/AccountWarning'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        message:
-          type: string
-          title: Message
-        recommendation:
-          type: string
-          title: Recommendation
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/PlatformDataResponse'
       type: object
-      required:
-      - account_id
-      title: AccountBaseResponse
-    EmploymentFilesType:
+      title: BaseResponse[PlatformDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EventType:
       enum:
-      - imss_employment_record
-      - imss_rpci_pdf
-      - buro_insights_employment_record
-      - issste_employment_file
-      - end_of_rights_pdf
-      title: EmploymentFilesType
-      description: An enumeration.
-    Gender:
-      enum:
-      - male
-      - female
-      - other
-      title: Gender
+      - delivery
+      - ride
+      - bonus
+      - adjustment
+      - debt
+      title: EventType
       description: An enumeration.
     AccountsDataResponse:
       properties:
@@ -6567,7 +6604,75 @@ components:
       required:
       - accounts
       title: AccountsDataResponse
-    BaseResponse_AccountsDataConsoleResponse_:
+    ResendOtpParams:
+      properties:
+        phone_number:
+          type: string
+          title: Phone Number
+      type: object
+      required:
+      - phone_number
+      title: ResendOtpParams
+      example:
+        phone_number: '5511999998888'
+    LoginTypes:
+      enum:
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
+      description: An enumeration.
+    EarningsAggregatedEarningItem:
+      properties:
+        earning_date:
+          type: string
+          format: date
+          title: Earning Date
+        amount:
+          type: number
+          title: Amount
+        currency:
+          type: string
+          title: Currency
+        count_trips:
+          type: integer
+          title: Count Trips
+        details:
+          items:
+            $ref: '#/components/schemas/EarningsAggregatedDetailItem'
+          type: array
+          title: Details
+        currency_note:
+          type: string
+          title: Currency Note
+      type: object
+      required:
+      - earning_date
+      - amount
+      - currency
+      title: EarningsAggregatedEarningItem
+    IdInfoParams:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - type
+      - id
+      - name
+      title: IdInfoParams
+    BaseResponse_ReassignAccountUserResponse_:
       properties:
         success:
           type: boolean
@@ -6576,21 +6681,1330 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/AccountsDataConsoleResponse'
+          $ref: '#/components/schemas/ReassignAccountUserResponse'
       type: object
-      title: BaseResponse[AccountsDataConsoleResponse]
+      title: BaseResponse[ReassignAccountUserResponse]
       example:
         success: true
         data: {}
         error: {}
-    GetDailyEarningsParams:
+    WidgetType:
+      enum:
+      - income_verification
+      title: WidgetType
+      description: An enumeration.
+    EarningsAggregatedResponse:
+      properties:
+        platforms_count:
+          type: integer
+          title: Platforms Count
+        platforms:
+          items:
+            $ref: '#/components/schemas/EarningsAggregatedPlatformItem'
+          type: array
+          title: Platforms
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningsAggregatedEarningItem'
+          type: array
+          title: Earnings
+      type: object
+      required:
+      - platforms_count
+      - platforms
+      - earnings
+      title: EarningsAggregatedResponse
+    PaginationSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: PaginationSearchParams
+    AccountDataWithExternalIDBaseResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        alternative_methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        hint:
+          type: string
+          title: Hint
+        external_id:
+          type: string
+          title: External Id
+      type: object
+      title: AccountDataWithExternalIDBaseResponse
+      example:
+        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        country: mx
+        platform: uber
+    UpdateLoginParams:
+      properties:
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        insights_status:
+          $ref: '#/components/schemas/InsightsStatus'
+        insights_status_details:
+          $ref: '#/components/schemas/InsightsStatusDetails'
+        should_notify_webhook:
+          type: boolean
+          title: Should Notify Webhook
+          default: false
+        login_id:
+          type: string
+          format: uuid
+          title: Login Id
+      type: object
+      title: UpdateLoginParams
+    EarningsAggregatedPlatformItem:
       properties:
         platform:
           $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        last_successful_connection:
+          type: string
+          format: date
+          title: Last Successful Connection
       type: object
       required:
       - platform
-      title: GetDailyEarningsParams
+      - account_id
+      title: EarningsAggregatedPlatformItem
+    RawEventsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        raw_events:
+          items:
+            type: object
+          type: array
+          title: Raw Events
+          default: []
+      type: object
+      required:
+      - account_id
+      title: RawEventsDataBaseResponse
+    CreateProfileParams:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        phone:
+          type: string
+          title: Phone
+        email:
+          type: string
+          title: Email
+        address:
+          type: string
+          title: Address
+        city_name:
+          type: string
+          title: City Name
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+        picture_url:
+          type: string
+          title: Picture Url
+        is_manual:
+          type: boolean
+          title: Is Manual
+          default: false
+      type: object
+      required:
+      - first_name
+      - last_name
+      title: CreateProfileParams
+      example:
+        first_name: Ongtuan
+        last_name: Engullen
+    CreateEarningsParams:
+      properties:
+        earnings:
+          items:
+            $ref: '#/components/schemas/CreateEarningParam'
+          type: array
+          title: Earnings
+        is_manual:
+          type: boolean
+          title: Is Manual
+          default: false
+      type: object
+      required:
+      - earnings
+      title: CreateEarningsParams
+    BaseResponse_AccountsDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataResponse'
+      type: object
+      title: BaseResponse[AccountsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    StatusDetails:
+      enum:
+      - bad_request
+      - banned
+      - invalid_credentials
+      - too_many_requests
+      - service_unavailable
+      - request_timeout
+      - access_forbidden
+      - platform_error
+      - invalid_otp
+      - expired_otp
+      - invalid_nss
+      - invalid_phone
+      - invalid_email
+      - lambda_error
+      - phone_or_code_missing
+      - password_missing
+      - not_registered
+      - login_refused
+      - unknown
+      - invalid_otp_session
+      - invalid_otp_auth_key
+      - needs_auth
+      - requires_auth
+      - curp_not_found
+      - could_not_send_otp
+      - profile_unavailable
+      - no_employment_records
+      - account_setup_incomplete
+      - identity_verification_failed
+      - gov_id_not_in_data_source
+      - gov_id_has_inconsistencies
+      - mfa_deactivation_required
+      - access_token_not_generated
+      - two_factor_auth_required
+      - captcha_bypass_error
+      - invalid_identifier
+      - account_blocked
+      - proxy_error
+      - invalid_captcha
+      - invalid_gov_id
+      - device_authorization_required
+      - max_retries_exceeded
+      - task_create_fail
+      - invalid_cpf
+      - invalid_in_auth_session_id
+      - unable_to_get_uber_metrics
+      - email_otp_validation_pending
+      - login_not_available
+      - invalid_password
+      - unknown_login_type
+      - email_not_validated
+      - already_connected
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - zero_quoted_weeks
+      - proxy_max_retries_exceeded
+      - curp_not_found_in_renapo
+      - nss_not_found_in_imss
+      - renapo_unavailable
+      - service_degradation
+      - server_error
+      - db_constraint_violation
+      - api_forbidden
+      - auth_token_expired
+      - network_max_retries_exceeded
+      - api_service_unavailable_02
+      - api_service_unavailable_08
+      - lambda_timeout
+      - api_service_unavailable
+      - auth_max_attempts_exceeded
+      - browser_navigation_timeout
+      - render_invalid_html
+      - browser_connection_timeout
+      - parser_invalid_pdf
+      - aws_s3_upload_fail
+      - network_connectivity_issues
+      - auth_invalid_token
+      - server_not_found
+      - api_server_error
+      - network_ssl_error
+      - auth_forbidden
+      - api_bad_gateway
+      - api_server_timeout
+      - system_platform_error
+      - api_rate_limit_exceeded
+      - api_renapo_unavailable
+      - user_gov_id_has_inconsistencies
+      - user_ssn_missing
+      - user_curp_not_found_in_renapo
+      - rpci_timeout
+      - pending_data_extraction
+      - employment_info_in_imss
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      - validation_time_expired
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - platform_unavailable
+      - failed_refresh
+      - invalid_schema_response
+      - not_available_in_platform
+      - user_curp_not_in_platform
+      - user_gov_id_not_in_data_source
+      - account_not_found
+      - profile_not_found
+      - unable_to_get_rappi_metrics
+      - captcha_required
+      - captcha_detected
+      - didi_rate_limited
+      - device_risk
+      - cell_rate_limited
+      - resend_limit
+      - didi_rejected
+      - incomplete_profile
+      title: StatusDetails
+      description: An enumeration.
+    CreateEmploymentHistoryParams:
+      properties:
+        account_id:
+          type: string
+          title: Account Id
+        jobs:
+          items:
+            $ref: '#/components/schemas/Job'
+          type: array
+          title: Jobs
+        quoted_weeks:
+          type: integer
+          title: Quoted Weeks
+        discounted_weeks:
+          type: integer
+          title: Discounted Weeks
+        reintegrated_weeks:
+          type: integer
+          title: Reintegrated Weeks
+        account_warning:
+          $ref: '#/components/schemas/AccountWarning'
+      type: object
+      required:
+      - account_id
+      title: CreateEmploymentHistoryParams
+    BaseResponse_EarningsAggregatedResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EarningsAggregatedResponse'
+      type: object
+      title: BaseResponse[EarningsAggregatedResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_NoneType_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          type: 'null'
+          title: Data
+      type: object
+      title: BaseResponse[NoneType]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ProcessBatchJobParams:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+        offset:
+          type: integer
+          title: Offset
+          default: 50
+      type: object
+      required:
+      - access_token
+      title: ProcessBatchJobParams
+    app__api__schemas__internal__groups__CreateGroupParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        admin_id:
+          type: string
+          format: uuid
+          title: Admin Id
+        companies:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Companies
+        privacy_url:
+          type: string
+          title: Privacy Url
+      type: object
+      required:
+      - name
+      - admin_id
+      - companies
+      title: CreateGroupParams
+    SearchConsentsParams:
+      properties:
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      title: SearchConsentsParams
+    app__api__schemas__admin__UpdateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        user:
+          type: string
+          title: User
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      title: UpdateCompanyParams
+    EarningsAggregatedParams:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        external_id:
+          type: string
+          title: External Id
+        start_date:
+          type: string
+          format: date
+          title: Start Date
+        end_date:
+          type: string
+          format: date
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/EarningsAggregatedOptions'
+          title: Options
+          default:
+            details: false
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: EarningsAggregatedParams
+    EarningsBaseResponse:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+      type: object
+      title: EarningsBaseResponse
+    AccountConsoleResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        source:
+          $ref: '#/components/schemas/SourceCode'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        gov_id:
+          type: string
+          title: Gov Id
+      type: object
+      required:
+      - id
+      - user_id
+      title: AccountConsoleResponse
+    ListLoginBaseResponse:
+      properties:
+        logins:
+          items:
+            $ref: '#/components/schemas/LoginBaseResponse'
+          type: array
+          title: Logins
+          default: []
+      type: object
+      title: ListLoginBaseResponse
+    Cookie:
+      properties:
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+        domain:
+          type: string
+          title: Domain
+      type: object
+      title: Cookie
+    app__api__schemas__groups__CreateGroupParams:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - name
+      title: CreateGroupParams
+    AccountDataBaseResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        alternative_methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        hint:
+          type: string
+          title: Hint
+      type: object
+      title: AccountDataBaseResponse
+      example:
+        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        country: mx
+        platform: uber
+    LoginBaseResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        source:
+          $ref: '#/components/schemas/LoginSourceCode'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        authenticated_at:
+          type: string
+          format: date-time
+          title: Authenticated At
+        message:
+          type: string
+          title: Message
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        recommendation:
+          type: string
+          title: Recommendation
+        automatic_retry:
+          type: boolean
+          title: Automatic Retry
+        has_insights:
+          type: boolean
+          title: Has Insights
+        insights_status:
+          $ref: '#/components/schemas/InsightsStatus'
+        insights_status_details:
+          $ref: '#/components/schemas/InsightsStatusDetails'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: LoginBaseResponse
+    BaseResponse_AccountDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_ListCompaniesResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ListCompaniesResponse'
+      type: object
+      title: BaseResponse[ListCompaniesResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentDataParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        worker:
+          $ref: '#/components/schemas/WorkerParams'
+        id_info:
+          $ref: '#/components/schemas/IdInfoParams'
+        profile:
+          $ref: '#/components/schemas/ProfileParams'
+      type: object
+      title: EmploymentDataParams
+    CreateUserArgyleParams:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        gov_id:
+          type: string
+          title: Gov Id
+        redirect_url:
+          type: string
+          title: Redirect Url
+      type: object
+      title: CreateUserArgyleParams
+      example:
+        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        country: mx
+        platform: uber
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    UpdateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        is_active:
+          type: boolean
+          title: Is Active
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      title: UpdateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        is_active: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    ReprocessEventsResponse:
+      properties:
+        total_accounts:
+          type: integer
+          title: Total Accounts
+        processed:
+          type: integer
+          title: Processed
+        errors:
+          type: integer
+          title: Errors
+        error_details:
+          items:
+            type: object
+          type: array
+          title: Error Details
+          default: []
+      type: object
+      required:
+      - total_accounts
+      - processed
+      - errors
+      title: ReprocessEventsResponse
+    EmploymentDataBaseResponse:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        employment_info:
+          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
+        employment_history:
+          items:
+            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+          type: array
+          title: Employment History
+      type: object
+      required:
+      - platform
+      - account_id
+      title: EmploymentDataBaseResponse
+    WorkerRole:
+      enum:
+      - driver
+      - courier
+      - both
+      title: WorkerRole
+      description: An enumeration.
+    CreateUserAndAccountInternalParams:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceCode'
+          default: api
+        gov_id:
+          type: string
+          title: Gov Id
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+      type: object
+      required:
+      - country
+      - platform
+      - identifier
+      - company_id
+      title: CreateUserAndAccountInternalParams
+      example:
+        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        external_id: '1234567890'
+    EmploymentInfoBaseResponse:
+      properties:
+        id_type:
+          $ref: '#/components/schemas/IdType'
+        quoted_weeks:
+          type: integer
+          title: Quoted Weeks
+        discounted_weeks:
+          type: integer
+          title: Discounted Weeks
+        reintegrated_weeks:
+          type: integer
+          title: Reintegrated Weeks
+        end_of_rights:
+          type: string
+          title: End Of Rights
+        status:
+          $ref: '#/components/schemas/EmploymentStatus'
+        employment_files:
+          items:
+            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
+          type: array
+          title: Employment Files
+        employment_history_status:
+          $ref: '#/components/schemas/EmploymentHistoryStatus'
+      type: object
+      title: EmploymentInfoBaseResponse
+    BaseResponse_WebhooksDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhooksDataResponse'
+      type: object
+      title: BaseResponse[WebhooksDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    app__api__schemas__widgets__UpdateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+          default: []
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        border_radius:
+          type: string
+          title: Border Radius
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+      type: object
+      title: UpdateWidgetParams
+    EventsBaseResponse:
+      properties:
+        event_id:
+          type: string
+          title: Event Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        timezone:
+          type: string
+          title: Timezone
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        duration_sec:
+          type: integer
+          title: Duration Sec
+        distance_km:
+          type: number
+          title: Distance Km
+        start_location:
+          type: string
+          title: Start Location
+        end_location:
+          type: string
+          title: End Location
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+        cash_amount:
+          type: number
+          title: Cash Amount
+        additional_timestamps:
+          items:
+            type: object
+          type: array
+          title: Additional Timestamps
+      type: object
+      title: EventsBaseResponse
+    Gender:
+      enum:
+      - male
+      - female
+      - other
+      title: Gender
+      description: An enumeration.
+    CreateAccountParams:
+      properties:
+        encrypted_data:
+          type: string
+          title: Encrypted Data
+        encrypted_symmetric_key:
+          type: string
+          title: Encrypted Symmetric Key
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        identifier_type:
+          $ref: '#/components/schemas/IdentifierTypes'
+        password:
+          type: string
+          title: Password
+        worker_id:
+          type: string
+          title: Worker Id
+        phone_number:
+          type: string
+          title: Phone Number
+        method:
+          $ref: '#/components/schemas/LoginTypes'
+        email:
+          type: string
+          title: Email
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        gov_id:
+          type: string
+          title: Gov Id
+        hcaptcha_response:
+          type: string
+          title: Hcaptcha Response
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        source:
+          $ref: '#/components/schemas/SourceCode'
+      type: object
+      title: CreateAccountParams
+      example:
+        country: mx
+        platform: uber
+        identifier: user@example.com
+        identifier_type: email
+        password: s3cur3p4s5w0rd
+    BaseResponse_UserDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserDataResponse'
+      type: object
+      title: BaseResponse[UserDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EarningsAggregatedOptions:
+      properties:
+        details:
+          type: boolean
+          title: Details
+          default: false
+      type: object
+      title: EarningsAggregatedOptions
+    CreateUserParams:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          title: User Id
+      type: object
+      title: CreateUserParams
+      example:
+        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        external_id: '1234567890'
+    BaseResponse_WebhookDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDataResponse'
+      type: object
+      title: BaseResponse[WebhookDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    SearchUsersParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        external_id:
+          type: string
+          title: External Id
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchUsersParams
+    UserRetrievalDataResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        external_id:
+          type: string
+          title: External Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+      type: object
+      required:
+      - user_id
+      - widget_id
+      title: UserRetrievalDataResponse
+    EmploymentHistoryStatus:
+      enum:
+      - empty
+      - partial
+      - complete
+      title: EmploymentHistoryStatus
+      description: An enumeration.
+    SearchEarningsParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchEarningsParams
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    CompanyResponse:
+      properties:
+        company:
+          $ref: '#/components/schemas/CompanyDataResponse'
+      type: object
+      required:
+      - company
+      title: CompanyResponse
+    AccountListDataResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountBaseResponse'
+          type: array
+          title: Accounts
+      type: object
+      required:
+      - user_id
+      - accounts
+      title: AccountListDataResponse
+    ReassignAccountUserRequest:
+      properties:
+        smart:
+          type: boolean
+          title: Smart
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+      type: object
+      title: ReassignAccountUserRequest
+    ProfileDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        profile:
+          $ref: '#/components/schemas/ProfileResponse'
+        ids_info:
+          items:
+            $ref: '#/components/schemas/IdInfoBaseResponse'
+          type: array
+          title: Ids Info
+      type: object
+      required:
+      - account_id
+      title: ProfileDataBaseResponse
+    CivilStatus:
+      enum:
+      - single
+      - married
+      title: CivilStatus
+      description: An enumeration.
     app__api__schemas__companies__CreateCompanyParams:
       properties:
         client_id:
@@ -6665,247 +8079,10 @@ components:
       - pending
       title: InsightsStatusDetails
       description: An enumeration.
-    BaseResponse_UserDataResponse_:
+    CreatePlatformParams:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/UserDataResponse'
-      type: object
-      title: BaseResponse[UserDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    app__api__schemas__internal__groups__CreateGroupParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        admin_id:
-          type: string
-          format: uuid
-          title: Admin Id
-        companies:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Companies
-        privacy_url:
-          type: string
-          title: Privacy Url
-      type: object
-      required:
-      - name
-      - admin_id
-      - companies
-      title: CreateGroupParams
-    WidgetConsentMethod:
-      enum:
-      - tap_accept_button
-      - tap_continue_button
-      - tap_accept_checkbox
-      title: WidgetConsentMethod
-      description: An enumeration.
-    ListGroupsResponse:
-      properties:
-        groups:
-          items:
-            $ref: '#/components/schemas/GroupResponse'
-          type: array
-          title: Groups
-      type: object
-      required:
-      - groups
-      title: ListGroupsResponse
-    EarningsAggregatedResponse:
-      properties:
-        platforms_count:
-          type: integer
-          title: Platforms Count
-        platforms:
-          items:
-            $ref: '#/components/schemas/EarningsAggregatedPlatformItem'
-          type: array
-          title: Platforms
-        earnings:
-          items:
-            $ref: '#/components/schemas/EarningsAggregatedEarningItem'
-          type: array
-          title: Earnings
-      type: object
-      required:
-      - platforms_count
-      - platforms
-      - earnings
-      title: EarningsAggregatedResponse
-    EventsBaseResponse:
-      properties:
-        event_id:
-          type: string
-          title: Event Id
-        type:
-          $ref: '#/components/schemas/EventType'
-        timezone:
-          type: string
-          title: Timezone
-        start_date:
-          type: string
-          format: date-time
-          title: Start Date
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        duration_sec:
-          type: integer
-          title: Duration Sec
-        distance_km:
-          type: number
-          title: Distance Km
-        start_location:
-          type: string
-          title: Start Location
-        end_location:
-          type: string
-          title: End Location
-        payment_method:
-          $ref: '#/components/schemas/PaymentMethod'
-        cash_amount:
-          type: number
-          title: Cash Amount
-        additional_timestamps:
-          items:
-            type: object
-          type: array
-          title: Additional Timestamps
-      type: object
-      title: EventsBaseResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CompanyResponse:
-      properties:
-        company:
-          $ref: '#/components/schemas/CompanyDataResponse'
-      type: object
-      required:
-      - company
-      title: CompanyResponse
-    IdInfoBaseResponse:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdType'
-        name:
-          type: string
-          title: Name
-        value:
-          type: string
-          title: Value
-      type: object
-      title: IdInfoBaseResponse
-    EmploymentsFilesBaseResponse:
-      properties:
-        url:
-          type: string
-          title: Url
-        file_type:
-          $ref: '#/components/schemas/EmploymentFilesType'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-      type: object
-      title: EmploymentsFilesBaseResponse
-    EmploymentEventInput:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        event_type:
-          type: string
-          title: Event Type
-        event_date:
-          type: string
-          title: Event Date
-        base_salary:
-          type: number
-          title: Base Salary
-        employer_registration:
-          type: string
-          title: Employer Registration
-      type: object
-      required:
-      - event_type
-      - event_date
-      - base_salary
-      title: EmploymentEventInput
-    BaseResponse_UserRetrievalListDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/UserRetrievalListDataResponse'
-      type: object
-      title: BaseResponse[UserRetrievalListDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    PlatformCategory:
-      enum:
-      - gig
-      - employment
-      title: PlatformCategory
-      description: An enumeration.
-    AcceptedLanguage:
-      enum:
-      - en
-      - es
-      - pt
-      title: AcceptedLanguage
-      description: An enumeration.
-    ReassignAccountUserRequest:
-      properties:
-        smart:
-          type: boolean
-          title: Smart
-        external_id:
-          type: string
-          title: External Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-      type: object
-      title: ReassignAccountUserRequest
-    app__api__schemas__internal__companies__UpdateCompanyParams:
-      properties:
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-      type: object
-      required:
-      - widget_advanced_customization
-      title: UpdateCompanyParams
-    UpdatePlatformParams:
-      properties:
+        code:
+          $ref: '#/components/schemas/PlatformCode'
         name:
           type: string
           title: Name
@@ -6921,196 +8098,74 @@ components:
           items:
             $ref: '#/components/schemas/CountryCode'
           type: array
-        status:
-          $ref: '#/components/schemas/PlatformStatus'
-      type: object
-      title: UpdatePlatformParams
-    CreateUnifiedAccountParams:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        external_id:
-          type: string
-          title: External Id
-        user_id:
-          type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          anyOf:
-          - $ref: '#/components/schemas/PlatformCode'
-          - items:
-              $ref: '#/components/schemas/PlatformCode'
-            type: array
-          title: Platform
-        identifier:
-          type: string
-          title: Identifier
-        bulk_id:
-          type: string
-          format: uuid
-          title: Bulk Id
-        source:
-          allOf:
-          - $ref: '#/components/schemas/SourceCode'
-          default: api
-        gov_id:
-          type: string
-          title: Gov Id
       type: object
       required:
-      - country
-      - platform
-      - identifier
-      title: CreateUnifiedAccountParams
-      example:
-        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        external_id: '1234567890'
-    BaseResponse_CountryDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CountryDataResponse'
-      type: object
-      title: BaseResponse[CountryDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    StoreUserConsentParams:
-      properties:
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        external_id:
-          type: string
-          title: External Id
-        gov_id:
-          type: string
-          title: Gov Id
-        account_id:
-          type: string
-          title: Account Id
-        ip_address:
-          type: string
-          title: Ip Address
-        timestamp:
-          type: string
-          title: Timestamp
-          default: '2026-07-19T00:04:52.330355+00:00'
-        consent_method:
-          $ref: '#/components/schemas/WidgetConsentMethod'
-        consent_version:
-          type: string
-          title: Consent Version
-        consent_language:
-          $ref: '#/components/schemas/AcceptedLanguage'
-        country:
-          type: string
-          title: Country
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        company_name:
-          type: string
-          title: Company Name
-        browser:
-          type: string
-          title: Browser
-        device:
-          type: string
-          title: Device
-      type: object
-      required:
-      - company_id
-      - widget_id
-      - user_id
-      title: StoreUserConsentParams
-    CreateUserAndAccountParams:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        external_id:
-          type: string
-          title: External Id
-        user_id:
-          type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        bulk_id:
-          type: string
-          format: uuid
-          title: Bulk Id
-        source:
-          allOf:
-          - $ref: '#/components/schemas/SourceCode'
-          default: api
-        gov_id:
-          type: string
-          title: Gov Id
-      type: object
-      required:
-      - country
-      - platform
-      - identifier
-      title: CreateUserAndAccountParams
-      example:
-        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        external_id: '1234567890'
-    WidgetInternalType:
-      enum:
-      - default_api_calls
-      title: WidgetInternalType
-      description: An enumeration.
-    BaseResponse_ListCompaniesDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ListCompaniesDataResponse'
-      type: object
-      title: BaseResponse[ListCompaniesDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    app__api__schemas__groups__CreateGroupParams:
-      properties:
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
+      - code
       - name
-      title: CreateGroupParams
+      - logo
+      - is_active
+      - category
+      - countries
+      title: CreatePlatformParams
+    GetEarningsParams:
+      properties:
+        weeks:
+          type: integer
+          title: Weeks
+        offset:
+          type: integer
+          title: Offset
+        offset_days:
+          type: integer
+          title: Offset Days
+        date_threshold:
+          type: string
+          title: Date Threshold
+        offset_start:
+          type: integer
+          title: Offset Start
+          default: 0
+        offset_stop:
+          type: integer
+          title: Offset Stop
+          default: 2
+        trips_loop_round:
+          type: integer
+          title: Trips Loop Round
+          default: 10
+        first_journey_id:
+          type: string
+          title: First Journey Id
+        first_day_offset:
+          type: integer
+          title: First Day Offset
+        last_day_offset:
+          type: integer
+          title: Last Day Offset
+        days_to_fetch:
+          type: integer
+          title: Days To Fetch
+        start_offset_days:
+          type: integer
+          title: Start Offset Days
+        login_id:
+          type: string
+          format: uuid
+          title: Login Id
+      type: object
+      title: GetEarningsParams
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams
     BaseResponse_InsightsReport_:
       properties:
         success:
@@ -7127,7 +8182,181 @@ components:
         success: true
         data: {}
         error: {}
-    BaseResponse_CompanyDataResponse_:
+    SearchCompaniesParams:
+      properties:
+        statuses:
+          items:
+            $ref: '#/components/schemas/CompanyStatus'
+          type: array
+        q:
+          type: string
+          title: Q
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      title: SearchCompaniesParams
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    RefreshAccountsParams:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        items:
+          items:
+            anyOf:
+            - type: string
+              format: uuid
+            - type: string
+          type: array
+          title: Items
+      type: object
+      required:
+      - platform
+      - items
+      title: RefreshAccountsParams
+    ProfileResponse:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        email:
+          type: string
+          title: Email
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+      type: object
+      title: ProfileResponse
+    SourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - bulk_upload
+      - console
+      title: SourceCode
+      description: An enumeration.
+    EventsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        events:
+          items:
+            $ref: '#/components/schemas/EventsBaseResponse'
+          type: array
+          title: Events
+      type: object
+      required:
+      - account_id
+      title: EventsDataBaseResponse
+    UpdateCutoffsAndBalancesParams:
+      properties:
+        country:
+          type: string
+          title: Country
+      type: object
+      required:
+      - country
+      title: UpdateCutoffsAndBalancesParams
+    ReadEmploymentFileParams:
+      properties:
+        employment_history:
+          $ref: '#/components/schemas/CreateEmploymentHistoryParams'
+        employment_events:
+          $ref: '#/components/schemas/CreateEmploymentEventsParams'
+      type: object
+      required:
+      - employment_history
+      - employment_events
+      title: ReadEmploymentFileParams
+    EmploymentHistoryBaseResponse:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        employer_registration:
+          type: string
+          title: Employer Registration
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: End Date
+        job_title:
+          type: string
+          title: Job Title
+        job_title_code:
+          type: string
+          title: Job Title Code
+        federal_entity:
+          type: string
+          title: Federal Entity
+      type: object
+      title: EmploymentHistoryBaseResponse
+    GetDailyEarningsParams:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+      type: object
+      required:
+      - platform
+      title: GetDailyEarningsParams
+    WidgetSetupDataResponse:
+      properties:
+        company:
+          $ref: '#/components/schemas/CompanyDataResponse'
+        widget:
+          $ref: '#/components/schemas/WidgetDataResponse'
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformDataResponse'
+          type: array
+          title: Platforms
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryDataResponse'
+          type: array
+          title: Countries
+        group:
+          $ref: '#/components/schemas/GroupResponse'
+      type: object
+      required:
+      - company
+      - widget
+      - platforms
+      - countries
+      title: WidgetSetupDataResponse
+    BaseResponse_CompanyResponse_:
       properties:
         success:
           type: boolean
@@ -7136,144 +8365,13 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/CompanyDataResponse'
+          $ref: '#/components/schemas/CompanyResponse'
       type: object
-      title: BaseResponse[CompanyDataResponse]
+      title: BaseResponse[CompanyResponse]
       example:
         success: true
         data: {}
         error: {}
-    ResendOtpParams:
-      properties:
-        phone_number:
-          type: string
-          title: Phone Number
-      type: object
-      required:
-      - phone_number
-      title: ResendOtpParams
-      example:
-        phone_number: '5511999998888'
-    OptionsSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: OptionsSearchParams
-    CreateProfileParams:
-      properties:
-        first_name:
-          type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        phone:
-          type: string
-          title: Phone
-        email:
-          type: string
-          title: Email
-        address:
-          type: string
-          title: Address
-        city_name:
-          type: string
-          title: City Name
-        birthday:
-          type: string
-          format: date
-          title: Birthday
-        picture_url:
-          type: string
-          title: Picture Url
-        is_manual:
-          type: boolean
-          title: Is Manual
-          default: false
-      type: object
-      required:
-      - first_name
-      - last_name
-      title: CreateProfileParams
-      example:
-        first_name: Ongtuan
-        last_name: Engullen
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    EarningsAggregatedDetailItem:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        amount:
-          type: number
-          title: Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-      type: object
-      required:
-      - platform
-      - account_id
-      - amount
-      title: EarningsAggregatedDetailItem
-    PaginationSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: PaginationSearchParams
-    EmploymentEmailParams:
-      properties:
-        account_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: string
-          title: Account Id
-        curp:
-          type: string
-          title: Curp
-        nss:
-          type: string
-          title: Nss
-        email:
-          type: string
-          title: Email
-        attempts:
-          type: integer
-          title: Attempts
-          default: 0
-      type: object
-      required:
-      - account_id
-      - curp
-      - nss
-      - email
-      title: EmploymentEmailParams
     WebhookDataResponse:
       properties:
         connect_flow_id:
@@ -7314,7 +8412,35 @@ components:
       - name
       - is_sandbox
       title: WebhookDataResponse
-    BaseResponse_ListCompaniesResponse_:
+    SearchLoginsParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchLoginsParams
+    RetryLoginOptions:
+      properties:
+        force_retry:
+          type: boolean
+          title: Force Retry
+          default: false
+      type: object
+      title: RetryLoginOptions
+    BasePaginationResponse_RawEventsDataBaseResponse_:
       properties:
         success:
           type: boolean
@@ -7323,52 +8449,16 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/ListCompaniesResponse'
+          $ref: '#/components/schemas/RawEventsDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
       type: object
-      title: BaseResponse[ListCompaniesResponse]
+      title: BasePaginationResponse[RawEventsDataBaseResponse]
       example:
         success: true
         data: {}
         error: {}
-    ReadEmploymentFileParams:
-      properties:
-        employment_history:
-          $ref: '#/components/schemas/CreateEmploymentHistoryParams'
-        employment_events:
-          $ref: '#/components/schemas/CreateEmploymentEventsParams'
-      type: object
-      required:
-      - employment_history
-      - employment_events
-      title: ReadEmploymentFileParams
-    EarningsAggregatedPlatformItem:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        last_successful_connection:
-          type: string
-          format: date
-          title: Last Successful Connection
-      type: object
-      required:
-      - platform
-      - account_id
-      title: EarningsAggregatedPlatformItem
-    RefreshArgyleTokenParams:
-      properties:
-        argyle_user_id:
-          type: string
-          title: Argyle User Id
-      type: object
-      required:
-      - argyle_user_id
-      title: RefreshArgyleTokenParams
-      example:
-        argyle_user_id: 018e1234-5678-9abc-def0-123456789abc
+        pagination: {}
     PlatformStatus:
       enum:
       - up
@@ -7378,7 +8468,19 @@ components:
       - deprecated
       title: PlatformStatus
       description: An enumeration.
-    BaseResponse_WebhooksDataResponse_:
+    EmploymentStatus:
+      enum:
+      - retired
+      - employed
+      - unemployed
+      - unknown
+      - potentially_retired
+      - voluntary_contributions
+      - banned
+      - active
+      title: EmploymentStatus
+      description: An enumeration.
+    BaseResponse_dict_:
       properties:
         success:
           type: boolean
@@ -7387,50 +8489,15 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/WebhooksDataResponse'
+          type: object
+          title: Data
       type: object
-      title: BaseResponse[WebhooksDataResponse]
+      title: BaseResponse[dict]
       example:
         success: true
         data: {}
         error: {}
-    UserDataResponse:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        external_id:
-          type: string
-          title: External Id
-      type: object
-      required:
-      - user_id
-      title: UserDataResponse
-    ReprocessEventsResponse:
-      properties:
-        total_accounts:
-          type: integer
-          title: Total Accounts
-        processed:
-          type: integer
-          title: Processed
-        errors:
-          type: integer
-          title: Errors
-        error_details:
-          items:
-            type: object
-          type: array
-          title: Error Details
-          default: []
-      type: object
-      required:
-      - total_accounts
-      - processed
-      - errors
-      title: ReprocessEventsResponse
-    BaseResponse_NoneType_:
+    BaseResponse_WidgetDataResponse_:
       properties:
         success:
           type: boolean
@@ -7439,10 +8506,297 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          type: 'null'
-          title: Data
+          $ref: '#/components/schemas/WidgetDataResponse'
       type: object
-      title: BaseResponse[NoneType]
+      title: BaseResponse[WidgetDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    StatusHistoryEntry:
+      properties:
+        platform_code:
+          type: string
+          title: Platform Code
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+      - platform_code
+      - status
+      title: StatusHistoryEntry
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SearchRawEventsParams:
+      properties:
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 5
+            page: 1
+      type: object
+      title: SearchRawEventsParams
+    EarningsAggregatedDetailItem:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        amount:
+          type: number
+          title: Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+      type: object
+      required:
+      - platform
+      - account_id
+      - amount
+      title: EarningsAggregatedDetailItem
+    ReassignAccountUserResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        new_user_id:
+          type: string
+          format: uuid
+          title: New User Id
+        old_user_id:
+          type: string
+          format: uuid
+          title: Old User Id
+        old_user_deleted:
+          type: boolean
+          title: Old User Deleted
+      type: object
+      required:
+      - account_id
+      - new_user_id
+      - old_user_id
+      - old_user_deleted
+      title: ReassignAccountUserResponse
+    CountryDataResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        alpha_2:
+          $ref: '#/components/schemas/CountryCode'
+        alpha_3:
+          type: string
+          title: Alpha 3
+        name:
+          type: string
+          title: Name
+        currency:
+          type: string
+          title: Currency
+        calling_code:
+          type: string
+          title: Calling Code
+        timezone:
+          type: string
+          title: Timezone
+        flag:
+          type: string
+          title: Flag
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+      type: object
+      required:
+      - id
+      - alpha_2
+      - alpha_3
+      - name
+      - currency
+      - calling_code
+      - timezone
+      title: CountryDataResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        alpha_2: mx
+        alpha_3: mex
+        name: Mexico
+        currency: MXN
+        calling_code: '52'
+        timezone: America/Mexico_City
+        flag: https://cdn.palenca.com/flags/mx.svg
+    ListCompaniesDataResponse:
+      properties:
+        companies:
+          items:
+            $ref: '#/components/schemas/ListCompanyDataResponse'
+          type: array
+          title: Companies
+      type: object
+      required:
+      - companies
+      title: ListCompaniesDataResponse
+    BaseResponse_AccountListDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountListDataResponse'
+      type: object
+      title: BaseResponse[AccountListDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ProfileParams:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        phone:
+          type: string
+          title: Phone
+        email:
+          type: string
+          title: Email
+        address:
+          type: string
+          title: Address
+        city_name:
+          type: string
+          title: City Name
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+        civil_status:
+          $ref: '#/components/schemas/CivilStatus'
+        gender:
+          $ref: '#/components/schemas/Gender'
+        worker_role:
+          $ref: '#/components/schemas/WorkerRole'
+        picture_url:
+          type: string
+          title: Picture Url
+      type: object
+      required:
+      - account_id
+      - first_name
+      - last_name
+      title: ProfileParams
+    DebugDataType:
+      enum:
+      - token
+      - account
+      - data
+      - webhooks
+      title: DebugDataType
+      description: An enumeration.
+    BaseResponse_ListGroupsResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ListGroupsResponse'
+      type: object
+      title: BaseResponse[ListGroupsResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    WebhooksDataResponse:
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/WebhookDataResponse'
+          type: array
+          title: Webhooks
+      type: object
+      required:
+      - webhooks
+      title: WebhooksDataResponse
+    EmploymentsFilesBaseResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: EmploymentsFilesBaseResponse
+    UpdateCountryParams:
+      properties:
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+      type: object
+      title: UpdateCountryParams
+    BaseResponse_WidgetSetupDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetSetupDataResponse'
+      type: object
+      title: BaseResponse[WidgetSetupDataResponse]
       example:
         success: true
         data: {}
@@ -7464,32 +8818,6 @@ components:
       - password_validation_pending
       title: LoginStatus
       description: An enumeration.
-    CreateEmploymentFileParams:
-      properties:
-        url:
-          type: string
-          title: Url
-        file_type:
-          $ref: '#/components/schemas/EmploymentFilesType'
-        employment_info_id:
-          type: string
-          format: uuid
-          title: Employment Info Id
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-      type: object
-      title: CreateEmploymentFileParams
-    EventType:
-      enum:
-      - delivery
-      - ride
-      - bonus
-      - adjustment
-      - debt
-      title: EventType
-      description: An enumeration.
     ReprocessEventsRequest:
       properties:
         year:
@@ -7509,31 +8837,7 @@ components:
       - year
       - month
       title: ReprocessEventsRequest
-    StatusHistoryEntry:
-      properties:
-        platform_code:
-          type: string
-          title: Platform Code
-        status:
-          type: string
-          title: Status
-      type: object
-      required:
-      - platform_code
-      - status
-      title: StatusHistoryEntry
-    BulkStatusHistoryRequest:
-      properties:
-        entries:
-          items:
-            $ref: '#/components/schemas/StatusHistoryEntry'
-          type: array
-          title: Entries
-      type: object
-      required:
-      - entries
-      title: BulkStatusHistoryRequest
-    BaseResponse_ReassignAccountUserResponse_:
+    BaseResponse_ListLoginBaseResponse_:
       properties:
         success:
           type: boolean
@@ -7542,329 +8846,42 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/ReassignAccountUserResponse'
+          $ref: '#/components/schemas/ListLoginBaseResponse'
       type: object
-      title: BaseResponse[ReassignAccountUserResponse]
+      title: BaseResponse[ListLoginBaseResponse]
       example:
         success: true
         data: {}
         error: {}
-    SearchCompaniesParams:
+    ValidateAccountParams:
       properties:
-        statuses:
+        encrypted_data:
+          type: string
+          title: Encrypted Data
+        encrypted_symmetric_key:
+          type: string
+          title: Encrypted Symmetric Key
+        otp_code:
+          type: string
+          title: Otp Code
+        alternative_method:
+          $ref: '#/components/schemas/LoginTypes'
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        cookies:
           items:
-            $ref: '#/components/schemas/CompanyStatus'
+            $ref: '#/components/schemas/Cookie'
           type: array
-        q:
-          type: string
-          title: Q
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
+          title: Cookies
+          default: []
       type: object
-      title: SearchCompaniesParams
-    PlatformCode:
-      enum:
-      - uber
-      - didi
-      - imss
-      - rappi
-      - osmos
-      - pemex
-      - picap
-      - ifood
-      - issste
-      - cabify
-      - workday
-      - indriver
-      - uber_eats
-      - didi_food
-      - pedidos_ya
-      - noventa_nove
-      - mensajeros_urbanos
-      - rapiboy
-      - nueve_nueve_minutos
-      - carteira_trabalho
-      - mercado_pago
-      - nom_gob_cdmx
-      - nom_salud_cdmx
-      - nom_sep_cdmx
-      - nom_sep_qro
-      - nom_gob_hidalgo
-      - nom_sep_durango
-      - nom_ayto_cancun
-      - nom_sep_qroo
-      - nom_gob_qroo
-      - nom_salud_qroo
-      - nom_sep_campeche
-      - nom_gob_oaxaca
-      - nom_sep_oaxaca
-      - nom_pensiones_jal
-      - nom_gob_nl
-      - nom_gob_tamps
-      - nom_salud_tamps
-      - nom_fiscalia_tamps
-      - nom_gob_sonora
-      - nom_sep_sonora
-      - nom_salud_sonora
-      - nom_sep_bcsur
-      - nom_gob_edomex
-      - nom_sep_edomex
-      - nom_gob_tabasco
-      - nom_salud_sonora2
-      - nom_com_soc_qroo
-      - nom_pemex
-      - mc_price_shoes
-      - mc_avon
-      - mc_mary_kay
-      - mc_betterware
-      - nominativa
-      - microempreendedor_individual
-      - runa
-      - grupo_tress
-      - beat
-      - clip
-      - worky
-      - cornershop
-      title: PlatformCode
-      description: An enumeration.
-    AccountConsoleResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        identifier:
-          type: string
-          title: Identifier
-        worker_id:
-          type: string
-          title: Worker Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        warning:
-          $ref: '#/components/schemas/AccountWarning'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        last_successful_connection:
-          type: string
-          format: date-time
-          title: Last Successful Connection
-        message:
-          type: string
-          title: Message
-        recommendation:
-          type: string
-          title: Recommendation
-        source:
-          $ref: '#/components/schemas/SourceCode'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        first_name:
-          type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        gov_id:
-          type: string
-          title: Gov Id
-      type: object
-      required:
-      - id
-      - user_id
-      title: AccountConsoleResponse
-    CurrencyCode:
-      enum:
-      - mxn
-      - usd
-      - cop
-      - clp
-      - ars
-      - pen
-      - brl
-      - crc
-      - pab
-      - bob
-      - ves
-      - dop
-      - brr
-      title: CurrencyCode
-      description: An enumeration.
-    RefreshEarningsParams:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          default: 0
-        end_days_offset:
-          type: integer
-          title: End Days Offset
-          default: 10
-      type: object
-      title: RefreshEarningsParams
-    EarningsAggregatedEarningItem:
-      properties:
-        earning_date:
-          type: string
-          format: date
-          title: Earning Date
-        amount:
-          type: number
-          title: Amount
-        currency:
-          type: string
-          title: Currency
-        count_trips:
-          type: integer
-          title: Count Trips
-        details:
-          items:
-            $ref: '#/components/schemas/EarningsAggregatedDetailItem'
-          type: array
-          title: Details
-        currency_note:
-          type: string
-          title: Currency Note
-      type: object
-      required:
-      - earning_date
-      - amount
-      - currency
-      title: EarningsAggregatedEarningItem
-    SearchUsersParams:
-      properties:
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        external_id:
-          type: string
-          title: External Id
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: SearchUsersParams
-    RetryLoginOptions:
-      properties:
-        force_retry:
-          type: boolean
-          title: Force Retry
-          default: false
-      type: object
-      title: RetryLoginOptions
-    ImssWebScrapingParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        curp:
-          type: string
-          title: Curp
-        nss:
-          type: string
-          title: Nss
-        email:
-          type: string
-          title: Email
-      type: object
-      title: ImssWebScrapingParams
-    DebugDataArgyleParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        identifier:
-          type: string
-          title: Identifier
-        data_types:
-          items:
-            $ref: '#/components/schemas/DebugDataType'
-          type: array
-      type: object
-      required:
-      - account_id
-      - user_id
-      title: DebugDataArgyleParams
+      title: ValidateAccountParams
       example:
-        account_id: f1932f34-2658-4f3e-8069-0aeeb77dd14e
-        user_id: db48d579-c10d-4ed6-b857-1b1b7f4502c0
-        data_types:
-        - token
-        - webhooks
-    BasePaginationResponse_EmploymentsFilesBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
-      type: object
-      title: BasePaginationResponse[EmploymentsFilesBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
-    UpdateLoginParams:
-      properties:
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        insights_status:
-          $ref: '#/components/schemas/InsightsStatus'
-        insights_status_details:
-          $ref: '#/components/schemas/InsightsStatusDetails'
-        should_notify_webhook:
-          type: boolean
-          title: Should Notify Webhook
-          default: false
-        login_id:
-          type: string
-          format: uuid
-          title: Login Id
-      type: object
-      title: UpdateLoginParams
+        otp_code: '12345'
     WidgetDataResponse:
       properties:
         created_at:
@@ -7995,153 +9012,217 @@ components:
         whatsapp_number: '+525539043015'
         webhook_url: https://webhooks.palenca.com/example
         settings: {}
-    CreateUserParams:
+    EarningsDataBaseResponse:
       properties:
-        connect_flow_id:
+        account_id:
           type: string
           format: uuid
-          title: Connect Flow Id
+          title: Account Id
+        earnings:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/EarningsBaseResponse'
+            - $ref: '#/components/schemas/EarningsWithEmployerResponse'
+          type: array
+          title: Earnings
+      type: object
+      required:
+      - account_id
+      title: EarningsDataBaseResponse
+    Job:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        federal_entity:
+          type: string
+          title: Federal Entity
+        base_salary:
+          type: number
+          title: Base Salary
+        monthly_salary:
+          type: number
+          title: Monthly Salary
+        employer_registration:
+          type: string
+          title: Employer Registration
+      type: object
+      required:
+      - employer
+      - start_date
+      - end_date
+      - federal_entity
+      - base_salary
+      - monthly_salary
+      title: Job
+    BaseResponse_ListCompaniesDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ListCompaniesDataResponse'
+      type: object
+      title: BaseResponse[ListCompaniesDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_AccountDataWithExternalIDBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataWithExternalIDBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataWithExternalIDBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    StoreUserConsentParams:
+      properties:
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
         external_id:
           type: string
           title: External Id
-        user_id:
-          type: string
-          title: User Id
-      type: object
-      title: CreateUserParams
-      example:
-        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        external_id: '1234567890'
-    BaseResponse_WebhookDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WebhookDataResponse'
-      type: object
-      title: BaseResponse[WebhookDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ListCompaniesDataResponse:
-      properties:
-        companies:
-          items:
-            $ref: '#/components/schemas/ListCompanyDataResponse'
-          type: array
-          title: Companies
-      type: object
-      required:
-      - companies
-      title: ListCompaniesDataResponse
-    ListLoginBaseResponse:
-      properties:
-        logins:
-          items:
-            $ref: '#/components/schemas/LoginBaseResponse'
-          type: array
-          title: Logins
-          default: []
-      type: object
-      title: ListLoginBaseResponse
-    BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          items:
-            $ref: '#/components/schemas/PlatformDataResponse'
-          type: array
-          title: Data
-      type: object
-      title: BaseResponse[list[app.api.schemas.responses.PlatformDataResponse]]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse_AccountsDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountsDataResponse'
-      type: object
-      title: BaseResponse[AccountsDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    UpdateCountryParams:
-      properties:
-        is_active:
-          type: boolean
-          title: Is Active
-          default: true
-      type: object
-      title: UpdateCountryParams
-    CreateAccountBase:
-      properties:
-        encrypted_data:
-          type: string
-          title: Encrypted Data
-        encrypted_symmetric_key:
-          type: string
-          title: Encrypted Symmetric Key
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        identifier_type:
-          $ref: '#/components/schemas/IdentifierTypes'
-        password:
-          type: string
-          title: Password
-        worker_id:
-          type: string
-          title: Worker Id
-        phone_number:
-          type: string
-          title: Phone Number
-        method:
-          $ref: '#/components/schemas/LoginTypes'
-        email:
-          type: string
-          title: Email
-        bulk_id:
-          type: string
-          format: uuid
-          title: Bulk Id
         gov_id:
           type: string
           title: Gov Id
-        hcaptcha_response:
+        account_id:
           type: string
-          title: Hcaptcha Response
+          title: Account Id
+        ip_address:
+          type: string
+          title: Ip Address
+        timestamp:
+          type: string
+          title: Timestamp
+          default: '2026-07-19T00:04:52.330355+00:00'
+        consent_method:
+          $ref: '#/components/schemas/WidgetConsentMethod'
+        consent_version:
+          type: string
+          title: Consent Version
+        consent_language:
+          $ref: '#/components/schemas/AcceptedLanguage'
+        country:
+          type: string
+          title: Country
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        company_name:
+          type: string
+          title: Company Name
+        browser:
+          type: string
+          title: Browser
+        device:
+          type: string
+          title: Device
       type: object
-      title: CreateAccountBase
+      required:
+      - company_id
+      - widget_id
+      - user_id
+      title: StoreUserConsentParams
+    BaseResponse_ProfileDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ProfileDataBaseResponse'
+      type: object
+      title: BaseResponse[ProfileDataBaseResponse]
       example:
-        country: mx
-        platform: uber
-        identifier: user@example.com
-        identifier_type: email
-        password: s3cur3p4s5w0rd
-    CountryDataResponse:
+        success: true
+        data: {}
+        error: {}
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse_UserRetrievalListDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserRetrievalListDataResponse'
+      type: object
+      title: BaseResponse[UserRetrievalListDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    app__api__schemas__widgets__CreateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+          default: []
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+      type: object
+      title: CreateWidgetParams
+    GroupResponse:
       properties:
         created_at:
           type: string
@@ -8155,90 +9236,105 @@ components:
           type: string
           format: uuid
           title: Id
-        alpha_2:
-          $ref: '#/components/schemas/CountryCode'
-        alpha_3:
-          type: string
-          title: Alpha 3
         name:
           type: string
           title: Name
-        currency:
+        admin:
+          $ref: '#/components/schemas/GroupAdminResponse'
+        companies:
+          items:
+            $ref: '#/components/schemas/Company'
+          type: array
+          title: Companies
+          default: []
+        privacy_url:
           type: string
-          title: Currency
-        calling_code:
-          type: string
-          title: Calling Code
-        timezone:
-          type: string
-          title: Timezone
-        flag:
-          type: string
-          title: Flag
-        is_active:
-          type: boolean
-          title: Is Active
-          default: true
+          title: Privacy Url
       type: object
       required:
       - id
-      - alpha_2
-      - alpha_3
       - name
-      - currency
-      - calling_code
-      - timezone
-      title: CountryDataResponse
+      - admin
+      title: GroupResponse
+    EmploymentEventInput:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        event_type:
+          type: string
+          title: Event Type
+        event_date:
+          type: string
+          title: Event Date
+        base_salary:
+          type: number
+          title: Base Salary
+        employer_registration:
+          type: string
+          title: Employer Registration
+      type: object
+      required:
+      - event_type
+      - event_date
+      - base_salary
+      title: EmploymentEventInput
+    RefreshArgyleTokenParams:
+      properties:
+        argyle_user_id:
+          type: string
+          title: Argyle User Id
+      type: object
+      required:
+      - argyle_user_id
+      title: RefreshArgyleTokenParams
       example:
-        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        alpha_2: mx
-        alpha_3: mex
-        name: Mexico
-        currency: MXN
-        calling_code: '52'
-        timezone: America/Mexico_City
-        flag: https://cdn.palenca.com/flags/mx.svg
-    WidgetType:
+        argyle_user_id: 018e1234-5678-9abc-def0-123456789abc
+    CurrencyCode:
       enum:
-      - income_verification
-      title: WidgetType
+      - mxn
+      - usd
+      - cop
+      - clp
+      - ars
+      - pen
+      - brl
+      - crc
+      - pab
+      - bob
+      - ves
+      - dop
+      - brr
+      title: CurrencyCode
       description: An enumeration.
-    BaseResponse_PlatformDataResponse_:
+    IdentifierTypes:
+      enum:
+      - email
+      - phone
+      - rfc
+      title: IdentifierTypes
+      description: An enumeration.
+    AccountsDataConsoleResponse:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/PlatformDataResponse'
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountConsoleResponse'
+          type: array
+          title: Accounts
       type: object
-      title: BaseResponse[PlatformDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BasePaginationResponse_EarningsDataBaseResponse_:
+      required:
+      - accounts
+      title: AccountsDataConsoleResponse
+    WorkerParams:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EarningsDataBaseResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
+        id:
+          type: string
+          title: Id
       type: object
-      title: BasePaginationResponse[EarningsDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
-    CreateEarningParam:
+      required:
+      - id
+      title: WorkerParams
+    EarningsWithEmployerResponse:
       properties:
         amount:
           type: number
@@ -8247,7 +9343,7 @@ components:
           $ref: '#/components/schemas/CurrencyCode'
         earning_date:
           type: string
-          format: date-time
+          format: date
           title: Earning Date
         cash_amount:
           type: number
@@ -8255,256 +9351,12 @@ components:
         count_trips:
           type: integer
           title: Count Trips
-      type: object
-      required:
-      - amount
-      - currency
-      - earning_date
-      title: CreateEarningParam
-    PaymentMethod:
-      enum:
-      - cash
-      - card
-      - online_bank
-      title: PaymentMethod
-      description: An enumeration.
-    WorkerRole:
-      enum:
-      - driver
-      - courier
-      - both
-      title: WorkerRole
-      description: An enumeration.
-    BaseResponse_UserRetrievalDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/UserRetrievalDataResponse'
-      type: object
-      title: BaseResponse[UserRetrievalDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    WebhooksDataResponse:
-      properties:
-        webhooks:
-          items:
-            $ref: '#/components/schemas/WebhookDataResponse'
-          type: array
-          title: Webhooks
-      type: object
-      required:
-      - webhooks
-      title: WebhooksDataResponse
-    SearchEventsParams:
-      properties:
-        start_date:
+        employer:
           type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
+          title: Employer
       type: object
-      required:
-      - start_date
-      - end_date
-      title: SearchEventsParams
-    CreateEarningsParams:
-      properties:
-        earnings:
-          items:
-            $ref: '#/components/schemas/CreateEarningParam'
-          type: array
-          title: Earnings
-        is_manual:
-          type: boolean
-          title: Is Manual
-          default: false
-      type: object
-      required:
-      - earnings
-      title: CreateEarningsParams
-    IdentifierTypes:
-      enum:
-      - email
-      - phone
-      - rfc
-      title: IdentifierTypes
-      description: An enumeration.
-    ProfileDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        profile:
-          $ref: '#/components/schemas/ProfileResponse'
-        ids_info:
-          items:
-            $ref: '#/components/schemas/IdInfoBaseResponse'
-          type: array
-          title: Ids Info
-      type: object
-      required:
-      - account_id
-      title: ProfileDataBaseResponse
-    ProcessBatchJobParams:
-      properties:
-        access_token:
-          type: string
-          title: Access Token
-        offset:
-          type: integer
-          title: Offset
-          default: 50
-      type: object
-      required:
-      - access_token
-      title: ProcessBatchJobParams
-    BaseResponse_GroupResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/GroupResponse'
-      type: object
-      title: BaseResponse[GroupResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    EarningsAggregatedOptions:
-      properties:
-        details:
-          type: boolean
-          title: Details
-          default: false
-      type: object
-      title: EarningsAggregatedOptions
-    IdType:
-      enum:
-      - tax
-      - passport
-      - national
-      - social_security_number
-      - individual_taxpayer_registry
-      title: IdType
-      description: An enumeration.
-    InsightsReport:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        success:
-          type: boolean
-          title: Success
-          default: false
-        warning:
-          type: string
-          title: Warning
-        status:
-          type: string
-          title: Status
-        last_base_salary:
-          type: number
-          title: Last Base Salary
-        last_employment_duration:
-          type: integer
-          title: Last Employment Duration
-        current_situation_duration:
-          type: integer
-          title: Current Situation Duration
-        total_worked_weeks:
-          type: integer
-          title: Total Worked Weeks
-        total_unique_employers:
-          type: integer
-          title: Total Unique Employers
-        ratio_employers_per_year:
-          type: number
-          title: Ratio Employers Per Year
-        total_weeks_unemployed:
-          type: integer
-          title: Total Weeks Unemployed
-        max_unemployed_duration:
-          type: integer
-          title: Max Unemployed Duration
-        current_employer_modifications:
-          type: integer
-          title: Current Employer Modifications
-        median_progression:
-          type: number
-          title: Median Progression
-        employer_change_modifications_positive_progression:
-          type: number
-          title: Employer Change Modifications Positive Progression
-        employer_change_modifications_negative_progression:
-          type: number
-          title: Employer Change Modifications Negative Progression
-        snapshots_1_year_ago:
-          type: number
-          title: Snapshots 1 Year Ago
-        snapshots_3_years_ago:
-          type: number
-          title: Snapshots 3 Years Ago
-        snapshots_5_years_ago:
-          type: number
-          title: Snapshots 5 Years Ago
-      type: object
-      required:
-      - account_id
-      title: InsightsReport
-    EmploymentHistoryStatus:
-      enum:
-      - empty
-      - partial
-      - complete
-      title: EmploymentHistoryStatus
-      description: An enumeration.
-    CivilStatus:
-      enum:
-      - single
-      - married
-      title: CivilStatus
-      description: An enumeration.
-    EmploymentStatus:
-      enum:
-      - retired
-      - employed
-      - unemployed
-      - unknown
-      - potentially_retired
-      - voluntary_contributions
-      - banned
-      - active
-      title: EmploymentStatus
-      description: An enumeration.
-    ProfileParams:
+      title: EarningsWithEmployerResponse
+    PlatformDataResponse:
       properties:
         created_at:
           type: string
@@ -8518,48 +9370,55 @@ components:
           type: string
           format: uuid
           title: Id
-        account_id:
+        code:
+          $ref: '#/components/schemas/PlatformCode'
+        name:
           type: string
-          format: uuid
-          title: Account Id
-        first_name:
+          title: Name
+        logo:
           type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        phone:
-          type: string
-          title: Phone
-        email:
-          type: string
-          title: Email
-        address:
-          type: string
-          title: Address
-        city_name:
-          type: string
-          title: City Name
-        birthday:
-          type: string
-          format: date
-          title: Birthday
-        civil_status:
-          $ref: '#/components/schemas/CivilStatus'
-        gender:
-          $ref: '#/components/schemas/Gender'
-        worker_role:
-          $ref: '#/components/schemas/WorkerRole'
-        picture_url:
-          type: string
-          title: Picture Url
+          title: Logo
+        is_active:
+          type: boolean
+          title: Is Active
+        category:
+          $ref: '#/components/schemas/PlatformCategory'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        status:
+          $ref: '#/components/schemas/PlatformStatus'
       type: object
       required:
-      - account_id
-      - first_name
-      - last_name
-      title: ProfileParams
-    CompanyDataResponse:
+      - id
+      - code
+      - name
+      - logo
+      - is_active
+      - category
+      - countries
+      title: PlatformDataResponse
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        code: uber
+        name: Uber
+        logo: https://palenca.com/logo.png
+        is_active: true
+        category: gig
+        status: available
+    ListCompaniesResponse:
+      properties:
+        companies:
+          items:
+            $ref: '#/components/schemas/CompanyDataResponse'
+          type: array
+          title: Companies
+      type: object
+      required:
+      - companies
+      title: ListCompaniesResponse
+    Company:
       properties:
         created_at:
           type: string
@@ -8641,153 +9500,31 @@ components:
       - priority
       - public_api_key
       - private_api_key
-      title: CompanyDataResponse
-      example:
-        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        client_id: c2644819-1879-4219-93ab-86b54fb83467
-        logo: https://palenca.com/logo.png
-        display_name: Palenca
-        company_name: palenca
-        website: https://palenca.com
-        priority: low
-        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
-    GroupResponse:
+      title: Company
+    UpdateGroupParams:
       properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
         name:
           type: string
           title: Name
-        admin:
-          $ref: '#/components/schemas/GroupAdminResponse'
+        admin_id:
+          type: string
+          format: uuid
+          title: Admin Id
         companies:
           items:
-            $ref: '#/components/schemas/Company'
+            type: string
+            format: uuid
           type: array
           title: Companies
-          default: []
         privacy_url:
           type: string
           title: Privacy Url
       type: object
       required:
-      - id
       - name
-      - admin
-      title: GroupResponse
-    SearchEarningsParams:
-      properties:
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: SearchEarningsParams
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    BaseResponse_CompanyResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CompanyResponse'
-      type: object
-      title: BaseResponse[CompanyResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    app__api__schemas__admin__UpdateCompanyParams:
-      properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        user:
-          type: string
-          title: User
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        owner:
-          type: string
-          title: Owner
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-          default: false
-      type: object
-      title: UpdateCompanyParams
+      - admin_id
+      - companies
+      title: UpdateGroupParams
     CreateWebhookParams:
       properties:
         url:
@@ -8828,255 +9565,83 @@ components:
         widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
         events:
         - '*'
-    BaseResponse_AccountDataBaseResponse_:
+    app__api__schemas__internal__companies__UpdateCompanyParams:
       properties:
-        success:
+        widget_advanced_customization:
           type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountDataBaseResponse'
+          title: Widget Advanced Customization
       type: object
-      title: BaseResponse[AccountDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    RawEventsDataBaseResponse:
+      required:
+      - widget_advanced_customization
+      title: UpdateCompanyParams
+    AccountBaseResponse:
       properties:
         account_id:
           type: string
           format: uuid
           title: Account Id
-        raw_events:
-          items:
-            type: object
-          type: array
-          title: Raw Events
-          default: []
-      type: object
-      required:
-      - account_id
-      title: RawEventsDataBaseResponse
-    EarningsAggregatedParams:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        external_id:
-          type: string
-          title: External Id
-        start_date:
-          type: string
-          format: date
-          title: Start Date
-        end_date:
-          type: string
-          format: date
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/EarningsAggregatedOptions'
-          title: Options
-          default:
-            details: false
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: EarningsAggregatedParams
-    ReassignAccountUserResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        new_user_id:
-          type: string
-          format: uuid
-          title: New User Id
-        old_user_id:
-          type: string
-          format: uuid
-          title: Old User Id
-        old_user_deleted:
-          type: boolean
-          title: Old User Deleted
-      type: object
-      required:
-      - account_id
-      - new_user_id
-      - old_user_id
-      - old_user_deleted
-      title: ReassignAccountUserResponse
-    BaseResponse_list_app.api.schemas.responses.CountryDataResponse__:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          items:
-            $ref: '#/components/schemas/CountryDataResponse'
-          type: array
-          title: Data
-      type: object
-      title: BaseResponse[list[app.api.schemas.responses.CountryDataResponse]]
-      example:
-        success: true
-        data: {}
-        error: {}
-    AccountDataBaseResponse:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
         country:
           $ref: '#/components/schemas/CountryCode'
         platform:
           $ref: '#/components/schemas/PlatformCode'
-        account_id:
+        identifier:
           type: string
-          format: uuid
-          title: Account Id
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        gov_id:
+          type: string
+          title: Gov Id
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
         next_step:
           $ref: '#/components/schemas/LoginTypes'
-        methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        alternative_methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        hint:
+        created_at:
           type: string
-          title: Hint
+          format: date-time
+          title: Created At
       type: object
-      title: AccountDataBaseResponse
-      example:
-        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        country: mx
-        platform: uber
-    BaseResponse_dict_:
+      required:
+      - account_id
+      title: AccountBaseResponse
+    AcceptedLanguage:
+      enum:
+      - en
+      - es
+      - pt
+      title: AcceptedLanguage
+      description: An enumeration.
+    SendWebhookTimeoutParams:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          type: object
-          title: Data
-      type: object
-      title: BaseResponse[dict]
-      example:
-        success: true
-        data: {}
-        error: {}
-    Cookie:
-      properties:
-        name:
-          type: string
-          title: Name
-        value:
-          type: string
-          title: Value
-        domain:
-          type: string
-          title: Domain
-      type: object
-      title: Cookie
-    EmploymentDataBaseResponse:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
         account_id:
           type: string
           format: uuid
           title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        employment_info:
-          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
-        employment_history:
-          items:
-            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
-          type: array
-          title: Employment History
-      type: object
-      required:
-      - platform
-      - account_id
-      title: EmploymentDataBaseResponse
-    CreateEmploymentHistoryParams:
-      properties:
-        account_id:
-          type: string
-          title: Account Id
-        jobs:
-          items:
-            $ref: '#/components/schemas/Job'
-          type: array
-          title: Jobs
-        quoted_weeks:
-          type: integer
-          title: Quoted Weeks
-        discounted_weeks:
-          type: integer
-          title: Discounted Weeks
-        reintegrated_weeks:
-          type: integer
-          title: Reintegrated Weeks
-        account_warning:
-          $ref: '#/components/schemas/AccountWarning'
-      type: object
-      required:
-      - account_id
-      title: CreateEmploymentHistoryParams
-    BaseResponse_WidgetDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WidgetDataResponse'
-      type: object
-      title: BaseResponse[WidgetDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    AccountListDataResponse:
-      properties:
-        user_id:
+        webhook_id:
           type: string
           format: uuid
-          title: User Id
-        accounts:
-          items:
-            $ref: '#/components/schemas/AccountBaseResponse'
-          type: array
-          title: Accounts
+          title: Webhook Id
       type: object
       required:
-      - user_id
-      - accounts
-      title: AccountListDataResponse
-    BasePaginationResponse_EmploymentDataBaseResponse_:
+      - account_id
+      - webhook_id
+      title: SendWebhookTimeoutParams
+    BasePaginationResponse_EventsDataBaseResponse_:
       properties:
         success:
           type: boolean
@@ -9085,123 +9650,65 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/EmploymentDataBaseResponse'
+          $ref: '#/components/schemas/EventsDataBaseResponse'
         pagination:
           $ref: '#/components/schemas/PaginationBaseResponse'
       type: object
-      title: BasePaginationResponse[EmploymentDataBaseResponse]
+      title: BasePaginationResponse[EventsDataBaseResponse]
       example:
         success: true
         data: {}
         error: {}
         pagination: {}
-    CreatePlatformParams:
+    CreateUnifiedAccountParams:
       properties:
-        code:
-          $ref: '#/components/schemas/PlatformCode'
-        name:
-          type: string
-          title: Name
-        logo:
-          type: string
-          title: Logo
-        is_active:
-          type: boolean
-          title: Is Active
-        category:
-          $ref: '#/components/schemas/PlatformCategory'
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-      type: object
-      required:
-      - code
-      - name
-      - logo
-      - is_active
-      - category
-      - countries
-      title: CreatePlatformParams
-    Job:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        federal_entity:
-          type: string
-          title: Federal Entity
-        base_salary:
-          type: number
-          title: Base Salary
-        monthly_salary:
-          type: number
-          title: Monthly Salary
-        employer_registration:
-          type: string
-          title: Employer Registration
-      type: object
-      required:
-      - employer
-      - start_date
-      - end_date
-      - federal_entity
-      - base_salary
-      - monthly_salary
-      title: Job
-    UpdateWebhookParams:
-      properties:
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
         connect_flow_id:
           type: string
           format: uuid
           title: Connect Flow Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        sign_request:
-          type: boolean
-          title: Sign Request
-        is_active:
-          type: boolean
-          title: Is Active
-        events:
-          items: {}
-          type: array
-          title: Events
-          default:
-          - '*'
-      type: object
-      title: UpdateWebhookParams
-      example:
-        url: https://domain.com/webhook
-        name: My webhook
-        is_sandbox: true
-        is_active: true
-        sign_request: false
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
-    AccountsDataConsoleResponse:
-      properties:
-        accounts:
-          items:
-            $ref: '#/components/schemas/AccountConsoleResponse'
-          type: array
-          title: Accounts
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          anyOf:
+          - $ref: '#/components/schemas/PlatformCode'
+          - items:
+              $ref: '#/components/schemas/PlatformCode'
+            type: array
+          title: Platform
+        identifier:
+          type: string
+          title: Identifier
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceCode'
+          default: api
+        gov_id:
+          type: string
+          title: Gov Id
       type: object
       required:
-      - accounts
-      title: AccountsDataConsoleResponse
+      - country
+      - platform
+      - identifier
+      title: CreateUnifiedAccountParams
+      example:
+        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        external_id: '1234567890'
+    WidgetInternalType:
+      enum:
+      - default_api_calls
+      title: WidgetInternalType
+      description: An enumeration.
     ValidationError:
       properties:
         loc:
@@ -9223,86 +9730,50 @@ components:
       - msg
       - type
       title: ValidationError
-    LoginBaseResponse:
+    BaseResponse_CompanyDataResponse_:
       properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        bulk_id:
-          type: string
-          format: uuid
-          title: Bulk Id
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        source:
-          $ref: '#/components/schemas/LoginSourceCode'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        authenticated_at:
-          type: string
-          format: date-time
-          title: Authenticated At
-        message:
-          type: string
-          title: Message
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-        recommendation:
-          type: string
-          title: Recommendation
-        automatic_retry:
+        success:
           type: boolean
-          title: Automatic Retry
-        has_insights:
-          type: boolean
-          title: Has Insights
-        insights_status:
-          $ref: '#/components/schemas/InsightsStatus'
-        insights_status_details:
-          $ref: '#/components/schemas/InsightsStatusDetails'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyDataResponse'
       type: object
-      title: LoginBaseResponse
-    UpdateGroupParams:
+      title: BaseResponse[CompanyDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentEmailParams:
       properties:
-        name:
-          type: string
-          title: Name
-        admin_id:
-          type: string
-          format: uuid
-          title: Admin Id
-        companies:
-          items:
-            type: string
+        account_id:
+          anyOf:
+          - type: string
             format: uuid
-          type: array
-          title: Companies
-        privacy_url:
+          - type: string
+          title: Account Id
+        curp:
           type: string
-          title: Privacy Url
+          title: Curp
+        nss:
+          type: string
+          title: Nss
+        email:
+          type: string
+          title: Email
+        attempts:
+          type: integer
+          title: Attempts
+          default: 0
       type: object
       required:
-      - name
-      - admin_id
-      - companies
-      title: UpdateGroupParams
+      - account_id
+      - curp
+      - nss
+      - email
+      title: EmploymentEmailParams
     BaseResponse_AccountBaseResponse_:
       properties:
         success:
@@ -9319,474 +9790,3 @@ components:
         success: true
         data: {}
         error: {}
-    EmploymentInfoBaseResponse:
-      properties:
-        id_type:
-          $ref: '#/components/schemas/IdType'
-        quoted_weeks:
-          type: integer
-          title: Quoted Weeks
-        discounted_weeks:
-          type: integer
-          title: Discounted Weeks
-        reintegrated_weeks:
-          type: integer
-          title: Reintegrated Weeks
-        end_of_rights:
-          type: string
-          title: End Of Rights
-        status:
-          $ref: '#/components/schemas/EmploymentStatus'
-        employment_files:
-          items:
-            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
-          type: array
-          title: Employment Files
-        employment_history_status:
-          $ref: '#/components/schemas/EmploymentHistoryStatus'
-      type: object
-      title: EmploymentInfoBaseResponse
-    CreateUberApiParams:
-      properties:
-        user_id:
-          type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        gov_id:
-          type: string
-          title: Gov Id
-        redirect_url:
-          type: string
-          title: Redirect Url
-      type: object
-      title: CreateUberApiParams
-      example:
-        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        country: mx
-        platform: uber
-    IdInfoParams:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdType'
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - type
-      - id
-      - name
-      title: IdInfoParams
-    BaseResponse_ListGroupsResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ListGroupsResponse'
-      type: object
-      title: BaseResponse[ListGroupsResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse_EmploymentHistoryBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
-      type: object
-      title: BaseResponse[EmploymentHistoryBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ListCompaniesResponse:
-      properties:
-        companies:
-          items:
-            $ref: '#/components/schemas/CompanyDataResponse'
-          type: array
-          title: Companies
-      type: object
-      required:
-      - companies
-      title: ListCompaniesResponse
-    app__api__schemas__widgets__UpdateWidgetParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        require_gov_id:
-          type: boolean
-          title: Require Gov Id
-          default: false
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-          default: []
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformCode'
-          type: array
-          default: []
-        hide_logo:
-          type: boolean
-          title: Hide Logo
-        hide_whatsapp:
-          type: boolean
-          title: Hide Whatsapp
-        hide_consent:
-          type: boolean
-          title: Hide Consent
-        font_family:
-          type: string
-          title: Font Family
-        primary_color:
-          type: string
-          title: Primary Color
-        border_radius:
-          type: string
-          title: Border Radius
-        custom_privacy_url:
-          type: string
-          title: Custom Privacy Url
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-      type: object
-      title: UpdateWidgetParams
-    EarningsDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        earnings:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/EarningsBaseResponse'
-            - $ref: '#/components/schemas/EarningsWithEmployerResponse'
-          type: array
-          title: Earnings
-      type: object
-      required:
-      - account_id
-      title: EarningsDataBaseResponse
-    EmploymentHistoryBaseResponse:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        employer_registration:
-          type: string
-          title: Employer Registration
-        start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: End Date
-        job_title:
-          type: string
-          title: Job Title
-        job_title_code:
-          type: string
-          title: Job Title Code
-        federal_entity:
-          type: string
-          title: Federal Entity
-      type: object
-      title: EmploymentHistoryBaseResponse
-    EmploymentDataParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        worker:
-          $ref: '#/components/schemas/WorkerParams'
-        id_info:
-          $ref: '#/components/schemas/IdInfoParams'
-        profile:
-          $ref: '#/components/schemas/ProfileParams'
-      type: object
-      title: EmploymentDataParams
-    SearchLoginsParams:
-      properties:
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: SearchLoginsParams
-    SearchConsentsParams:
-      properties:
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      title: SearchConsentsParams
-    CreateUserArgyleParams:
-      properties:
-        user_id:
-          type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        gov_id:
-          type: string
-          title: Gov Id
-        redirect_url:
-          type: string
-          title: Redirect Url
-      type: object
-      title: CreateUserArgyleParams
-      example:
-        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        country: mx
-        platform: uber
-    EarningsBaseResponse:
-      properties:
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        earning_date:
-          type: string
-          format: date
-          title: Earning Date
-        cash_amount:
-          type: number
-          title: Cash Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-      type: object
-      title: EarningsBaseResponse
-    SearchRawEventsParams:
-      properties:
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 5
-            page: 1
-      type: object
-      title: SearchRawEventsParams
-    RefreshAccountsParams:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        items:
-          items:
-            anyOf:
-            - type: string
-              format: uuid
-            - type: string
-          type: array
-          title: Items
-      type: object
-      required:
-      - platform
-      - items
-      title: RefreshAccountsParams
-    LoginSourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - refresh
-      - connect
-      - bulk_upload
-      - console
-      - platform_retry
-      - refresh_earnings
-      - refresh_events
-      - refresh_profile
-      title: LoginSourceCode
-      description: An enumeration.
-    BaseResponse_ProfileDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ProfileDataBaseResponse'
-      type: object
-      title: BaseResponse[ProfileDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    StatusDetails:
-      enum:
-      - bad_request
-      - banned
-      - invalid_credentials
-      - too_many_requests
-      - service_unavailable
-      - request_timeout
-      - access_forbidden
-      - platform_error
-      - invalid_otp
-      - expired_otp
-      - invalid_nss
-      - invalid_phone
-      - invalid_email
-      - lambda_error
-      - phone_or_code_missing
-      - password_missing
-      - not_registered
-      - login_refused
-      - unknown
-      - invalid_otp_session
-      - invalid_otp_auth_key
-      - needs_auth
-      - requires_auth
-      - curp_not_found
-      - could_not_send_otp
-      - profile_unavailable
-      - no_employment_records
-      - account_setup_incomplete
-      - identity_verification_failed
-      - gov_id_not_in_data_source
-      - gov_id_has_inconsistencies
-      - mfa_deactivation_required
-      - access_token_not_generated
-      - two_factor_auth_required
-      - captcha_bypass_error
-      - invalid_identifier
-      - account_blocked
-      - proxy_error
-      - invalid_captcha
-      - invalid_gov_id
-      - device_authorization_required
-      - max_retries_exceeded
-      - task_create_fail
-      - invalid_cpf
-      - invalid_in_auth_session_id
-      - unable_to_get_uber_metrics
-      - email_otp_validation_pending
-      - login_not_available
-      - invalid_password
-      - unknown_login_type
-      - email_not_validated
-      - already_connected
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - zero_quoted_weeks
-      - proxy_max_retries_exceeded
-      - curp_not_found_in_renapo
-      - nss_not_found_in_imss
-      - renapo_unavailable
-      - service_degradation
-      - server_error
-      - db_constraint_violation
-      - api_forbidden
-      - auth_token_expired
-      - network_max_retries_exceeded
-      - api_service_unavailable_02
-      - api_service_unavailable_08
-      - lambda_timeout
-      - api_service_unavailable
-      - auth_max_attempts_exceeded
-      - browser_navigation_timeout
-      - render_invalid_html
-      - browser_connection_timeout
-      - parser_invalid_pdf
-      - aws_s3_upload_fail
-      - network_connectivity_issues
-      - auth_invalid_token
-      - server_not_found
-      - api_server_error
-      - network_ssl_error
-      - auth_forbidden
-      - api_bad_gateway
-      - api_server_timeout
-      - system_platform_error
-      - api_rate_limit_exceeded
-      - api_renapo_unavailable
-      - user_gov_id_has_inconsistencies
-      - user_ssn_missing
-      - user_curp_not_found_in_renapo
-      - rpci_timeout
-      - pending_data_extraction
-      - employment_info_in_imss
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      - validation_time_expired
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - platform_unavailable
-      - failed_refresh
-      - invalid_schema_response
-      - not_available_in_platform
-      - user_curp_not_in_platform
-      - user_gov_id_not_in_data_source
-      - account_not_found
-      - profile_not_found
-      - unable_to_get_rappi_metrics
-      - captcha_required
-      - captcha_detected
-      - didi_rate_limited
-      - device_risk
-      - cell_rate_limited
-      - resend_limit
-      - didi_rejected
-      - incomplete_profile
-      title: StatusDetails
-      description: An enumeration.

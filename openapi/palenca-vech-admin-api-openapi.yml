@@ -1,15 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Palenca accounts admin API
+  title: Palenca Admin API
   description: Palenca API
   version: 2.0.0
 tags:
-- name: admin
+- name: Admin
 paths:
   /admin/widgets/{widget_id}:
     get:
       tags:
-      - admin
+      - Admin
       summary: Get Widget
       operationId: get_widget_admin_widgets__widget_id__get
       parameters:
@@ -41,7 +41,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     patch:
       tags:
-      - admin
+      - Admin
       summary: Update Company Widget
       operationId: update_company_widget_admin_widgets__widget_id__patch
       parameters:
@@ -80,7 +80,7 @@ paths:
   /admin/companies/{company_id}/widgets:
     post:
       tags:
-      - admin
+      - Admin
       summary: Create Company Widget
       operationId: create_company_widget_admin_companies__company_id__widgets_post
       parameters:
@@ -124,7 +124,7 @@ paths:
   /admin/companies:
     post:
       tags:
-      - admin
+      - Admin
       summary: Create Company
       operationId: create_company_admin_companies_post
       parameters:
@@ -161,7 +161,7 @@ paths:
   /admin/companies/{company_id}:
     patch:
       tags:
-      - admin
+      - Admin
       summary: Update Company
       operationId: update_company_admin_companies__company_id__patch
       parameters:
@@ -199,40 +199,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BaseResponse_CompanyDataPrivate_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CompanyDataPrivate'
-      type: object
-      title: BaseResponse[CompanyDataPrivate]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
     PlatformCode:
       enum:
       - uber
@@ -298,15 +264,6 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ErrorDetailResponse:
       properties:
         message:
@@ -317,49 +274,22 @@ components:
           title: Location
       type: object
       title: ErrorDetailResponse
-    app__api__schemas__admin__UpdateCompanyParams:
+    BaseResponse_CompanyDataPrivate_:
       properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        user:
-          type: string
-          title: User
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        owner:
-          type: string
-          title: Owner
-        refresh:
+        success:
           type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        data_controller:
-          type: boolean
-          title: Data Controller
+          title: Success
           default: true
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-          default: false
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyDataPrivate'
       type: object
-      title: UpdateCompanyParams
+      title: BaseResponse[CompanyDataPrivate]
+      example:
+        success: true
+        data: {}
+        error: {}
     app__api__schemas__admin__UpdateWidgetParams:
       properties:
         name:
@@ -569,37 +499,34 @@ components:
         whatsapp_number: '+525539043015'
         webhook_url: https://webhooks.palenca.com/example
         settings: {}
-    BaseResponse_WidgetDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WidgetDataResponse'
-      type: object
-      title: BaseResponse[WidgetDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CreateCompanyWithWidgetsParams:
-      properties:
-        company:
-          $ref: '#/components/schemas/app__api__schemas__admin__CreateCompanyParams'
-        widget:
-          $ref: '#/components/schemas/app__api__schemas__admin__CreateWidgetParams'
-      type: object
-      required:
-      - company
-      - widget
-      title: CreateCompanyWithWidgetsParams
-    WidgetInternalType:
+    WidgetType:
       enum:
-      - default_api_calls
-      title: WidgetInternalType
+      - income_verification
+      title: WidgetType
+      description: An enumeration.
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
       description: An enumeration.
     CompanyStatus:
       enum:
@@ -613,90 +540,49 @@ components:
       - suspended
       title: CompanyStatus
       description: An enumeration.
-    app__api__schemas__admin__CreateWidgetParams:
+    app__api__schemas__admin__UpdateCompanyParams:
       properties:
-        name:
+        logo:
           type: string
-          title: Name
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformCode'
-          type: array
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-          default: false
-        hide_logo:
-          type: boolean
-          title: Hide Logo
-          default: false
-        hide_whatsapp:
-          type: boolean
-          title: Hide Whatsapp
-          default: false
-        hide_consent:
-          type: boolean
-          title: Hide Consent
-          default: false
-        hide_privacy_url:
-          type: boolean
-          title: Hide Privacy Url
-          default: true
-        hide_redirect_url:
-          type: boolean
-          title: Hide Redirect Url
-          default: true
-        hide_label:
-          type: boolean
-          title: Hide Label
-          default: false
-        require_gov_id:
-          type: boolean
-          title: Require Gov Id
-          default: false
-        persist_session:
-          type: boolean
-          title: Persist Session
-          default: false
-        font_family:
+          title: Logo
+        display_name:
           type: string
-          title: Font Family
-        primary_color:
+          title: Display Name
+        company_name:
           type: string
-          title: Primary Color
-        background_color:
+          title: Company Name
+        website:
           type: string
-          title: Background Color
-        text_field_style:
-          type: string
-          title: Text Field Style
-        border_radius:
-          type: string
-          title: Border Radius
-        redirect_url:
-          type: string
-          title: Redirect Url
-        custom_privacy_url:
-          type: string
-          title: Custom Privacy Url
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-          default: []
-        widget_type:
+          title: Website
+        priority:
           allOf:
-          - $ref: '#/components/schemas/WidgetType'
-          default: income_verification
-        settings:
-          type: object
-          title: Settings
-          default: {}
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        user:
+          type: string
+          title: User
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
       type: object
-      title: CreateWidgetParams
+      title: UpdateCompanyParams
     app__api__schemas__admin__CreateCompanyParams:
       properties:
         logo:
@@ -737,6 +623,29 @@ components:
       - display_name
       - company_name
       title: CreateCompanyParams
+    WidgetInternalType:
+      enum:
+      - default_api_calls
+      title: WidgetInternalType
+      description: An enumeration.
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
     ValidationError:
       properties:
         loc:
@@ -758,35 +667,31 @@ components:
       - msg
       - type
       title: ValidationError
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    WidgetType:
-      enum:
-      - income_verification
-      title: WidgetType
-      description: An enumeration.
-    ErrorResponse:
+    BaseResponse_WidgetDataResponse_:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetDataResponse'
       type: object
-      title: ErrorResponse
+      title: BaseResponse[WidgetDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     CompanyDataPrivate:
       properties:
         created_at:
@@ -880,3 +785,98 @@ components:
         website: https://palenca.com
         public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
         private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+    app__api__schemas__admin__CreateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+          default: false
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+          default: false
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+          default: false
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+          default: true
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+          default: true
+        hide_label:
+          type: boolean
+          title: Hide Label
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        persist_session:
+          type: boolean
+          title: Persist Session
+          default: false
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        redirect_url:
+          type: string
+          title: Redirect Url
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        widget_type:
+          allOf:
+          - $ref: '#/components/schemas/WidgetType'
+          default: income_verification
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: CreateWidgetParams
+    CreateCompanyWithWidgetsParams:
+      properties:
+        company:
+          $ref: '#/components/schemas/app__api__schemas__admin__CreateCompanyParams'
+        widget:
+          $ref: '#/components/schemas/app__api__schemas__admin__CreateWidgetParams'
+      type: object
+      required:
+      - company
+      - widget
+      title: CreateCompanyWithWidgetsParams
