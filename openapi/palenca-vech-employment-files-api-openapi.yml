@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: Palenca Employment Files API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: Employment Files
+paths:
+  /v1/employment-files:
+    post:
+      tags:
+      - Employment Files
+      summary: Create Employment File
+      operationId: create_employment_file_v1_employment_files_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEmploymentFileParams'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    CreateEmploymentFileParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        employment_info_id:
+          type: string
+          format: uuid
+          title: Employment Info Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: CreateEmploymentFileParams
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -1,0 +1,188 @@
+openapi: 3.2.0
+info:
+  title: Palenca Employment File API
+  description: Palenca API
+  version: 2.0.0
+tags:
+- name: Employment File
+paths:
+  /v1/employment-file:
+    post:
+      tags:
+      - Employment File
+      summary: Read Employment File
+      operationId: read_employment_file_v1_employment_file_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadEmploymentFileParams'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    CreateEmploymentEventsParams:
+      properties:
+        employment_events:
+          items:
+            $ref: '#/components/schemas/EmploymentEventInput'
+          type: array
+          title: Employment Events
+      type: object
+      title: CreateEmploymentEventsParams
+    CreateEmploymentHistoryParams:
+      properties:
+        account_id:
+          type: string
+          title: Account Id
+        jobs:
+          items:
+            $ref: '#/components/schemas/Job'
+          type: array
+          title: Jobs
+        quoted_weeks:
+          type: integer
+          title: Quoted Weeks
+        discounted_weeks:
+          type: integer
+          title: Discounted Weeks
+        reintegrated_weeks:
+          type: integer
+          title: Reintegrated Weeks
+        account_warning:
+          $ref: '#/components/schemas/AccountWarning'
+      type: object
+      required:
+      - account_id
+      title: CreateEmploymentHistoryParams
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EmploymentEventInput:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        event_type:
+          type: string
+          title: Event Type
+        event_date:
+          type: string
+          title: Event Date
+        base_salary:
+          type: number
+          title: Base Salary
+        employer_registration:
+          type: string
+          title: Employer Registration
+      type: object
+      required:
+      - event_type
+      - event_date
+      - base_salary
+      title: EmploymentEventInput
+    Job:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        federal_entity:
+          type: string
+          title: Federal Entity
+        base_salary:
+          type: number
+          title: Base Salary
+        monthly_salary:
+          type: number
+          title: Monthly Salary
+        employer_registration:
+          type: string
+          title: Employer Registration
+      type: object
+      required:
+      - employer
+      - start_date
+      - end_date
+      - federal_entity
+      - base_salary
+      - monthly_salary
+      title: Job
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ReadEmploymentFileParams:
+      properties:
+        employment_history:
+          $ref: '#/components/schemas/CreateEmploymentHistoryParams'
+        employment_events:
+          $ref: '#/components/schemas/CreateEmploymentEventsParams'
+      type: object
+      required:
+      - employment_history
+      - employment_events
+      title: ReadEmploymentFileParams
