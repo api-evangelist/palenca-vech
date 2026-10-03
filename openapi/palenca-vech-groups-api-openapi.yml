@@ -362,7 +362,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SearchUsageParams:
+    DeleteAccountsForCompanyParams:
       properties:
         start_date:
           type: string
@@ -378,35 +378,99 @@ components:
             items_per_page: 100
             page: 1
         company_id:
-          type: string
-          format: uuid
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
           title: Company Id
       type: object
       required:
       - start_date
       - end_date
-      title: SearchUsageParams
-    ValidationError:
+      - company_id
+      title: DeleteAccountsForCompanyParams
+    ErrorResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        code:
+          type: string
+          title: Code
+        message:
           type: string
           title: Message
-        type:
-          type: string
-          title: Error Type
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: ErrorResponse
+    app__api__schemas__admin__UpdateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        user:
+          type: string
+          title: User
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      title: UpdateCompanyParams
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
     app__api__schemas__companies__CreateCompanyParams:
       properties:
         client_id:
@@ -471,49 +535,6 @@ components:
         display_name: Palenca
         company_name: palenca
         website: https://palenca.com
-    app__api__schemas__admin__UpdateCompanyParams:
-      properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        user:
-          type: string
-          title: User
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        owner:
-          type: string
-          title: Owner
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-          default: false
-      type: object
-      title: UpdateCompanyParams
     CompanyPriority:
       enum:
       - highest
@@ -523,28 +544,6 @@ components:
       - lowest
       title: CompanyPriority
       description: An enumeration.
-    OptionsSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: OptionsSearchParams
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
     BaseResponse:
       properties:
         success:
@@ -561,7 +560,47 @@ components:
         success: true
         data: {}
         error: {}
-    DeleteAccountsForCompanyParams:
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SearchUsageParams:
       properties:
         start_date:
           type: string
@@ -577,17 +616,14 @@ components:
             items_per_page: 100
             page: 1
         company_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: string
+          type: string
+          format: uuid
           title: Company Id
       type: object
       required:
       - start_date
       - end_date
-      - company_id
-      title: DeleteAccountsForCompanyParams
+      title: SearchUsageParams
     app__api__schemas__groups__CreateGroupParams:
       properties:
         name:
@@ -597,39 +633,3 @@ components:
       required:
       - name
       title: CreateGroupParams
-    CompanyStatus:
-      enum:
-      - internal_test
-      - active
-      - demo
-      - pilot
-      - sandbox
-      - read_permissions_disabled
-      - write_permissions_disabled
-      - suspended
-      title: CompanyStatus
-      description: An enumeration.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse

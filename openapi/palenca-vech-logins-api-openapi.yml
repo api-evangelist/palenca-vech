@@ -179,39 +179,208 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LoginStatus:
-      enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
-      description: An enumeration.
-    BaseResponse_ListLoginBaseResponse_:
+    LoginBaseResponse:
       properties:
-        success:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        source:
+          $ref: '#/components/schemas/LoginSourceCode'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        authenticated_at:
+          type: string
+          format: date-time
+          title: Authenticated At
+        message:
+          type: string
+          title: Message
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        recommendation:
+          type: string
+          title: Recommendation
+        automatic_retry:
           type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ListLoginBaseResponse'
+          title: Automatic Retry
+        has_insights:
+          type: boolean
+          title: Has Insights
+        insights_status:
+          $ref: '#/components/schemas/InsightsStatus'
+        insights_status_details:
+          $ref: '#/components/schemas/InsightsStatusDetails'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
       type: object
-      title: BaseResponse[ListLoginBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
+      title: LoginBaseResponse
+    PaginationSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: PaginationSearchParams
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    InsightsStatus:
+      enum:
+      - computed_not_saved
+      - incomplete
+      - success
+      - error
+      title: InsightsStatus
+      description: An enumeration.
+    LoginSourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - refresh
+      - connect
+      - bulk_upload
+      - console
+      - platform_retry
+      - refresh_earnings
+      - refresh_events
+      - refresh_profile
+      title: LoginSourceCode
+      description: An enumeration.
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
+      description: An enumeration.
+    ListLoginBaseResponse:
+      properties:
+        logins:
+          items:
+            $ref: '#/components/schemas/LoginBaseResponse'
+          type: array
+          title: Logins
+          default: []
+      type: object
+      title: ListLoginBaseResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     StatusDetails:
       enum:
       - bad_request
@@ -331,47 +500,51 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
-    InsightsStatus:
-      enum:
-      - computed_not_saved
-      - incomplete
-      - success
-      - error
-      title: InsightsStatus
-      description: An enumeration.
-    PaginationSearchParams:
+    BaseResponse:
       properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
       type: object
-      title: PaginationSearchParams
-    ValidationError:
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        message:
           type: string
           title: Message
-        type:
+        location:
           type: string
-          title: Error Type
+          title: Location
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: ErrorDetailResponse
+    InsightsStatusDetails:
+      enum:
+      - empty_employment_events
+      - empty_employment_history
+      - login_not_success
+      - timeout_request
+      - lambda_error
+      - pending
+      title: InsightsStatusDetails
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SearchLoginsParams:
       properties:
         start_date:
@@ -392,17 +565,7 @@ components:
       - start_date
       - end_date
       title: SearchLoginsParams
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    BaseResponse:
+    BaseResponse_ListLoginBaseResponse_:
       properties:
         success:
           type: boolean
@@ -411,190 +574,27 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          title: Data
+          $ref: '#/components/schemas/ListLoginBaseResponse'
       type: object
-      title: BaseResponse
+      title: BaseResponse[ListLoginBaseResponse]
       example:
         success: true
         data: {}
         error: {}
-    PlatformCode:
+    LoginStatus:
       enum:
-      - uber
-      - didi
-      - imss
-      - rappi
-      - osmos
-      - pemex
-      - picap
-      - ifood
-      - issste
-      - cabify
-      - workday
-      - indriver
-      - uber_eats
-      - didi_food
-      - pedidos_ya
-      - noventa_nove
-      - mensajeros_urbanos
-      - rapiboy
-      - nueve_nueve_minutos
-      - carteira_trabalho
-      - mercado_pago
-      - nom_gob_cdmx
-      - nom_salud_cdmx
-      - nom_sep_cdmx
-      - nom_sep_qro
-      - nom_gob_hidalgo
-      - nom_sep_durango
-      - nom_ayto_cancun
-      - nom_sep_qroo
-      - nom_gob_qroo
-      - nom_salud_qroo
-      - nom_sep_campeche
-      - nom_gob_oaxaca
-      - nom_sep_oaxaca
-      - nom_pensiones_jal
-      - nom_gob_nl
-      - nom_gob_tamps
-      - nom_salud_tamps
-      - nom_fiscalia_tamps
-      - nom_gob_sonora
-      - nom_sep_sonora
-      - nom_salud_sonora
-      - nom_sep_bcsur
-      - nom_gob_edomex
-      - nom_sep_edomex
-      - nom_gob_tabasco
-      - nom_salud_sonora2
-      - nom_com_soc_qroo
-      - nom_pemex
-      - mc_price_shoes
-      - mc_avon
-      - mc_mary_kay
-      - mc_betterware
-      - nominativa
-      - microempreendedor_individual
-      - runa
-      - grupo_tress
-      - beat
-      - clip
-      - worky
-      - cornershop
-      title: PlatformCode
-      description: An enumeration.
-    LoginBaseResponse:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        bulk_id:
-          type: string
-          format: uuid
-          title: Bulk Id
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        source:
-          $ref: '#/components/schemas/LoginSourceCode'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        authenticated_at:
-          type: string
-          format: date-time
-          title: Authenticated At
-        message:
-          type: string
-          title: Message
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-        recommendation:
-          type: string
-          title: Recommendation
-        automatic_retry:
-          type: boolean
-          title: Automatic Retry
-        has_insights:
-          type: boolean
-          title: Has Insights
-        insights_status:
-          $ref: '#/components/schemas/InsightsStatus'
-        insights_status_details:
-          $ref: '#/components/schemas/InsightsStatusDetails'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-      type: object
-      title: LoginBaseResponse
-    InsightsStatusDetails:
-      enum:
-      - empty_employment_events
-      - empty_employment_history
-      - login_not_success
-      - timeout_request
-      - lambda_error
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
       - pending
-      title: InsightsStatusDetails
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
       description: An enumeration.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ListLoginBaseResponse:
-      properties:
-        logins:
-          items:
-            $ref: '#/components/schemas/LoginBaseResponse'
-          type: array
-          title: Logins
-          default: []
-      type: object
-      title: ListLoginBaseResponse
-    LoginSourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - refresh
-      - connect
-      - bulk_upload
-      - console
-      - platform_retry
-      - refresh_earnings
-      - refresh_events
-      - refresh_profile
-      title: LoginSourceCode
-      description: An enumeration.
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse

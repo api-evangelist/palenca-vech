@@ -535,23 +535,136 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LoginStatus:
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EarningDetailConsoleResponse:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date-time
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+        employer:
+          type: string
+          title: Employer
+        debt:
+          type: number
+          title: Debt
+        metadata:
+          type: object
+          title: Metadata
+      type: object
+      required:
+      - account_id
+      - amount
+      - currency
+      - earning_date
+      title: EarningDetailConsoleResponse
+      currency: mxn
+      cash_amount: 10.0
+      count_trips: 2
+      earning_date: '2022-05-02'
+      amount: 100.0
+    EmploymentFilesType:
       enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
       description: An enumeration.
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    SourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - bulk_upload
+      - console
+      title: SourceCode
+      description: An enumeration.
+    BaseResponse_EarningsDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EarningsDataResponse'
+      type: object
+      title: BaseResponse[EarningsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     StatusDetails:
       enum:
       - bad_request
@@ -671,7 +784,111 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
-    BaseResponse_EarningsDataResponse_:
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    ProfileResponse:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        email:
+          type: string
+          title: Email
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+      type: object
+      title: ProfileResponse
+    CurrencyCode:
+      enum:
+      - mxn
+      - usd
+      - cop
+      - clp
+      - ars
+      - pen
+      - brl
+      - crc
+      - pab
+      - bob
+      - ves
+      - dop
+      - brr
+      title: CurrencyCode
+      description: An enumeration.
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    EmploymentStatus:
+      enum:
+      - retired
+      - employed
+      - unemployed
+      - unknown
+      - potentially_retired
+      - voluntary_contributions
+      - banned
+      - active
+      title: EmploymentStatus
+      description: An enumeration.
+    EarningsDataResponse:
+      properties:
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningConsoleDataResponse'
+          type: array
+          title: Earnings
+        income_last_month:
+          type: number
+          title: Income Last Month
+        income_last_three_months:
+          type: number
+          title: Income Last Three Months
+      type: object
+      required:
+      - earnings
+      title: EarningsDataResponse
+    BaseResponse_AccountsDataConsoleResponse_:
       properties:
         success:
           type: boolean
@@ -680,94 +897,49 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/EarningsDataResponse'
+          $ref: '#/components/schemas/AccountsDataConsoleResponse'
       type: object
-      title: BaseResponse[EarningsDataResponse]
+      title: BaseResponse[AccountsDataConsoleResponse]
       example:
         success: true
         data: {}
         error: {}
-    EarningDetailConsoleResponse:
+    ProfileDataBaseResponse:
       properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
         account_id:
           type: string
           format: uuid
           title: Account Id
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        earning_date:
+        external_id:
           type: string
-          format: date-time
-          title: Earning Date
-        cash_amount:
-          type: number
-          title: Cash Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-        employer:
-          type: string
-          title: Employer
-        debt:
-          type: number
-          title: Debt
-        metadata:
-          type: object
-          title: Metadata
+          title: External Id
+        profile:
+          $ref: '#/components/schemas/ProfileResponse'
+        ids_info:
+          items:
+            $ref: '#/components/schemas/IdInfoBaseResponse'
+          type: array
+          title: Ids Info
       type: object
       required:
       - account_id
-      - amount
-      - currency
-      - earning_date
-      title: EarningDetailConsoleResponse
-      currency: mxn
-      cash_amount: 10.0
-      count_trips: 2
-      earning_date: '2022-05-02'
-      amount: 100.0
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    SourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - bulk_upload
-      - console
-      title: SourceCode
-      description: An enumeration.
+      title: ProfileDataBaseResponse
+    BaseResponse_EmploymentDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentDataBaseResponse'
+      type: object
+      title: BaseResponse[EmploymentDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     PlatformCode:
       enum:
       - uber
@@ -833,110 +1005,6 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    AccountLoginsDataResponse:
-      properties:
-        logins:
-          items:
-            $ref: '#/components/schemas/LoginConsoleDataResponse'
-          type: array
-          title: Logins
-      type: object
-      required:
-      - logins
-      title: AccountLoginsDataResponse
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}
-    EmploymentHistoryBaseResponse:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        employer_registration:
-          type: string
-          title: Employer Registration
-        start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: End Date
-        job_title:
-          type: string
-          title: Job Title
-        job_title_code:
-          type: string
-          title: Job Title Code
-        federal_entity:
-          type: string
-          title: Federal Entity
-      type: object
-      title: EmploymentHistoryBaseResponse
-    EmploymentFilesType:
-      enum:
-      - imss_employment_record
-      - imss_rpci_pdf
-      - buro_insights_employment_record
-      - issste_employment_file
-      - end_of_rights_pdf
-      title: EmploymentFilesType
-      description: An enumeration.
-    ProfileDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        profile:
-          $ref: '#/components/schemas/ProfileResponse'
-        ids_info:
-          items:
-            $ref: '#/components/schemas/IdInfoBaseResponse'
-          type: array
-          title: Ids Info
-      type: object
-      required:
-      - account_id
-      title: ProfileDataBaseResponse
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
     EmploymentInfoBaseResponse:
       properties:
         id_type:
@@ -977,341 +1045,6 @@ components:
           title: Account Id
       type: object
       title: EmploymentsFilesBaseResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    EarningsDataResponse:
-      properties:
-        earnings:
-          items:
-            $ref: '#/components/schemas/EarningConsoleDataResponse'
-          type: array
-          title: Earnings
-        income_last_month:
-          type: number
-          title: Income Last Month
-        income_last_three_months:
-          type: number
-          title: Income Last Three Months
-      type: object
-      required:
-      - earnings
-      title: EarningsDataResponse
-    EmploymentHistoryStatus:
-      enum:
-      - empty
-      - partial
-      - complete
-      title: EmploymentHistoryStatus
-      description: An enumeration.
-    IdType:
-      enum:
-      - tax
-      - passport
-      - national
-      - social_security_number
-      - individual_taxpayer_registry
-      title: IdType
-      description: An enumeration.
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    CurrencyCode:
-      enum:
-      - mxn
-      - usd
-      - cop
-      - clp
-      - ars
-      - pen
-      - brl
-      - crc
-      - pab
-      - bob
-      - ves
-      - dop
-      - brr
-      title: CurrencyCode
-      description: An enumeration.
-    EmploymentDataBaseResponse:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        employment_info:
-          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
-        employment_history:
-          items:
-            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
-          type: array
-          title: Employment History
-      type: object
-      required:
-      - platform
-      - account_id
-      title: EmploymentDataBaseResponse
-    BaseResponse_EmploymentDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EmploymentDataBaseResponse'
-      type: object
-      title: BaseResponse[EmploymentDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse_AccountLoginsDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountLoginsDataResponse'
-      type: object
-      title: BaseResponse[AccountLoginsDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DateRange:
-      enum:
-      - month
-      - week
-      title: DateRange
-      description: An enumeration.
-    BaseResponse_ProfileDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ProfileDataBaseResponse'
-      type: object
-      title: BaseResponse[ProfileDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ProfileResponse:
-      properties:
-        first_name:
-          type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        email:
-          type: string
-          title: Email
-        birthday:
-          type: string
-          format: date
-          title: Birthday
-      type: object
-      title: ProfileResponse
-    EarningConsoleDataResponse:
-      properties:
-        date:
-          type: string
-          title: Date
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        gross_pay:
-          type: number
-          title: Gross Pay
-        taxes:
-          type: number
-          title: Taxes
-        deductions:
-          type: number
-          title: Deductions
-        net_pay:
-          type: number
-          title: Net Pay
-        trips:
-          type: integer
-          title: Trips
-        to_date:
-          type: string
-          format: date-time
-          title: To Date
-        from_date:
-          type: string
-          format: date-time
-          title: From Date
-        earnings:
-          items:
-            $ref: '#/components/schemas/EarningDetailConsoleResponse'
-          type: array
-          title: Earnings
-      type: object
-      title: EarningConsoleDataResponse
-    BaseResponse_AccountsDataConsoleResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountsDataConsoleResponse'
-      type: object
-      title: BaseResponse[AccountsDataConsoleResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    LoginConsoleDataResponse:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
-        source:
-          $ref: '#/components/schemas/LoginSourceCode'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      title: LoginConsoleDataResponse
-    EmploymentStatus:
-      enum:
-      - retired
-      - employed
-      - unemployed
-      - unknown
-      - potentially_retired
-      - voluntary_contributions
-      - banned
-      - active
-      title: EmploymentStatus
-      description: An enumeration.
-    IdInfoBaseResponse:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdType'
-        name:
-          type: string
-          title: Name
-        value:
-          type: string
-          title: Value
-      type: object
-      title: IdInfoBaseResponse
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    LoginSourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - refresh
-      - connect
-      - bulk_upload
-      - console
-      - platform_retry
-      - refresh_earnings
-      - refresh_events
-      - refresh_profile
-      title: LoginSourceCode
-      description: An enumeration.
-    AccountsDataConsoleResponse:
-      properties:
-        accounts:
-          items:
-            $ref: '#/components/schemas/AccountConsoleResponse'
-          type: array
-          title: Accounts
-      type: object
-      required:
-      - accounts
-      title: AccountsDataConsoleResponse
     AccountConsoleResponse:
       properties:
         id:
@@ -1372,3 +1105,270 @@ components:
       - id
       - user_id
       title: AccountConsoleResponse
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    EmploymentHistoryBaseResponse:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        employer_registration:
+          type: string
+          title: Employer Registration
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: End Date
+        job_title:
+          type: string
+          title: Job Title
+        job_title_code:
+          type: string
+          title: Job Title Code
+        federal_entity:
+          type: string
+          title: Federal Entity
+      type: object
+      title: EmploymentHistoryBaseResponse
+    LoginConsoleDataResponse:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        source:
+          $ref: '#/components/schemas/LoginSourceCode'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      title: LoginConsoleDataResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IdInfoBaseResponse:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+      type: object
+      title: IdInfoBaseResponse
+    AccountsDataConsoleResponse:
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountConsoleResponse'
+          type: array
+          title: Accounts
+      type: object
+      required:
+      - accounts
+      title: AccountsDataConsoleResponse
+    LoginSourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - refresh
+      - connect
+      - bulk_upload
+      - console
+      - platform_retry
+      - refresh_earnings
+      - refresh_events
+      - refresh_profile
+      title: LoginSourceCode
+      description: An enumeration.
+    DateRange:
+      enum:
+      - month
+      - week
+      title: DateRange
+      description: An enumeration.
+    AccountLoginsDataResponse:
+      properties:
+        logins:
+          items:
+            $ref: '#/components/schemas/LoginConsoleDataResponse'
+          type: array
+          title: Logins
+      type: object
+      required:
+      - logins
+      title: AccountLoginsDataResponse
+    EmploymentHistoryStatus:
+      enum:
+      - empty
+      - partial
+      - complete
+      title: EmploymentHistoryStatus
+      description: An enumeration.
+    EarningConsoleDataResponse:
+      properties:
+        date:
+          type: string
+          title: Date
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        gross_pay:
+          type: number
+          title: Gross Pay
+        taxes:
+          type: number
+          title: Taxes
+        deductions:
+          type: number
+          title: Deductions
+        net_pay:
+          type: number
+          title: Net Pay
+        trips:
+          type: integer
+          title: Trips
+        to_date:
+          type: string
+          format: date-time
+          title: To Date
+        from_date:
+          type: string
+          format: date-time
+          title: From Date
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningDetailConsoleResponse'
+          type: array
+          title: Earnings
+      type: object
+      title: EarningConsoleDataResponse
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_AccountLoginsDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountLoginsDataResponse'
+      type: object
+      title: BaseResponse[AccountLoginsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    IdType:
+      enum:
+      - tax
+      - passport
+      - national
+      - social_security_number
+      - individual_taxpayer_registry
+      title: IdType
+      description: An enumeration.
+    BaseResponse_ProfileDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ProfileDataBaseResponse'
+      type: object
+      title: BaseResponse[ProfileDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentDataBaseResponse:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        employment_info:
+          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
+        employment_history:
+          items:
+            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+          type: array
+          title: Employment History
+      type: object
+      required:
+      - platform
+      - account_id
+      title: EmploymentDataBaseResponse

@@ -168,82 +168,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CreateUberApiParams:
+    ErrorResponse:
       properties:
-        user_id:
+        code:
           type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        gov_id:
-          type: string
-          title: Gov Id
-        redirect_url:
-          type: string
-          title: Redirect Url
-      type: object
-      title: CreateUberApiParams
-      example:
-        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        country: mx
-        platform: uber
-    ProcessBatchJobParams:
-      properties:
-        access_token:
-          type: string
-          title: Access Token
-        offset:
-          type: integer
-          title: Offset
-          default: 50
-      type: object
-      required:
-      - access_token
-      title: ProcessBatchJobParams
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+          title: Code
+        message:
           type: string
           title: Message
-        type:
-          type: string
-          title: Error Type
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: ErrorResponse
     PlatformCode:
       enum:
       - uber
@@ -309,6 +248,57 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
+    CreateUberApiParams:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        gov_id:
+          type: string
+          title: Gov Id
+        redirect_url:
+          type: string
+          title: Redirect Url
+      type: object
+      title: CreateUberApiParams
+      example:
+        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        country: mx
+        platform: uber
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
     BaseResponse:
       properties:
         success:
@@ -335,27 +325,37 @@ components:
           title: Location
       type: object
       title: ErrorDetailResponse
-    HTTPValidationError:
+    ProcessBatchJobParams:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      properties:
-        code:
+        access_token:
           type: string
-          title: Code
-        message:
+          title: Access Token
+        offset:
+          type: integer
+          title: Offset
+          default: 50
+      type: object
+      required:
+      - access_token
+      title: ProcessBatchJobParams
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: ErrorResponse
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

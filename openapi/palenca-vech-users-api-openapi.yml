@@ -284,29 +284,433 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LoginStatus:
+    AccountDataWithExternalIDBaseResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        alternative_methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        hint:
+          type: string
+          title: Hint
+        external_id:
+          type: string
+          title: External Id
+      type: object
+      title: AccountDataWithExternalIDBaseResponse
+      example:
+        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        country: mx
+        platform: uber
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    StoreUserConsentParams:
+      properties:
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        external_id:
+          type: string
+          title: External Id
+        gov_id:
+          type: string
+          title: Gov Id
+        account_id:
+          type: string
+          title: Account Id
+        ip_address:
+          type: string
+          title: Ip Address
+        timestamp:
+          type: string
+          title: Timestamp
+          default: '2026-07-19T00:04:52.330355+00:00'
+        consent_method:
+          $ref: '#/components/schemas/WidgetConsentMethod'
+        consent_version:
+          type: string
+          title: Consent Version
+        consent_language:
+          $ref: '#/components/schemas/AcceptedLanguage'
+        country:
+          type: string
+          title: Country
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        company_name:
+          type: string
+          title: Company Name
+        browser:
+          type: string
+          title: Browser
+        device:
+          type: string
+          title: Device
+      type: object
+      required:
+      - company_id
+      - widget_id
+      - user_id
+      title: StoreUserConsentParams
+    LoginTypes:
       enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
       description: An enumeration.
-    WidgetConsentMethod:
+    BaseResponse_AccountListDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountListDataResponse'
+      type: object
+      title: BaseResponse[AccountListDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    CreateUserParams:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          title: User Id
+      type: object
+      title: CreateUserParams
+      example:
+        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        external_id: '1234567890'
+    BaseResponse_UserRetrievalDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserRetrievalDataResponse'
+      type: object
+      title: BaseResponse[UserRetrievalDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EarningsAggregatedResponse:
+      properties:
+        platforms_count:
+          type: integer
+          title: Platforms Count
+        platforms:
+          items:
+            $ref: '#/components/schemas/EarningsAggregatedPlatformItem'
+          type: array
+          title: Platforms
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningsAggregatedEarningItem'
+          type: array
+          title: Earnings
+      type: object
+      required:
+      - platforms_count
+      - platforms
+      - earnings
+      title: EarningsAggregatedResponse
+    CreateUserAndAccountParams:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        bulk_id:
+          type: string
+          format: uuid
+          title: Bulk Id
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceCode'
+          default: api
+        gov_id:
+          type: string
+          title: Gov Id
+      type: object
+      required:
+      - country
+      - platform
+      - identifier
+      title: CreateUserAndAccountParams
+      example:
+        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        external_id: '1234567890'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EarningsAggregatedParams:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        external_id:
+          type: string
+          title: External Id
+        start_date:
+          type: string
+          format: date
+          title: Start Date
+        end_date:
+          type: string
+          format: date
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/EarningsAggregatedOptions'
+          title: Options
+          default:
+            details: false
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: EarningsAggregatedParams
+    BaseResponse_UserRetrievalListDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserRetrievalListDataResponse'
+      type: object
+      title: BaseResponse[UserRetrievalListDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_AccountDataWithExternalIDBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataWithExternalIDBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataWithExternalIDBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    UserRetrievalListDataResponse:
+      properties:
+        users:
+          items:
+            $ref: '#/components/schemas/UserRetrievalDataResponse'
+          type: array
+          title: Users
+      type: object
+      title: UserRetrievalListDataResponse
+    EarningsAggregatedOptions:
+      properties:
+        details:
+          type: boolean
+          title: Details
+          default: false
+      type: object
+      title: EarningsAggregatedOptions
+    SearchUsersParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        external_id:
+          type: string
+          title: External Id
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchUsersParams
+    AccountBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        gov_id:
+          type: string
+          title: Gov Id
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - account_id
+      title: AccountBaseResponse
+    BaseResponse_EarningsAggregatedResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EarningsAggregatedResponse'
+      type: object
+      title: BaseResponse[EarningsAggregatedResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    CountryCode:
       enum:
-      - tap_accept_button
-      - tap_continue_button
-      - tap_accept_checkbox
-      title: WidgetConsentMethod
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    SourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - bulk_upload
+      - console
+      title: SourceCode
       description: An enumeration.
     StatusDetails:
       enum:
@@ -427,32 +831,29 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
-    CountryCode:
+    AccountWarning:
       enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    SourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - bulk_upload
-      - console
-      title: SourceCode
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
       description: An enumeration.
     CreateUnifiedAccountParams:
       properties:
@@ -498,88 +899,72 @@ components:
       example:
         widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
         external_id: '1234567890'
-    AccountBaseResponse:
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    EarningsAggregatedPlatformItem:
       properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
         account_id:
           type: string
           format: uuid
           title: Account Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        worker_id:
-          type: string
-          title: Worker Id
-        gov_id:
-          type: string
-          title: Gov Id
         last_successful_connection:
           type: string
-          format: date-time
+          format: date
           title: Last Successful Connection
-        warning:
-          $ref: '#/components/schemas/AccountWarning'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        message:
-          type: string
-          title: Message
-        recommendation:
-          type: string
-          title: Recommendation
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
       type: object
       required:
+      - platform
       - account_id
-      title: AccountBaseResponse
-    BaseResponse_UserDataResponse_:
+      title: EarningsAggregatedPlatformItem
+    PaginationSearchParams:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/UserDataResponse'
-      type: object
-      title: BaseResponse[UserDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    EarningsAggregatedResponse:
-      properties:
-        platforms_count:
+        items_per_page:
           type: integer
-          title: Platforms Count
-        platforms:
-          items:
-            $ref: '#/components/schemas/EarningsAggregatedPlatformItem'
-          type: array
-          title: Platforms
-        earnings:
-          items:
-            $ref: '#/components/schemas/EarningsAggregatedEarningItem'
-          type: array
-          title: Earnings
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: PaginationSearchParams
+    EarningsAggregatedDetailItem:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        amount:
+          type: number
+          title: Amount
+        count_trips:
+          type: integer
+          title: Count Trips
       type: object
       required:
-      - platforms_count
-      - platforms
-      - earnings
-      title: EarningsAggregatedResponse
+      - platform
+      - account_id
+      - amount
+      title: EarningsAggregatedDetailItem
     PlatformCode:
       enum:
       - uber
@@ -645,36 +1030,6 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    CreateUserParams:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        external_id:
-          type: string
-          title: External Id
-        user_id:
-          type: string
-          title: User Id
-      type: object
-      title: CreateUserParams
-      example:
-        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        external_id: '1234567890'
-    UserDataResponse:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        external_id:
-          type: string
-          title: External Id
-      type: object
-      required:
-      - user_id
-      title: UserDataResponse
     AccountListDataResponse:
       properties:
         user_id:
@@ -720,66 +1075,16 @@ components:
       - amount
       - currency
       title: EarningsAggregatedEarningItem
-    BaseResponse_UserRetrievalDataResponse_:
+    ErrorDetailResponse:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/UserRetrievalDataResponse'
-      type: object
-      title: BaseResponse[UserRetrievalDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
         message:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
-    PaginationSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: PaginationSearchParams
-    EarningsAggregatedPlatformItem:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
+        location:
           type: string
-          format: uuid
-          title: Account Id
-        last_successful_connection:
-          type: string
-          format: date
-          title: Last Successful Connection
+          title: Location
       type: object
-      required:
-      - platform
-      - account_id
-      title: EarningsAggregatedPlatformItem
+      title: ErrorDetailResponse
     ValidationError:
       properties:
         loc:
@@ -801,80 +1106,6 @@ components:
       - msg
       - type
       title: ValidationError
-    BaseResponse_UserRetrievalListDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/UserRetrievalListDataResponse'
-      type: object
-      title: BaseResponse[UserRetrievalListDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    AccountDataWithExternalIDBaseResponse:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        alternative_methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        hint:
-          type: string
-          title: Hint
-        external_id:
-          type: string
-          title: External Id
-      type: object
-      title: AccountDataWithExternalIDBaseResponse
-      example:
-        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        country: mx
-        platform: uber
-    LoginTypes:
-      enum:
-      - curp
-      - otp
-      - totp
-      - pilot
-      - email_otp
-      - credentials
-      - phone_voice_otp
-      - phone_whatsapp_otp
-      title: LoginTypes
-      description: An enumeration.
-    EarningsAggregatedOptions:
-      properties:
-        details:
-          type: boolean
-          title: Details
-          default: false
-      type: object
-      title: EarningsAggregatedOptions
     AcceptedLanguage:
       enum:
       - en
@@ -882,250 +1113,13 @@ components:
       - pt
       title: AcceptedLanguage
       description: An enumeration.
-    CreateUserAndAccountParams:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        external_id:
-          type: string
-          title: External Id
-        user_id:
-          type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        bulk_id:
-          type: string
-          format: uuid
-          title: Bulk Id
-        source:
-          allOf:
-          - $ref: '#/components/schemas/SourceCode'
-          default: api
-        gov_id:
-          type: string
-          title: Gov Id
-      type: object
-      required:
-      - country
-      - platform
-      - identifier
-      title: CreateUserAndAccountParams
-      example:
-        widget_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        external_id: '1234567890'
-    StoreUserConsentParams:
-      properties:
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        external_id:
-          type: string
-          title: External Id
-        gov_id:
-          type: string
-          title: Gov Id
-        account_id:
-          type: string
-          title: Account Id
-        ip_address:
-          type: string
-          title: Ip Address
-        timestamp:
-          type: string
-          title: Timestamp
-          default: '2026-07-19T00:04:52.330355+00:00'
-        consent_method:
-          $ref: '#/components/schemas/WidgetConsentMethod'
-        consent_version:
-          type: string
-          title: Consent Version
-        consent_language:
-          $ref: '#/components/schemas/AcceptedLanguage'
-        country:
-          type: string
-          title: Country
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        company_name:
-          type: string
-          title: Company Name
-        browser:
-          type: string
-          title: Browser
-        device:
-          type: string
-          title: Device
-      type: object
-      required:
-      - company_id
-      - widget_id
-      - user_id
-      title: StoreUserConsentParams
-    EarningsAggregatedDetailItem:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        amount:
-          type: number
-          title: Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-      type: object
-      required:
-      - platform
-      - account_id
-      - amount
-      title: EarningsAggregatedDetailItem
-    AccountWarning:
+    WidgetConsentMethod:
       enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
+      - tap_accept_button
+      - tap_continue_button
+      - tap_accept_checkbox
+      title: WidgetConsentMethod
       description: An enumeration.
-    BaseResponse_AccountListDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountListDataResponse'
-      type: object
-      title: BaseResponse[AccountListDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    UserRetrievalListDataResponse:
-      properties:
-        users:
-          items:
-            $ref: '#/components/schemas/UserRetrievalDataResponse'
-          type: array
-          title: Users
-      type: object
-      title: UserRetrievalListDataResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    EarningsAggregatedParams:
-      properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        external_id:
-          type: string
-          title: External Id
-        start_date:
-          type: string
-          format: date
-          title: Start Date
-        end_date:
-          type: string
-          format: date
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/EarningsAggregatedOptions'
-          title: Options
-          default:
-            details: false
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: EarningsAggregatedParams
-    BaseResponse_AccountDataWithExternalIDBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountDataWithExternalIDBaseResponse'
-      type: object
-      title: BaseResponse[AccountDataWithExternalIDBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse_EarningsAggregatedResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EarningsAggregatedResponse'
-      type: object
-      title: BaseResponse[EarningsAggregatedResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
     UserRetrievalDataResponse:
       properties:
         user_id:
@@ -1144,26 +1138,32 @@ components:
       - user_id
       - widget_id
       title: UserRetrievalDataResponse
-    SearchUsersParams:
+    UserDataResponse:
       properties:
-        start_date:
+        user_id:
           type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
+          format: uuid
+          title: User Id
         external_id:
           type: string
           title: External Id
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
       type: object
       required:
-      - start_date
-      - end_date
-      title: SearchUsersParams
+      - user_id
+      title: UserDataResponse
+    BaseResponse_UserDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserDataResponse'
+      type: object
+      title: BaseResponse[UserDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}

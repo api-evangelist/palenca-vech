@@ -116,149 +116,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    app__api__schemas__companies__UpdateCompanyParams:
-      properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        require_encryption:
-          type: boolean
-          title: Require Encryption
-          default: false
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-      type: object
-      title: UpdateCompanyParams
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    app__api__schemas__companies__CreateCompanyParams:
-      properties:
-        client_id:
-          type: string
-          title: Client Id
-        logo:
-          type: string
-          title: Logo
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        public_api_key:
-          type: string
-          title: Public Api Key
-        private_api_key:
-          type: string
-          title: Private Api Key
-        public_encryption_key:
-          type: string
-          title: Public Encryption Key
-        private_encryption_key:
-          type: string
-          title: Private Encryption Key
-        require_encryption:
-          type: boolean
-          title: Require Encryption
-          default: false
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/CompanyStatus'
-          - type: string
-          title: Status
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-      type: object
-      required:
-      - display_name
-      - company_name
-      - website
-      title: CreateCompanyParams
-      example:
-        logo: https://palenca.com/logo.png
-        display_name: Palenca
-        company_name: palenca
-        website: https://palenca.com
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    BaseResponse_CompanyDataPrivate_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CompanyDataPrivate'
-      type: object
-      title: BaseResponse[CompanyDataPrivate]
-      example:
-        success: true
-        data: {}
-        error: {}
     CompanyDataPrivate:
       properties:
         created_at:
@@ -352,25 +209,6 @@ components:
         website: https://palenca.com
         public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
         private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ErrorResponse:
       properties:
         code:
@@ -386,6 +224,147 @@ components:
           title: Errors
       type: object
       title: ErrorResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    app__api__schemas__companies__CreateCompanyParams:
+      properties:
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyStatus'
+          - type: string
+          title: Status
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+      type: object
+      required:
+      - display_name
+      - company_name
+      - website
+      title: CreateCompanyParams
+      example:
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        company_name: palenca
+        website: https://palenca.com
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    BaseResponse_CompanyDataPrivate_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyDataPrivate'
+      type: object
+      title: BaseResponse[CompanyDataPrivate]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    app__api__schemas__companies__UpdateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+      type: object
+      title: UpdateCompanyParams
     CompanyStatus:
       enum:
       - internal_test
@@ -398,3 +377,24 @@ components:
       - suspended
       title: CompanyStatus
       description: An enumeration.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

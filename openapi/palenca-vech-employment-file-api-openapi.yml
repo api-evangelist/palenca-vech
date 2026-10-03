@@ -32,39 +32,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    CreateEmploymentEventsParams:
-      properties:
-        employment_events:
-          items:
-            $ref: '#/components/schemas/EmploymentEventInput'
-          type: array
-          title: Employment Events
-      type: object
-      title: CreateEmploymentEventsParams
     CreateEmploymentHistoryParams:
       properties:
         account_id:
@@ -90,27 +57,6 @@ components:
       required:
       - account_id
       title: CreateEmploymentHistoryParams
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     EmploymentEventInput:
       properties:
         employer:
@@ -166,15 +112,15 @@ components:
       - base_salary
       - monthly_salary
       title: Job
-    HTTPValidationError:
+    CreateEmploymentEventsParams:
       properties:
-        detail:
+        employment_events:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/EmploymentEventInput'
           type: array
-          title: Detail
+          title: Employment Events
       type: object
-      title: HTTPValidationError
+      title: CreateEmploymentEventsParams
     ReadEmploymentFileParams:
       properties:
         employment_history:
@@ -186,3 +132,57 @@ components:
       - employment_history
       - employment_events
       title: ReadEmploymentFileParams
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

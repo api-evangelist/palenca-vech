@@ -44,6 +44,70 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    TranslationsResponse:
+      properties:
+        en:
+          type: string
+          title: En
+        es:
+          type: string
+          title: Es
+        pt:
+          type: string
+          title: Pt
+      type: object
+      title: TranslationsResponse
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse_StatusResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/StatusResponse'
+      type: object
+      title: BaseResponse[StatusResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    StatusResponse:
+      properties:
+        status_details:
+          type: string
+          title: Status Details
+        status:
+          type: string
+          title: Status
+        code:
+          type: string
+          title: Code
+        message:
+          $ref: '#/components/schemas/TranslationsResponse'
+        recommendation:
+          $ref: '#/components/schemas/TranslationsResponse'
+      type: object
+      required:
+      - message
+      - recommendation
+      title: StatusResponse
     StatusDetails:
       enum:
       - bad_request
@@ -163,26 +227,25 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
-    StatusResponse:
+    ErrorDetailResponse:
       properties:
-        status_details:
-          type: string
-          title: Status Details
-        status:
-          type: string
-          title: Status
-        code:
-          type: string
-          title: Code
         message:
-          $ref: '#/components/schemas/TranslationsResponse'
-        recommendation:
-          $ref: '#/components/schemas/TranslationsResponse'
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
       type: object
-      required:
-      - message
-      - recommendation
-      title: StatusResponse
+      title: ErrorDetailResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -204,66 +267,3 @@ components:
       - msg
       - type
       title: ValidationError
-    BaseResponse_StatusResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/StatusResponse'
-      type: object
-      title: BaseResponse[StatusResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TranslationsResponse:
-      properties:
-        en:
-          type: string
-          title: En
-        es:
-          type: string
-          title: Es
-        pt:
-          type: string
-          title: Pt
-      type: object
-      title: TranslationsResponse
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse

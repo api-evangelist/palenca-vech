@@ -245,22 +245,179 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LoginStatus:
+    IdInfoParams:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - type
+      - id
+      - name
+      title: IdInfoParams
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    InsightsStatus:
       enum:
-      - created
-      - success
-      - retry
+      - computed_not_saved
       - incomplete
+      - success
       - error
+      title: InsightsStatus
+      description: An enumeration.
+    EmploymentDataParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        worker:
+          $ref: '#/components/schemas/WorkerParams'
+        id_info:
+          $ref: '#/components/schemas/IdInfoParams'
+        profile:
+          $ref: '#/components/schemas/ProfileParams'
+      type: object
+      title: EmploymentDataParams
+    UpdateLoginParams:
+      properties:
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        insights_status:
+          $ref: '#/components/schemas/InsightsStatus'
+        insights_status_details:
+          $ref: '#/components/schemas/InsightsStatusDetails'
+        should_notify_webhook:
+          type: boolean
+          title: Should Notify Webhook
+          default: false
+        login_id:
+          type: string
+          format: uuid
+          title: Login Id
+      type: object
+      title: UpdateLoginParams
+    LoginTypes:
+      enum:
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Gender:
+      enum:
+      - male
+      - female
+      - other
+      title: Gender
+      description: An enumeration.
+    InsightsStatusDetails:
+      enum:
+      - empty_employment_events
+      - empty_employment_history
+      - login_not_success
+      - timeout_request
+      - lambda_error
       - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
+      title: InsightsStatusDetails
+      description: An enumeration.
+    AccountBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        gov_id:
+          type: string
+          title: Gov Id
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - account_id
+      title: AccountBaseResponse
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
       description: An enumeration.
     StatusDetails:
       enum:
@@ -381,97 +538,70 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
-    InsightsStatus:
+    AccountWarning:
       enum:
-      - computed_not_saved
-      - incomplete
-      - success
-      - error
-      title: InsightsStatus
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
       description: An enumeration.
-    UpdateLoginParams:
+    BaseResponse_AccountBaseResponse_:
       properties:
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        insights_status:
-          $ref: '#/components/schemas/InsightsStatus'
-        insights_status_details:
-          $ref: '#/components/schemas/InsightsStatusDetails'
-        should_notify_webhook:
+        success:
           type: boolean
-          title: Should Notify Webhook
-          default: false
-        login_id:
-          type: string
-          format: uuid
-          title: Login Id
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountBaseResponse'
       type: object
-      title: UpdateLoginParams
-    CountryCode:
+      title: BaseResponse[AccountBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    LoginStatus:
       enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
       description: An enumeration.
-    AccountBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        worker_id:
-          type: string
-          title: Worker Id
-        gov_id:
-          type: string
-          title: Gov Id
-        last_successful_connection:
-          type: string
-          format: date-time
-          title: Last Successful Connection
-        warning:
-          $ref: '#/components/schemas/AccountWarning'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        message:
-          type: string
-          title: Message
-        recommendation:
-          type: string
-          title: Recommendation
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - account_id
-      title: AccountBaseResponse
+    WorkerRole:
+      enum:
+      - driver
+      - courier
+      - both
+      title: WorkerRole
+      description: An enumeration.
     PlatformCode:
       enum:
       - uber
@@ -537,37 +667,6 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
     WorkerParams:
       properties:
         id:
@@ -577,155 +676,6 @@ components:
       required:
       - id
       title: WorkerParams
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    LoginTypes:
-      enum:
-      - curp
-      - otp
-      - totp
-      - pilot
-      - email_otp
-      - credentials
-      - phone_voice_otp
-      - phone_whatsapp_otp
-      title: LoginTypes
-      description: An enumeration.
-    IdType:
-      enum:
-      - tax
-      - passport
-      - national
-      - social_security_number
-      - individual_taxpayer_registry
-      title: IdType
-      description: An enumeration.
-    IdInfoParams:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdType'
-        id:
-          type: string
-          title: Id
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - type
-      - id
-      - name
-      title: IdInfoParams
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    RetryLoginOptions:
-      properties:
-        force_retry:
-          type: boolean
-          title: Force Retry
-          default: false
-      type: object
-      title: RetryLoginOptions
-    EmploymentDataParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        worker:
-          $ref: '#/components/schemas/WorkerParams'
-        id_info:
-          $ref: '#/components/schemas/IdInfoParams'
-        profile:
-          $ref: '#/components/schemas/ProfileParams'
-      type: object
-      title: EmploymentDataParams
-    WorkerRole:
-      enum:
-      - driver
-      - courier
-      - both
-      title: WorkerRole
-      description: An enumeration.
-    BaseResponse_AccountBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountBaseResponse'
-      type: object
-      title: BaseResponse[AccountBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Gender:
-      enum:
-      - male
-      - female
-      - other
-      title: Gender
-      description: An enumeration.
-    CivilStatus:
-      enum:
-      - single
-      - married
-      title: CivilStatus
-      description: An enumeration.
     ErrorDetailResponse:
       properties:
         message:
@@ -791,13 +741,63 @@ components:
       - first_name
       - last_name
       title: ProfileParams
-    InsightsStatusDetails:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RetryLoginOptions:
+      properties:
+        force_retry:
+          type: boolean
+          title: Force Retry
+          default: false
+      type: object
+      title: RetryLoginOptions
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    IdType:
       enum:
-      - empty_employment_events
-      - empty_employment_history
-      - login_not_success
-      - timeout_request
-      - lambda_error
-      - pending
-      title: InsightsStatusDetails
+      - tax
+      - passport
+      - national
+      - social_security_number
+      - individual_taxpayer_registry
+      title: IdType
+      description: An enumeration.
+    CivilStatus:
+      enum:
+      - single
+      - married
+      title: CivilStatus
       description: An enumeration.

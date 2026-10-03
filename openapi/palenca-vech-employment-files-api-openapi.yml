@@ -50,23 +50,6 @@ components:
       - end_of_rights_pdf
       title: EmploymentFilesType
       description: An enumeration.
-    CreateEmploymentFileParams:
-      properties:
-        url:
-          type: string
-          title: Url
-        file_type:
-          $ref: '#/components/schemas/EmploymentFilesType'
-        employment_info_id:
-          type: string
-          format: uuid
-          title: Employment Info Id
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-      type: object
-      title: CreateEmploymentFileParams
     ValidationError:
       properties:
         loc:
@@ -88,3 +71,20 @@ components:
       - msg
       - type
       title: ValidationError
+    CreateEmploymentFileParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        employment_info_id:
+          type: string
+          format: uuid
+          title: Employment Info Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: CreateEmploymentFileParams

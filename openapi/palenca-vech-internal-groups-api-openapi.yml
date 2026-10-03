@@ -136,89 +136,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    GroupAdminResponse:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        client_id:
-          type: string
-          title: Client Id
-        logo:
-          type: string
-          title: Logo
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        priority:
-          $ref: '#/components/schemas/CompanyPriority'
-        website:
-          type: string
-          title: Website
-        public_api_key:
-          type: string
-          title: Public Api Key
-        private_api_key:
-          type: string
-          title: Private Api Key
-        public_encryption_key:
-          type: string
-          title: Public Encryption Key
-        private_encryption_key:
-          type: string
-          title: Private Encryption Key
-        require_encryption:
-          type: boolean
-          title: Require Encryption
-          default: false
-        owner:
-          type: string
-          title: Owner
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        retries_enabled:
-          type: boolean
-          title: Retries Enabled
-          default: false
-        group_id:
-          type: string
-          format: uuid
-          title: Group Id
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-          default: false
-      type: object
-      required:
-      - display_name
-      - company_name
-      - priority
-      - public_api_key
-      - private_api_key
-      title: GroupAdminResponse
     Company:
       properties:
         created_at:
@@ -302,33 +219,21 @@ components:
       - public_api_key
       - private_api_key
       title: Company
-    ListGroupsResponse:
+    ErrorResponse:
       properties:
-        groups:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
           items:
-            $ref: '#/components/schemas/GroupResponse'
+            $ref: '#/components/schemas/ErrorDetailResponse'
           type: array
-          title: Groups
+          title: Errors
       type: object
-      required:
-      - groups
-      title: ListGroupsResponse
-    BaseResponse_GroupResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/GroupResponse'
-      type: object
-      title: BaseResponse[GroupResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
+      title: ErrorResponse
     UpdateGroupParams:
       properties:
         name:
@@ -353,22 +258,89 @@ components:
       - admin_id
       - companies
       title: UpdateGroupParams
-    BaseResponse_ListGroupsResponse_:
+    GroupAdminResponse:
       properties:
-        success:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        priority:
+          $ref: '#/components/schemas/CompanyPriority'
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
           type: boolean
-          title: Success
+          title: Require Encryption
+          default: false
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        retries_enabled:
+          type: boolean
+          title: Retries Enabled
+          default: false
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        data_controller:
+          type: boolean
+          title: Data Controller
           default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ListGroupsResponse'
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
       type: object
-      title: BaseResponse[ListGroupsResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
+      required:
+      - display_name
+      - company_name
+      - priority
+      - public_api_key
+      - private_api_key
+      title: GroupAdminResponse
     app__api__schemas__internal__groups__CreateGroupParams:
       properties:
         name:
@@ -393,46 +365,31 @@ components:
       - admin_id
       - companies
       title: CreateGroupParams
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    ErrorDetailResponse:
+      title: HTTPValidationError
+    BaseResponse_ListGroupsResponse_:
       properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ListGroupsResponse'
       type: object
-      title: ErrorDetailResponse
+      title: BaseResponse[ListGroupsResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     GroupResponse:
       properties:
         created_at:
@@ -467,6 +424,57 @@ components:
       - name
       - admin
       title: GroupResponse
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ListGroupsResponse:
+      properties:
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupResponse'
+          type: array
+          title: Groups
+      type: object
+      required:
+      - groups
+      title: ListGroupsResponse
     CompanyStatus:
       enum:
       - internal_test
@@ -479,27 +487,19 @@ components:
       - suspended
       title: CompanyStatus
       description: An enumeration.
-    HTTPValidationError:
+    BaseResponse_GroupResponse_:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/GroupResponse'
       type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
+      title: BaseResponse[GroupResponse]
+      example:
+        success: true
+        data: {}
+        error: {}

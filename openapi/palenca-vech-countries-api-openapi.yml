@@ -74,6 +74,37 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    BaseResponse_CountryDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CountryDataResponse'
+      type: object
+      title: BaseResponse[CountryDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
     BaseResponse_list_app.api.schemas.responses.CountryDataResponse__:
       properties:
         success:
@@ -111,27 +142,14 @@ components:
       - do
       title: CountryCode
       description: An enumeration.
-    ValidationError:
+    UpdateCountryParams:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: UpdateCountryParams
     ErrorDetailResponse:
       properties:
         message:
@@ -142,39 +160,6 @@ components:
           title: Location
       type: object
       title: ErrorDetailResponse
-    BaseResponse_CountryDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CountryDataResponse'
-      type: object
-      title: BaseResponse[CountryDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    UpdateCountryParams:
-      properties:
-        is_active:
-          type: boolean
-          title: Is Active
-          default: true
-      type: object
-      title: UpdateCountryParams
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     CountryDataResponse:
       properties:
         created_at:
@@ -232,18 +217,33 @@ components:
         calling_code: '52'
         timezone: America/Mexico_City
         flag: https://cdn.palenca.com/flags/mx.svg
-    ErrorResponse:
+    HTTPValidationError:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: ErrorResponse
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

@@ -79,18 +79,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    OptionsSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: OptionsSearchParams
     SearchConsentsParams:
       properties:
         options:
@@ -123,3 +111,15 @@ components:
       - msg
       - type
       title: ValidationError
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams

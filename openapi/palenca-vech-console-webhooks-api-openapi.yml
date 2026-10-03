@@ -382,128 +382,73 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BaseResponse_WebhookDataResponse_:
+    ErrorResponse:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WebhookDataResponse'
-      type: object
-      title: BaseResponse[WebhookDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    WebhookLogConsoleResponse:
-      properties:
-        id:
+        code:
           type: string
-          title: Id
-        url:
+          title: Code
+        message:
           type: string
-          title: Url
-        action:
-          type: string
-          title: Action
-        status:
-          type: integer
-          title: Status
-        request_body:
-          type: object
-          title: Request Body
-        response_body:
-          type: object
-          title: Response Body
-        entity:
-          type: string
-          title: Entity
-        entity_id:
-          type: string
-          title: Entity Id
-        environment:
-          type: string
-          title: Environment
-        webhook_id:
-          type: string
-          title: Webhook Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      title: WebhookLogConsoleResponse
-      webhook:
-        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
-        url: https://webhook.palenca.com
-        is_sandbox: false
-        events:
-        - '*'
-        created_at: '2022-05-02T03:36:02.436Z'
-        updated_at: '2022-05-02T03:36:02.436Z'
-      logs:
-      - created_at: '2023-03-31T20:32:12.295904+00:00'
-        updated_at: '2023-03-31T20:32:12.295927+00:00'
-        id: 8c069c49-efdf-4230-aa43-2d40f269497f
-        url: https://webhook.site/96bc26e2-bf38-4cd1-8432-4e5a13fe5d60
-        name: testing webhook
-        events:
-        - '*'
-        widget_id: 15574004-c4d6-4e59-bcba-f335993b1400
-        is_sandbox: true
-    CreateWebhookParams:
-      properties:
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        sign_request:
-          type: boolean
-          title: Sign Request
-          default: false
-        events:
-          items: {}
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
           type: array
-          title: Events
-          default:
-          - '*'
+          title: Errors
+      type: object
+      title: ErrorResponse
+    PaginationBaseResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        items_per_page:
+          type: integer
+          title: Items Per Page
+        total_items:
+          type: integer
+          title: Total Items
+        total_pages:
+          type: integer
+          title: Total Pages
+      type: object
+      title: PaginationBaseResponse
+    WebhookActions:
+      enum:
+      - user.created
+      - user.deleted
+      - account.created
+      - account.connected
+      - account.requires_auth
+      - account.needs_auth
+      - profile.updated
+      - employment.created
+      - employment.updated
+      - earnings.updated
+      - events.updated
+      - clean_save.finished
+      - login.created
+      - login.success
+      - login.error
+      - login.incomplete
+      - login.retry
+      - login.failed_refresh
+      title: WebhookActions
+      description: An enumeration.
+    WebhookDetailsConsoleResponse:
+      properties:
+        webhook:
+          $ref: '#/components/schemas/WebhookConsoleResponse'
+        logs:
+          items:
+            $ref: '#/components/schemas/WebhookLogConsoleResponse'
+          type: array
+          title: Logs
       type: object
       required:
-      - url
-      - name
-      - connect_flow_id
-      - is_sandbox
-      title: CreateWebhookParams
-      example:
-        url: https://domain.com/webhook
-        name: My webhook
-        is_sandbox: true
-        sign_request: false
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
-        events:
-        - '*'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - webhook
+      - logs
+      title: WebhookDetailsConsoleResponse
     WebhooksDataResponse:
       properties:
         webhooks:
@@ -515,42 +460,52 @@ components:
       required:
       - webhooks
       title: WebhooksDataResponse
-    UpdateWebhookParams:
+    WebhookLogStatus:
+      enum:
+      - success
+      - failed
+      title: WebhookLogStatus
+      description: An enumeration.
+    WebhookDataResponse:
       properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
         url:
           type: string
           title: Url
         name:
           type: string
           title: Name
-        connect_flow_id:
+        widget_id:
           type: string
           format: uuid
-          title: Connect Flow Id
+          title: Widget Id
         is_sandbox:
           type: boolean
           title: Is Sandbox
-        sign_request:
-          type: boolean
-          title: Sign Request
         is_active:
           type: boolean
           title: Is Active
-        events:
-          items: {}
-          type: array
-          title: Events
-          default:
-          - '*'
+          default: true
+        sign_request:
+          type: boolean
+          title: Sign Request
+        private_key:
+          type: string
+          title: Private Key
       type: object
-      title: UpdateWebhookParams
-      example:
-        url: https://domain.com/webhook
-        name: My webhook
-        is_sandbox: true
-        is_active: true
-        sign_request: false
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+      required:
+      - webhook_id
+      - url
+      - name
+      - is_sandbox
+      title: WebhookDataResponse
     WebhookConsoleResponse:
       $id: 9334389a-c93c-4183-9894-ea8eb72f82e8
       properties:
@@ -624,6 +579,190 @@ components:
       events:
       - '*'
       sign_request: false
+    CreateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+          default: false
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      required:
+      - url
+      - name
+      - connect_flow_id
+      - is_sandbox
+      title: CreateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+        events:
+        - '*'
+    BaseResponse_WebhookDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDataResponse'
+      type: object
+      title: BaseResponse[WebhookDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_WebhooksDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhooksDataResponse'
+      type: object
+      title: BaseResponse[WebhooksDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    UpdateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        is_active:
+          type: boolean
+          title: Is Active
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      title: UpdateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        is_active: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    WebhookLogConsoleResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        url:
+          type: string
+          title: Url
+        action:
+          type: string
+          title: Action
+        status:
+          type: integer
+          title: Status
+        request_body:
+          type: object
+          title: Request Body
+        response_body:
+          type: object
+          title: Response Body
+        entity:
+          type: string
+          title: Entity
+        entity_id:
+          type: string
+          title: Entity Id
+        environment:
+          type: string
+          title: Environment
+        webhook_id:
+          type: string
+          title: Webhook Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      title: WebhookLogConsoleResponse
+      webhook:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+        url: https://webhook.palenca.com
+        is_sandbox: false
+        events:
+        - '*'
+        created_at: '2022-05-02T03:36:02.436Z'
+        updated_at: '2022-05-02T03:36:02.436Z'
+      logs:
+      - created_at: '2023-03-31T20:32:12.295904+00:00'
+        updated_at: '2023-03-31T20:32:12.295927+00:00'
+        id: 8c069c49-efdf-4230-aa43-2d40f269497f
+        url: https://webhook.site/96bc26e2-bf38-4cd1-8432-4e5a13fe5d60
+        name: testing webhook
+        events:
+        - '*'
+        widget_id: 15574004-c4d6-4e59-bcba-f335993b1400
+        is_sandbox: true
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -645,62 +784,6 @@ components:
       - msg
       - type
       title: ValidationError
-    WebhookLogStatus:
-      enum:
-      - success
-      - failed
-      title: WebhookLogStatus
-      description: An enumeration.
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    WebhookDataResponse:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        is_active:
-          type: boolean
-          title: Is Active
-          default: true
-        sign_request:
-          type: boolean
-          title: Sign Request
-        private_key:
-          type: string
-          title: Private Key
-      type: object
-      required:
-      - webhook_id
-      - url
-      - name
-      - is_sandbox
-      title: WebhookDataResponse
     BasePaginationResponse_WebhookDetailsConsoleResponse_:
       properties:
         success:
@@ -720,86 +803,3 @@ components:
         data: {}
         error: {}
         pagination: {}
-    WebhookDetailsConsoleResponse:
-      properties:
-        webhook:
-          $ref: '#/components/schemas/WebhookConsoleResponse'
-        logs:
-          items:
-            $ref: '#/components/schemas/WebhookLogConsoleResponse'
-          type: array
-          title: Logs
-      type: object
-      required:
-      - webhook
-      - logs
-      title: WebhookDetailsConsoleResponse
-    BaseResponse_WebhooksDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WebhooksDataResponse'
-      type: object
-      title: BaseResponse[WebhooksDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    PaginationBaseResponse:
-      properties:
-        page:
-          type: integer
-          title: Page
-        items_per_page:
-          type: integer
-          title: Items Per Page
-        total_items:
-          type: integer
-          title: Total Items
-        total_pages:
-          type: integer
-          title: Total Pages
-      type: object
-      title: PaginationBaseResponse
-    WebhookActions:
-      enum:
-      - user.created
-      - user.deleted
-      - account.created
-      - account.connected
-      - account.requires_auth
-      - account.needs_auth
-      - profile.updated
-      - employment.created
-      - employment.updated
-      - earnings.updated
-      - events.updated
-      - clean_save.finished
-      - login.created
-      - login.success
-      - login.error
-      - login.incomplete
-      - login.retry
-      - login.failed_refresh
-      title: WebhookActions
-      description: An enumeration.
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse

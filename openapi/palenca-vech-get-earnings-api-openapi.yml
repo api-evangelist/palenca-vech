@@ -33,71 +33,56 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    ValidationError:
+    ErrorResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        code:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BaseResponse_AccountDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountDataBaseResponse'
-      type: object
-      title: BaseResponse[AccountDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorDetailResponse:
-      properties:
+          title: Code
         message:
           type: string
           title: Message
-        location:
-          type: string
-          title: Location
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      title: ErrorDetailResponse
+      title: ErrorResponse
+    AccountDataBaseResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        alternative_methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        hint:
+          type: string
+          title: Hint
+      type: object
+      title: AccountDataBaseResponse
+      example:
+        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        country: mx
+        platform: uber
     PlatformCode:
       enum:
       - uber
@@ -163,6 +148,40 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
+    BaseResponse_AccountDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
     LoginTypes:
       enum:
       - curp
@@ -175,14 +194,16 @@ components:
       - phone_whatsapp_otp
       title: LoginTypes
       description: An enumeration.
-    GetDailyEarningsParams:
+    ErrorDetailResponse:
       properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
       type: object
-      required:
-      - platform
-      title: GetDailyEarningsParams
+      title: ErrorDetailResponse
     HTTPValidationError:
       properties:
         detail:
@@ -192,53 +213,32 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    AccountDataBaseResponse:
+    ValidationError:
       properties:
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        methods:
+        loc:
           items:
-            $ref: '#/components/schemas/LoginTypes'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          default: []
-        alternative_methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        hint:
-          type: string
-          title: Hint
-      type: object
-      title: AccountDataBaseResponse
-      example:
-        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        country: mx
-        platform: uber
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
+          title: Location
+        msg:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: ErrorResponse
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GetDailyEarningsParams:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+      type: object
+      required:
+      - platform
+      title: GetDailyEarningsParams

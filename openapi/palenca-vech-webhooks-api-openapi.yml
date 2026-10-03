@@ -197,138 +197,47 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BaseResponse_WebhookDataResponse_:
+    ErrorResponse:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WebhookDataResponse'
-      type: object
-      title: BaseResponse[WebhookDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CreateWebhookParams:
-      properties:
-        url:
+        code:
           type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        sign_request:
-          type: boolean
-          title: Sign Request
-          default: false
-        events:
-          items: {}
-          type: array
-          title: Events
-          default:
-          - '*'
-      type: object
-      required:
-      - url
-      - name
-      - connect_flow_id
-      - is_sandbox
-      title: CreateWebhookParams
-      example:
-        url: https://domain.com/webhook
-        name: My webhook
-        is_sandbox: true
-        sign_request: false
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
-        events:
-        - '*'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UpdateWebhookParams:
-      properties:
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        sign_request:
-          type: boolean
-          title: Sign Request
-        is_active:
-          type: boolean
-          title: Is Active
-        events:
-          items: {}
-          type: array
-          title: Events
-          default:
-          - '*'
-      type: object
-      title: UpdateWebhookParams
-      example:
-        url: https://domain.com/webhook
-        name: My webhook
-        is_sandbox: true
-        is_active: true
-        sign_request: false
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ErrorDetailResponse:
-      properties:
+          title: Code
         message:
           type: string
           title: Message
-        location:
-          type: string
-          title: Location
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      title: ErrorDetailResponse
+      title: ErrorResponse
+    SendWebhookTimeoutParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+      type: object
+      required:
+      - account_id
+      - webhook_id
+      title: SendWebhookTimeoutParams
+    WebhooksDataResponse:
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/WebhookDataResponse'
+          type: array
+          title: Webhooks
+      type: object
+      required:
+      - webhooks
+      title: WebhooksDataResponse
     WebhookDataResponse:
       properties:
         connect_flow_id:
@@ -369,6 +278,62 @@ components:
       - name
       - is_sandbox
       title: WebhookDataResponse
+    CreateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+          default: false
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      required:
+      - url
+      - name
+      - connect_flow_id
+      - is_sandbox
+      title: CreateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+        events:
+        - '*'
+    BaseResponse_WebhookDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDataResponse'
+      type: object
+      title: BaseResponse[WebhookDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     BaseResponse_WebhooksDataResponse_:
       properties:
         success:
@@ -385,44 +350,79 @@ components:
         success: true
         data: {}
         error: {}
-    SendWebhookTimeoutParams:
+    UpdateWebhookParams:
       properties:
-        account_id:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
           type: string
           format: uuid
-          title: Account Id
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-      type: object
-      required:
-      - account_id
-      - webhook_id
-      title: SendWebhookTimeoutParams
-    WebhooksDataResponse:
-      properties:
-        webhooks:
-          items:
-            $ref: '#/components/schemas/WebhookDataResponse'
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        is_active:
+          type: boolean
+          title: Is Active
+        events:
+          items: {}
           type: array
-          title: Webhooks
+          title: Events
+          default:
+          - '*'
       type: object
-      required:
-      - webhooks
-      title: WebhooksDataResponse
-    ErrorResponse:
+      title: UpdateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        is_active: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    ErrorDetailResponse:
       properties:
-        code:
-          type: string
-          title: Code
         message:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        location:
+          type: string
+          title: Location
       type: object
-      title: ErrorResponse
+      title: ErrorDetailResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

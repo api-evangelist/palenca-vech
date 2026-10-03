@@ -40,18 +40,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AuthorizeLinkParams:
+    ErrorResponse:
       properties:
-        connect_flow_id:
+        code:
           type: string
-          format: uuid
-          title: Connect Flow Id
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      required:
-      - connect_flow_id
-      title: AuthorizeLinkParams
-      example:
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+      title: ErrorResponse
     BaseResponse_NoneType_:
       properties:
         success:
@@ -69,6 +72,37 @@ components:
         success: true
         data: {}
         error: {}
+    AuthorizeLinkParams:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+      type: object
+      required:
+      - connect_flow_id
+      title: AuthorizeLinkParams
+      example:
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -90,37 +124,3 @@ components:
       - msg
       - type
       title: ValidationError
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse

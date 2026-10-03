@@ -199,6 +199,194 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    CompanyDataPrivate:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        priority:
+          $ref: '#/components/schemas/CompanyPriority'
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        retries_enabled:
+          type: boolean
+          title: Retries Enabled
+          default: false
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      required:
+      - display_name
+      - company_name
+      - priority
+      - public_api_key
+      - private_api_key
+      title: CompanyDataPrivate
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        client_id: c2644819-1879-4219-93ab-86b54fb83467
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        status: demo
+        company_name: palenca
+        website: https://palenca.com
+        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+        private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    CreateCompanyWithWidgetsParams:
+      properties:
+        company:
+          $ref: '#/components/schemas/app__api__schemas__admin__CreateCompanyParams'
+        widget:
+          $ref: '#/components/schemas/app__api__schemas__admin__CreateWidgetParams'
+      type: object
+      required:
+      - company
+      - widget
+      title: CreateCompanyWithWidgetsParams
+    WidgetInternalType:
+      enum:
+      - default_api_calls
+      title: WidgetInternalType
+      description: An enumeration.
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    app__api__schemas__admin__UpdateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        user:
+          type: string
+          title: User
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      title: UpdateCompanyParams
     CountryCode:
       enum:
       - mx
@@ -217,6 +405,167 @@ components:
       - do
       title: CountryCode
       description: An enumeration.
+    BaseResponse_CompanyDataPrivate_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyDataPrivate'
+      type: object
+      title: BaseResponse[CompanyDataPrivate]
+      example:
+        success: true
+        data: {}
+        error: {}
+    app__api__schemas__admin__CreateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+          default: false
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+          default: false
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+          default: false
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+          default: true
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+          default: true
+        hide_label:
+          type: boolean
+          title: Hide Label
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        persist_session:
+          type: boolean
+          title: Persist Session
+          default: false
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        redirect_url:
+          type: string
+          title: Redirect Url
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        widget_type:
+          allOf:
+          - $ref: '#/components/schemas/WidgetType'
+          default: income_verification
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: CreateWidgetParams
+    app__api__schemas__admin__CreateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        owner:
+          type: string
+          title: Owner
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+      type: object
+      required:
+      - logo
+      - display_name
+      - company_name
+      title: CreateCompanyParams
+    WidgetType:
+      enum:
+      - income_verification
+      title: WidgetType
+      description: An enumeration.
+    BaseResponse_WidgetDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetDataResponse'
+      type: object
+      title: BaseResponse[WidgetDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     PlatformCode:
       enum:
       - uber
@@ -361,21 +710,25 @@ components:
           default: {}
       type: object
       title: UpdateWidgetParams
-    ErrorResponse:
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    ErrorDetailResponse:
       properties:
-        code:
-          type: string
-          title: Code
         message:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        location:
+          type: string
+          title: Location
       type: object
-      title: ErrorResponse
+      title: ErrorDetailResponse
     ValidationError:
       properties:
         loc:
@@ -397,99 +750,6 @@ components:
       - msg
       - type
       title: ValidationError
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    BaseResponse_CompanyDataPrivate_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CompanyDataPrivate'
-      type: object
-      title: BaseResponse[CompanyDataPrivate]
-      example:
-        success: true
-        data: {}
-        error: {}
-    WidgetInternalType:
-      enum:
-      - default_api_calls
-      title: WidgetInternalType
-      description: An enumeration.
-    app__api__schemas__admin__UpdateCompanyParams:
-      properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        user:
-          type: string
-          title: User
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        owner:
-          type: string
-          title: Owner
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-          default: false
-      type: object
-      title: UpdateCompanyParams
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CreateCompanyWithWidgetsParams:
-      properties:
-        company:
-          $ref: '#/components/schemas/app__api__schemas__admin__CreateCompanyParams'
-        widget:
-          $ref: '#/components/schemas/app__api__schemas__admin__CreateWidgetParams'
-      type: object
-      required:
-      - company
-      - widget
-      title: CreateCompanyWithWidgetsParams
     WidgetDataResponse:
       properties:
         created_at:
@@ -620,263 +880,3 @@ components:
         whatsapp_number: '+525539043015'
         webhook_url: https://webhooks.palenca.com/example
         settings: {}
-    app__api__schemas__admin__CreateCompanyParams:
-      properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        owner:
-          type: string
-          title: Owner
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-      type: object
-      required:
-      - logo
-      - display_name
-      - company_name
-      title: CreateCompanyParams
-    app__api__schemas__admin__CreateWidgetParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformCode'
-          type: array
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-          default: false
-        hide_logo:
-          type: boolean
-          title: Hide Logo
-          default: false
-        hide_whatsapp:
-          type: boolean
-          title: Hide Whatsapp
-          default: false
-        hide_consent:
-          type: boolean
-          title: Hide Consent
-          default: false
-        hide_privacy_url:
-          type: boolean
-          title: Hide Privacy Url
-          default: true
-        hide_redirect_url:
-          type: boolean
-          title: Hide Redirect Url
-          default: true
-        hide_label:
-          type: boolean
-          title: Hide Label
-          default: false
-        require_gov_id:
-          type: boolean
-          title: Require Gov Id
-          default: false
-        persist_session:
-          type: boolean
-          title: Persist Session
-          default: false
-        font_family:
-          type: string
-          title: Font Family
-        primary_color:
-          type: string
-          title: Primary Color
-        background_color:
-          type: string
-          title: Background Color
-        text_field_style:
-          type: string
-          title: Text Field Style
-        border_radius:
-          type: string
-          title: Border Radius
-        redirect_url:
-          type: string
-          title: Redirect Url
-        custom_privacy_url:
-          type: string
-          title: Custom Privacy Url
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-          default: []
-        widget_type:
-          allOf:
-          - $ref: '#/components/schemas/WidgetType'
-          default: income_verification
-        settings:
-          type: object
-          title: Settings
-          default: {}
-      type: object
-      title: CreateWidgetParams
-    WidgetType:
-      enum:
-      - income_verification
-      title: WidgetType
-      description: An enumeration.
-    CompanyDataPrivate:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        client_id:
-          type: string
-          title: Client Id
-        logo:
-          type: string
-          title: Logo
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        priority:
-          $ref: '#/components/schemas/CompanyPriority'
-        website:
-          type: string
-          title: Website
-        public_api_key:
-          type: string
-          title: Public Api Key
-        private_api_key:
-          type: string
-          title: Private Api Key
-        public_encryption_key:
-          type: string
-          title: Public Encryption Key
-        private_encryption_key:
-          type: string
-          title: Private Encryption Key
-        require_encryption:
-          type: boolean
-          title: Require Encryption
-          default: false
-        owner:
-          type: string
-          title: Owner
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        retries_enabled:
-          type: boolean
-          title: Retries Enabled
-          default: false
-        group_id:
-          type: string
-          format: uuid
-          title: Group Id
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-          default: false
-      type: object
-      required:
-      - display_name
-      - company_name
-      - priority
-      - public_api_key
-      - private_api_key
-      title: CompanyDataPrivate
-      example:
-        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        client_id: c2644819-1879-4219-93ab-86b54fb83467
-        logo: https://palenca.com/logo.png
-        display_name: Palenca
-        status: demo
-        company_name: palenca
-        website: https://palenca.com
-        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
-        private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    BaseResponse_WidgetDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WidgetDataResponse'
-      type: object
-      title: BaseResponse[WidgetDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CompanyStatus:
-      enum:
-      - internal_test
-      - active
-      - demo
-      - pilot
-      - sandbox
-      - read_permissions_disabled
-      - write_permissions_disabled
-      - suspended
-      title: CompanyStatus
-      description: An enumeration.

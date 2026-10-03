@@ -142,60 +142,6 @@ components:
       required:
       - account_id
       title: IndividualAccountInsightsParams
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ComputeExtendedInsightsParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-      type: object
-      required:
-      - account_id
-      - company_id
-      title: ComputeExtendedInsightsParams
     PlatformCode:
       enum:
       - uber
@@ -261,15 +207,39 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    HTTPValidationError:
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    ComputeExtendedInsightsParams:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
       type: object
-      title: HTTPValidationError
+      required:
+      - account_id
+      - company_id
+      title: ComputeExtendedInsightsParams
     PlatformBenchmarksParams:
       properties:
         platform:
@@ -281,3 +251,33 @@ components:
       - platform
       - country
       title: PlatformBenchmarksParams
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

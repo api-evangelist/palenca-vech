@@ -1766,73 +1766,56 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RefreshEarningsParams:
+    ErrorResponse:
       properties:
-        offset:
-          type: integer
-          title: Offset
-          default: 0
-        end_days_offset:
-          type: integer
-          title: End Days Offset
-          default: 10
-      type: object
-      title: RefreshEarningsParams
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        code:
+          type: string
+          title: Code
+        message:
           type: string
           title: Message
-        type:
-          type: string
-          title: Error Type
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BaseResponse_AccountDataBaseResponse_:
+      title: ErrorResponse
+    AccountDataBaseResponse:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountDataBaseResponse'
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        alternative_methods:
+          items:
+            $ref: '#/components/schemas/LoginTypes'
+          type: array
+          default: []
+        hint:
+          type: string
+          title: Hint
       type: object
-      title: BaseResponse[AccountDataBaseResponse]
+      title: AccountDataBaseResponse
       example:
-        success: true
-        data: {}
-        error: {}
+        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        country: mx
+        platform: uber
     PlatformCode:
       enum:
       - uber
@@ -1898,16 +1881,40 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    ErrorDetailResponse:
+    BaseResponse_AccountDataBaseResponse_:
       properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataBaseResponse'
       type: object
-      title: ErrorDetailResponse
+      title: BaseResponse[AccountDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
     LoginTypes:
       enum:
       - curp
@@ -1920,6 +1927,23 @@ components:
       - phone_whatsapp_otp
       title: LoginTypes
       description: An enumeration.
+    RefreshAccountsParams:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        items:
+          items:
+            anyOf:
+            - type: string
+              format: uuid
+            - type: string
+          type: array
+          title: Items
+      type: object
+      required:
+      - platform
+      - items
+      title: RefreshAccountsParams
     GetEarningsParams:
       properties:
         weeks:
@@ -1967,6 +1991,28 @@ components:
           title: Login Id
       type: object
       title: GetEarningsParams
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    RefreshEarningsParams:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          default: 0
+        end_days_offset:
+          type: integer
+          title: End Days Offset
+          default: 10
+      type: object
+      title: RefreshEarningsParams
     HTTPValidationError:
       properties:
         detail:
@@ -1976,90 +2022,393 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    RefreshAccountsParams:
+    ValidationError:
       properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        items:
+        loc:
           items:
             anyOf:
             - type: string
-              format: uuid
-            - type: string
+            - type: integer
           type: array
-          title: Items
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - platform
-      - items
-      title: RefreshAccountsParams
-    AccountDataBaseResponse:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ManageManualLoginParams:
       properties:
-        user_id:
+        access_token:
+          type: string
+          title: Access Token
+        worker_id:
+          type: string
+          title: Worker Id
+        should_send_email:
+          type: boolean
+          title: Should Send Email
+          default: true
+      type: object
+      required:
+      - access_token
+      title: ManageManualLoginParams
+    ValidateAccountParams:
+      properties:
+        encrypted_data:
+          type: string
+          title: Encrypted Data
+        encrypted_symmetric_key:
+          type: string
+          title: Encrypted Symmetric Key
+        otp_code:
+          type: string
+          title: Otp Code
+        alternative_method:
+          $ref: '#/components/schemas/LoginTypes'
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        cookies:
+          items:
+            $ref: '#/components/schemas/Cookie'
+          type: array
+          title: Cookies
+          default: []
+      type: object
+      title: ValidateAccountParams
+      example:
+        otp_code: '12345'
+    InsightsStatus:
+      enum:
+      - computed_not_saved
+      - incomplete
+      - success
+      - error
+      title: InsightsStatus
+      description: An enumeration.
+    SearchEarningsParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchEarningsParams
+    BasePaginationResponse_EventsDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EventsDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[EventsDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    UpdateLoginParams:
+      properties:
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        insights_status:
+          $ref: '#/components/schemas/InsightsStatus'
+        insights_status_details:
+          $ref: '#/components/schemas/InsightsStatusDetails'
+        should_notify_webhook:
+          type: boolean
+          title: Should Notify Webhook
+          default: false
+        login_id:
           type: string
           format: uuid
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
+          title: Login Id
+      type: object
+      title: UpdateLoginParams
+    BaseResponse_ReassignAccountUserResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ReassignAccountUserResponse'
+      type: object
+      title: BaseResponse[ReassignAccountUserResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_UserRetrievalDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/UserRetrievalDataResponse'
+      type: object
+      title: BaseResponse[UserRetrievalDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentDataBaseResponse:
+      properties:
         platform:
           $ref: '#/components/schemas/PlatformCode'
         account_id:
           type: string
           format: uuid
           title: Account Id
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        alternative_methods:
-          items:
-            $ref: '#/components/schemas/LoginTypes'
-          type: array
-          default: []
-        hint:
+        external_id:
           type: string
-          title: Hint
+          title: External Id
+        employment_info:
+          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
+        employment_history:
+          items:
+            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+          type: array
+          title: Employment History
       type: object
-      title: AccountDataBaseResponse
-      example:
-        user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        country: mx
-        platform: uber
-    ErrorResponse:
+      required:
+      - platform
+      - account_id
+      title: EmploymentDataBaseResponse
+    BaseResponse_AccountsDataResponse_:
       properties:
-        code:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataResponse'
+      type: object
+      title: BaseResponse[AccountsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    InsightsStatusDetails:
+      enum:
+      - empty_employment_events
+      - empty_employment_history
+      - login_not_success
+      - timeout_request
+      - lambda_error
+      - pending
+      title: InsightsStatusDetails
+      description: An enumeration.
+    PaginationBaseResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        items_per_page:
+          type: integer
+          title: Items Per Page
+        total_items:
+          type: integer
+          title: Total Items
+        total_pages:
+          type: integer
+          title: Total Pages
+      type: object
+      title: PaginationBaseResponse
+    CreateEarningParam:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
           type: string
-          title: Code
+          format: date-time
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+      type: object
+      required:
+      - amount
+      - currency
+      - earning_date
+      title: CreateEarningParam
+    AccountBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        gov_id:
+          type: string
+          title: Gov Id
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
         message:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        recommendation:
+          type: string
+          title: Recommendation
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
       type: object
-      title: ErrorResponse
-    LoginStatus:
+      required:
+      - account_id
+      title: AccountBaseResponse
+    SourceCode:
       enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
+      - widget
+      - api
+      - legacy
+      - bulk_upload
+      - console
+      title: SourceCode
       description: An enumeration.
+    EventType:
+      enum:
+      - delivery
+      - ride
+      - bonus
+      - adjustment
+      - debt
+      title: EventType
+      description: An enumeration.
+    EventsBaseResponse:
+      properties:
+        event_id:
+          type: string
+          title: Event Id
+        type:
+          $ref: '#/components/schemas/EventType'
+        timezone:
+          type: string
+          title: Timezone
+        start_date:
+          type: string
+          format: date-time
+          title: Start Date
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        duration_sec:
+          type: integer
+          title: Duration Sec
+        distance_km:
+          type: number
+          title: Distance Km
+        start_location:
+          type: string
+          title: Start Location
+        end_location:
+          type: string
+          title: End Location
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethod'
+        cash_amount:
+          type: number
+          title: Cash Amount
+        additional_timestamps:
+          items:
+            type: object
+          type: array
+          title: Additional Timestamps
+      type: object
+      title: EventsBaseResponse
+    BasePaginationResponse_EarningsDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EarningsDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[EarningsDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
     StatusDetails:
       enum:
       - bad_request
@@ -2179,6 +2528,235 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    ProfileResponse:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        email:
+          type: string
+          title: Email
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+      type: object
+      title: ProfileResponse
+    BaseResponse_AccountBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountBaseResponse'
+      type: object
+      title: BaseResponse[AccountBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EarningsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        earnings:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/EarningsBaseResponse'
+            - $ref: '#/components/schemas/EarningsWithEmployerResponse'
+          type: array
+          title: Earnings
+      type: object
+      required:
+      - account_id
+      title: EarningsDataBaseResponse
+    EarningsBaseResponse:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+      type: object
+      title: EarningsBaseResponse
+    AccountsDataResponse:
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountBaseResponse'
+          type: array
+          title: Accounts
+      type: object
+      required:
+      - accounts
+      title: AccountsDataResponse
+    BasePaginationResponse_EmploymentDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[EmploymentDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    CurrencyCode:
+      enum:
+      - mxn
+      - usd
+      - cop
+      - clp
+      - ars
+      - pen
+      - brl
+      - crc
+      - pab
+      - bob
+      - ves
+      - dop
+      - brr
+      title: CurrencyCode
+      description: An enumeration.
+    CreateEarningsParams:
+      properties:
+        earnings:
+          items:
+            $ref: '#/components/schemas/CreateEarningParam'
+          type: array
+          title: Earnings
+        is_manual:
+          type: boolean
+          title: Is Manual
+          default: false
+      type: object
+      required:
+      - earnings
+      title: CreateEarningsParams
+    BaseResponse_AccountsDataConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataConsoleResponse'
+      type: object
+      title: BaseResponse[AccountsDataConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ReassignAccountUserRequest:
+      properties:
+        smart:
+          type: boolean
+          title: Smart
+        external_id:
+          type: string
+          title: External Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+      type: object
+      title: ReassignAccountUserRequest
+    ProfileDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        profile:
+          $ref: '#/components/schemas/ProfileResponse'
+        ids_info:
+          items:
+            $ref: '#/components/schemas/IdInfoBaseResponse'
+          type: array
+          title: Ids Info
+      type: object
+      required:
+      - account_id
+      title: ProfileDataBaseResponse
+    UpdateAccountWorkerParams:
+      properties:
+        worker_id:
+          type: string
+          title: Worker Id
+      type: object
+      title: UpdateAccountWorkerParams
     CreateAccountBase:
       properties:
         encrypted_data:
@@ -2228,909 +2806,6 @@ components:
         identifier: user@example.com
         identifier_type: email
         password: s3cur3p4s5w0rd
-    InsightsStatus:
-      enum:
-      - computed_not_saved
-      - incomplete
-      - success
-      - error
-      title: InsightsStatus
-      description: An enumeration.
-    ValidateAccountParams:
-      properties:
-        encrypted_data:
-          type: string
-          title: Encrypted Data
-        encrypted_symmetric_key:
-          type: string
-          title: Encrypted Symmetric Key
-        otp_code:
-          type: string
-          title: Otp Code
-        alternative_method:
-          $ref: '#/components/schemas/LoginTypes'
-        username:
-          type: string
-          title: Username
-        password:
-          type: string
-          title: Password
-        cookies:
-          items:
-            $ref: '#/components/schemas/Cookie'
-          type: array
-          title: Cookies
-          default: []
-      type: object
-      title: ValidateAccountParams
-      example:
-        otp_code: '12345'
-    UpdateLoginParams:
-      properties:
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        insights_status:
-          $ref: '#/components/schemas/InsightsStatus'
-        insights_status_details:
-          $ref: '#/components/schemas/InsightsStatusDetails'
-        should_notify_webhook:
-          type: boolean
-          title: Should Notify Webhook
-          default: false
-        login_id:
-          type: string
-          format: uuid
-          title: Login Id
-      type: object
-      title: UpdateLoginParams
-    AccountBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        worker_id:
-          type: string
-          title: Worker Id
-        gov_id:
-          type: string
-          title: Gov Id
-        last_successful_connection:
-          type: string
-          format: date-time
-          title: Last Successful Connection
-        warning:
-          $ref: '#/components/schemas/AccountWarning'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        message:
-          type: string
-          title: Message
-        recommendation:
-          type: string
-          title: Recommendation
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - account_id
-      title: AccountBaseResponse
-    SourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - bulk_upload
-      - console
-      title: SourceCode
-      description: An enumeration.
-    SearchEventsParams:
-      properties:
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: SearchEventsParams
-    ResendOtpParams:
-      properties:
-        phone_number:
-          type: string
-          title: Phone Number
-      type: object
-      required:
-      - phone_number
-      title: ResendOtpParams
-      example:
-        phone_number: '5511999998888'
-    EventsDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        events:
-          items:
-            $ref: '#/components/schemas/EventsBaseResponse'
-          type: array
-          title: Events
-      type: object
-      required:
-      - account_id
-      title: EventsDataBaseResponse
-    EmploymentHistoryBaseResponse:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        employer_registration:
-          type: string
-          title: Employer Registration
-        start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: End Date
-        job_title:
-          type: string
-          title: Job Title
-        job_title_code:
-          type: string
-          title: Job Title Code
-        federal_entity:
-          type: string
-          title: Federal Entity
-      type: object
-      title: EmploymentHistoryBaseResponse
-    BasePaginationResponse_EarningsDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EarningsDataBaseResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
-      type: object
-      title: BasePaginationResponse[EarningsDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}
-    EmploymentFilesType:
-      enum:
-      - imss_employment_record
-      - imss_rpci_pdf
-      - buro_insights_employment_record
-      - issste_employment_file
-      - end_of_rights_pdf
-      title: EmploymentFilesType
-      description: An enumeration.
-    BaseResponse_UserRetrievalDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/UserRetrievalDataResponse'
-      type: object
-      title: BaseResponse[UserRetrievalDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ProfileDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        profile:
-          $ref: '#/components/schemas/ProfileResponse'
-        ids_info:
-          items:
-            $ref: '#/components/schemas/IdInfoBaseResponse'
-          type: array
-          title: Ids Info
-      type: object
-      required:
-      - account_id
-      title: ProfileDataBaseResponse
-    SearchEarningsParams:
-      properties:
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: SearchEarningsParams
-    EmploymentInfoBaseResponse:
-      properties:
-        id_type:
-          $ref: '#/components/schemas/IdType'
-        quoted_weeks:
-          type: integer
-          title: Quoted Weeks
-        discounted_weeks:
-          type: integer
-          title: Discounted Weeks
-        reintegrated_weeks:
-          type: integer
-          title: Reintegrated Weeks
-        end_of_rights:
-          type: string
-          title: End Of Rights
-        status:
-          $ref: '#/components/schemas/EmploymentStatus'
-        employment_files:
-          items:
-            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
-          type: array
-          title: Employment Files
-        employment_history_status:
-          $ref: '#/components/schemas/EmploymentHistoryStatus'
-      type: object
-      title: EmploymentInfoBaseResponse
-    EventType:
-      enum:
-      - delivery
-      - ride
-      - bonus
-      - adjustment
-      - debt
-      title: EventType
-      description: An enumeration.
-    EmploymentsFilesBaseResponse:
-      properties:
-        url:
-          type: string
-          title: Url
-        file_type:
-          $ref: '#/components/schemas/EmploymentFilesType'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-      type: object
-      title: EmploymentsFilesBaseResponse
-    CreateProfileParams:
-      properties:
-        first_name:
-          type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        phone:
-          type: string
-          title: Phone
-        email:
-          type: string
-          title: Email
-        address:
-          type: string
-          title: Address
-        city_name:
-          type: string
-          title: City Name
-        birthday:
-          type: string
-          format: date
-          title: Birthday
-        picture_url:
-          type: string
-          title: Picture Url
-        is_manual:
-          type: boolean
-          title: Is Manual
-          default: false
-      type: object
-      required:
-      - first_name
-      - last_name
-      title: CreateProfileParams
-      example:
-        first_name: Ongtuan
-        last_name: Engullen
-    UpdateAccountWorkerParams:
-      properties:
-        worker_id:
-          type: string
-          title: Worker Id
-      type: object
-      title: UpdateAccountWorkerParams
-    BasePaginationResponse_RawEventsDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/RawEventsDataBaseResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
-      type: object
-      title: BasePaginationResponse[RawEventsDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
-    ManageManualLoginParams:
-      properties:
-        access_token:
-          type: string
-          title: Access Token
-        worker_id:
-          type: string
-          title: Worker Id
-        should_send_email:
-          type: boolean
-          title: Should Send Email
-          default: true
-      type: object
-      required:
-      - access_token
-      title: ManageManualLoginParams
-    EarningsDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        earnings:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/EarningsBaseResponse'
-            - $ref: '#/components/schemas/EarningsWithEmployerResponse'
-          type: array
-          title: Earnings
-      type: object
-      required:
-      - account_id
-      title: EarningsDataBaseResponse
-    ReassignAccountUserRequest:
-      properties:
-        smart:
-          type: boolean
-          title: Smart
-        external_id:
-          type: string
-          title: External Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-      type: object
-      title: ReassignAccountUserRequest
-    EmploymentHistoryStatus:
-      enum:
-      - empty
-      - partial
-      - complete
-      title: EmploymentHistoryStatus
-      description: An enumeration.
-    IdType:
-      enum:
-      - tax
-      - passport
-      - national
-      - social_security_number
-      - individual_taxpayer_registry
-      title: IdType
-      description: An enumeration.
-    PaginationBaseResponse:
-      properties:
-        page:
-          type: integer
-          title: Page
-        items_per_page:
-          type: integer
-          title: Items Per Page
-        total_items:
-          type: integer
-          title: Total Items
-        total_pages:
-          type: integer
-          title: Total Pages
-      type: object
-      title: PaginationBaseResponse
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    CurrencyCode:
-      enum:
-      - mxn
-      - usd
-      - cop
-      - clp
-      - ars
-      - pen
-      - brl
-      - crc
-      - pab
-      - bob
-      - ves
-      - dop
-      - brr
-      title: CurrencyCode
-      description: An enumeration.
-    EventsBaseResponse:
-      properties:
-        event_id:
-          type: string
-          title: Event Id
-        type:
-          $ref: '#/components/schemas/EventType'
-        timezone:
-          type: string
-          title: Timezone
-        start_date:
-          type: string
-          format: date-time
-          title: Start Date
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        duration_sec:
-          type: integer
-          title: Duration Sec
-        distance_km:
-          type: number
-          title: Distance Km
-        start_location:
-          type: string
-          title: Start Location
-        end_location:
-          type: string
-          title: End Location
-        payment_method:
-          $ref: '#/components/schemas/PaymentMethod'
-        cash_amount:
-          type: number
-          title: Cash Amount
-        additional_timestamps:
-          items:
-            type: object
-          type: array
-          title: Additional Timestamps
-      type: object
-      title: EventsBaseResponse
-    BasePaginationResponse_EmploymentDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EmploymentDataBaseResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
-      type: object
-      title: BasePaginationResponse[EmploymentDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
-    RawEventsDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        raw_events:
-          items:
-            type: object
-          type: array
-          title: Raw Events
-          default: []
-      type: object
-      required:
-      - account_id
-      title: RawEventsDataBaseResponse
-    EmploymentDataBaseResponse:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        employment_info:
-          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
-        employment_history:
-          items:
-            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
-          type: array
-          title: Employment History
-      type: object
-      required:
-      - platform
-      - account_id
-      title: EmploymentDataBaseResponse
-    EarningsBaseResponse:
-      properties:
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        earning_date:
-          type: string
-          format: date
-          title: Earning Date
-        cash_amount:
-          type: number
-          title: Cash Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-      type: object
-      title: EarningsBaseResponse
-    OptionsSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: OptionsSearchParams
-    CreateEarningParam:
-      properties:
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        earning_date:
-          type: string
-          format: date-time
-          title: Earning Date
-        cash_amount:
-          type: number
-          title: Cash Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-      type: object
-      required:
-      - amount
-      - currency
-      - earning_date
-      title: CreateEarningParam
-    BaseResponse_AccountBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountBaseResponse'
-      type: object
-      title: BaseResponse[AccountBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ReassignAccountUserResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        new_user_id:
-          type: string
-          format: uuid
-          title: New User Id
-        old_user_id:
-          type: string
-          format: uuid
-          title: Old User Id
-        old_user_deleted:
-          type: boolean
-          title: Old User Deleted
-      type: object
-      required:
-      - account_id
-      - new_user_id
-      - old_user_id
-      - old_user_deleted
-      title: ReassignAccountUserResponse
-    PaymentMethod:
-      enum:
-      - cash
-      - card
-      - online_bank
-      title: PaymentMethod
-      description: An enumeration.
-    BaseResponse_ProfileDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ProfileDataBaseResponse'
-      type: object
-      title: BaseResponse[ProfileDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CreateEarningsParams:
-      properties:
-        earnings:
-          items:
-            $ref: '#/components/schemas/CreateEarningParam'
-          type: array
-          title: Earnings
-        is_manual:
-          type: boolean
-          title: Is Manual
-          default: false
-      type: object
-      required:
-      - earnings
-      title: CreateEarningsParams
-    ProfileResponse:
-      properties:
-        first_name:
-          type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        email:
-          type: string
-          title: Email
-        birthday:
-          type: string
-          format: date
-          title: Birthday
-      type: object
-      title: ProfileResponse
-    IdentifierTypes:
-      enum:
-      - email
-      - phone
-      - rfc
-      title: IdentifierTypes
-      description: An enumeration.
-    BasePaginationResponse_EventsDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EventsDataBaseResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
-      type: object
-      title: BasePaginationResponse[EventsDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
-    BaseResponse_AccountsDataConsoleResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountsDataConsoleResponse'
-      type: object
-      title: BaseResponse[AccountsDataConsoleResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    EarningsWithEmployerResponse:
-      properties:
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        earning_date:
-          type: string
-          format: date
-          title: Earning Date
-        cash_amount:
-          type: number
-          title: Cash Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-        employer:
-          type: string
-          title: Employer
-      type: object
-      title: EarningsWithEmployerResponse
-    Cookie:
-      properties:
-        name:
-          type: string
-          title: Name
-        value:
-          type: string
-          title: Value
-        domain:
-          type: string
-          title: Domain
-      type: object
-      title: Cookie
-    BaseResponse_dict_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          type: object
-          title: Data
-      type: object
-      title: BaseResponse[dict]
-      example:
-        success: true
-        data: {}
-        error: {}
-    EmploymentStatus:
-      enum:
-      - retired
-      - employed
-      - unemployed
-      - unknown
-      - potentially_retired
-      - voluntary_contributions
-      - banned
-      - active
-      title: EmploymentStatus
-      description: An enumeration.
-    AccountsDataResponse:
-      properties:
-        accounts:
-          items:
-            $ref: '#/components/schemas/AccountBaseResponse'
-          type: array
-          title: Accounts
-      type: object
-      required:
-      - accounts
-      title: AccountsDataResponse
-    IdInfoBaseResponse:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdType'
-        name:
-          type: string
-          title: Name
-        value:
-          type: string
-          title: Value
-      type: object
-      title: IdInfoBaseResponse
     CreateAccountParams:
       properties:
         encrypted_data:
@@ -3186,18 +2861,83 @@ components:
         identifier: user@example.com
         identifier_type: email
         password: s3cur3p4s5w0rd
-    AccountsDataConsoleResponse:
+    EmploymentInfoBaseResponse:
       properties:
-        accounts:
+        id_type:
+          $ref: '#/components/schemas/IdType'
+        quoted_weeks:
+          type: integer
+          title: Quoted Weeks
+        discounted_weeks:
+          type: integer
+          title: Discounted Weeks
+        reintegrated_weeks:
+          type: integer
+          title: Reintegrated Weeks
+        end_of_rights:
+          type: string
+          title: End Of Rights
+        status:
+          $ref: '#/components/schemas/EmploymentStatus'
+        employment_files:
           items:
-            $ref: '#/components/schemas/AccountConsoleResponse'
+            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
           type: array
-          title: Accounts
+          title: Employment Files
+        employment_history_status:
+          $ref: '#/components/schemas/EmploymentHistoryStatus'
+      type: object
+      title: EmploymentInfoBaseResponse
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams
+    EmploymentsFilesBaseResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: EmploymentsFilesBaseResponse
+    ReassignAccountUserResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        new_user_id:
+          type: string
+          format: uuid
+          title: New User Id
+        old_user_id:
+          type: string
+          format: uuid
+          title: Old User Id
+        old_user_deleted:
+          type: boolean
+          title: Old User Deleted
       type: object
       required:
-      - accounts
-      title: AccountsDataConsoleResponse
-    BaseResponse_AccountsDataResponse_:
+      - account_id
+      - new_user_id
+      - old_user_id
+      - old_user_deleted
+      title: ReassignAccountUserResponse
+    BaseResponse_dict_:
       properties:
         success:
           type: boolean
@@ -3206,68 +2946,27 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/AccountsDataResponse'
+          type: object
+          title: Data
       type: object
-      title: BaseResponse[AccountsDataResponse]
+      title: BaseResponse[dict]
       example:
         success: true
         data: {}
         error: {}
-    SearchRawEventsParams:
+    Cookie:
       properties:
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 5
-            page: 1
-      type: object
-      title: SearchRawEventsParams
-    UserRetrievalDataResponse:
-      properties:
-        user_id:
+        name:
           type: string
-          format: uuid
-          title: User Id
-        external_id:
+          title: Name
+        value:
           type: string
-          title: External Id
-        widget_id:
+          title: Value
+        domain:
           type: string
-          format: uuid
-          title: Widget Id
+          title: Domain
       type: object
-      required:
-      - user_id
-      - widget_id
-      title: UserRetrievalDataResponse
-    InsightsStatusDetails:
-      enum:
-      - empty_employment_events
-      - empty_employment_history
-      - login_not_success
-      - timeout_request
-      - lambda_error
-      - pending
-      title: InsightsStatusDetails
-      description: An enumeration.
-    BaseResponse_ReassignAccountUserResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ReassignAccountUserResponse'
-      type: object
-      title: BaseResponse[ReassignAccountUserResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
+      title: Cookie
     AccountConsoleResponse:
       properties:
         id:
@@ -3328,3 +3027,304 @@ components:
       - id
       - user_id
       title: AccountConsoleResponse
+    EmploymentStatus:
+      enum:
+      - retired
+      - employed
+      - unemployed
+      - unknown
+      - potentially_retired
+      - voluntary_contributions
+      - banned
+      - active
+      title: EmploymentStatus
+      description: An enumeration.
+    PaymentMethod:
+      enum:
+      - cash
+      - card
+      - online_bank
+      title: PaymentMethod
+      description: An enumeration.
+    RawEventsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        raw_events:
+          items:
+            type: object
+          type: array
+          title: Raw Events
+          default: []
+      type: object
+      required:
+      - account_id
+      title: RawEventsDataBaseResponse
+    EmploymentHistoryBaseResponse:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        employer_registration:
+          type: string
+          title: Employer Registration
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: End Date
+        job_title:
+          type: string
+          title: Job Title
+        job_title_code:
+          type: string
+          title: Job Title Code
+        federal_entity:
+          type: string
+          title: Federal Entity
+      type: object
+      title: EmploymentHistoryBaseResponse
+    EventsDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        events:
+          items:
+            $ref: '#/components/schemas/EventsBaseResponse'
+          type: array
+          title: Events
+      type: object
+      required:
+      - account_id
+      title: EventsDataBaseResponse
+    IdInfoBaseResponse:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+      type: object
+      title: IdInfoBaseResponse
+    AccountsDataConsoleResponse:
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountConsoleResponse'
+          type: array
+          title: Accounts
+      type: object
+      required:
+      - accounts
+      title: AccountsDataConsoleResponse
+    BasePaginationResponse_RawEventsDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/RawEventsDataBaseResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[RawEventsDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    UserRetrievalDataResponse:
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        external_id:
+          type: string
+          title: External Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+      type: object
+      required:
+      - user_id
+      - widget_id
+      title: UserRetrievalDataResponse
+    IdentifierTypes:
+      enum:
+      - email
+      - phone
+      - rfc
+      title: IdentifierTypes
+      description: An enumeration.
+    EmploymentHistoryStatus:
+      enum:
+      - empty
+      - partial
+      - complete
+      title: EmploymentHistoryStatus
+      description: An enumeration.
+    CreateProfileParams:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        phone:
+          type: string
+          title: Phone
+        email:
+          type: string
+          title: Email
+        address:
+          type: string
+          title: Address
+        city_name:
+          type: string
+          title: City Name
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+        picture_url:
+          type: string
+          title: Picture Url
+        is_manual:
+          type: boolean
+          title: Is Manual
+          default: false
+      type: object
+      required:
+      - first_name
+      - last_name
+      title: CreateProfileParams
+      example:
+        first_name: Ongtuan
+        last_name: Engullen
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    ResendOtpParams:
+      properties:
+        phone_number:
+          type: string
+          title: Phone Number
+      type: object
+      required:
+      - phone_number
+      title: ResendOtpParams
+      example:
+        phone_number: '5511999998888'
+    EarningsWithEmployerResponse:
+      properties:
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+        employer:
+          type: string
+          title: Employer
+      type: object
+      title: EarningsWithEmployerResponse
+    SearchEventsParams:
+      properties:
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      required:
+      - start_date
+      - end_date
+      title: SearchEventsParams
+    IdType:
+      enum:
+      - tax
+      - passport
+      - national
+      - social_security_number
+      - individual_taxpayer_registry
+      title: IdType
+      description: An enumeration.
+    BaseResponse_ProfileDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ProfileDataBaseResponse'
+      type: object
+      title: BaseResponse[ProfileDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    SearchRawEventsParams:
+      properties:
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 5
+            page: 1
+      type: object
+      title: SearchRawEventsParams

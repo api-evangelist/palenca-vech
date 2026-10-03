@@ -33,30 +33,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
     CreateEmploymentHistoryParams:
       properties:
         account_id:
@@ -82,43 +58,77 @@ components:
       required:
       - account_id
       title: CreateEmploymentHistoryParams
-    ValidationError:
+    ErrorResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        code:
+          type: string
+          title: Code
+        message:
           type: string
           title: Message
-        type:
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    Job:
+      properties:
+        employer:
           type: string
-          title: Error Type
+          title: Employer
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        federal_entity:
+          type: string
+          title: Federal Entity
+        base_salary:
+          type: number
+          title: Base Salary
+        monthly_salary:
+          type: number
+          title: Monthly Salary
+        employer_registration:
+          type: string
+          title: Employer Registration
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BaseResponse_EmploymentHistoryBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
-      type: object
-      title: BaseResponse[EmploymentHistoryBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
+      - employer
+      - start_date
+      - end_date
+      - federal_entity
+      - base_salary
+      - monthly_salary
+      title: Job
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
     ErrorDetailResponse:
       properties:
         message:
@@ -162,38 +172,6 @@ components:
           title: Federal Entity
       type: object
       title: EmploymentHistoryBaseResponse
-    Job:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        federal_entity:
-          type: string
-          title: Federal Entity
-        base_salary:
-          type: number
-          title: Base Salary
-        monthly_salary:
-          type: number
-          title: Monthly Salary
-        employer_registration:
-          type: string
-          title: Employer Registration
-      type: object
-      required:
-      - employer
-      - start_date
-      - end_date
-      - federal_entity
-      - base_salary
-      - monthly_salary
-      title: Job
     HTTPValidationError:
       properties:
         detail:
@@ -203,18 +181,40 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ErrorResponse:
+    ValidationError:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: ErrorResponse
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BaseResponse_EmploymentHistoryBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+      type: object
+      title: BaseResponse[EmploymentHistoryBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}

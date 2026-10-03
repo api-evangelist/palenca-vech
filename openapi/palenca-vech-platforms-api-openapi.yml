@@ -186,31 +186,61 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BaseResponse_PlatformDataResponse_:
+    PaginationSearchParams:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/PlatformDataResponse'
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
       type: object
-      title: BaseResponse[PlatformDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    PlatformStatus:
-      enum:
-      - up
-      - down
-      - degraded
-      - maintenance
-      - deprecated
-      title: PlatformStatus
-      description: An enumeration.
+      title: PaginationSearchParams
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    CreatePlatformParams:
+      properties:
+        code:
+          $ref: '#/components/schemas/PlatformCode'
+        name:
+          type: string
+          title: Name
+        logo:
+          type: string
+          title: Logo
+        is_active:
+          type: boolean
+          title: Is Active
+        category:
+          $ref: '#/components/schemas/PlatformCategory'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+      type: object
+      required:
+      - code
+      - name
+      - logo
+      - is_active
+      - category
+      - countries
+      title: CreatePlatformParams
     PlatformDataResponse:
       properties:
         created_at:
@@ -262,78 +292,15 @@ components:
         is_active: true
         category: gig
         status: available
-    PaginationSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: PaginationSearchParams
-    CountryCode:
+    PlatformStatus:
       enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
+      - up
+      - down
+      - degraded
+      - maintenance
+      - deprecated
+      title: PlatformStatus
       description: An enumeration.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UpdatePlatformParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        logo:
-          type: string
-          title: Logo
-        is_active:
-          type: boolean
-          title: Is Active
-        category:
-          $ref: '#/components/schemas/PlatformCategory'
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-        status:
-          $ref: '#/components/schemas/PlatformStatus'
-      type: object
-      title: UpdatePlatformParams
     PlatformCode:
       enum:
       - uber
@@ -399,12 +366,121 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    UpdatePlatformParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        logo:
+          type: string
+          title: Logo
+        is_active:
+          type: boolean
+          title: Is Active
+        category:
+          $ref: '#/components/schemas/PlatformCategory'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        status:
+          $ref: '#/components/schemas/PlatformStatus'
+      type: object
+      title: UpdatePlatformParams
+    BaseResponse_PlatformDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/PlatformDataResponse'
+      type: object
+      title: BaseResponse[PlatformDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     PlatformCategory:
       enum:
       - gig
       - employment
       title: PlatformCategory
       description: An enumeration.
+    SearchPlatformsParams:
+      properties:
+        q:
+          type: string
+          title: Q
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      title: SearchPlatformsParams
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     BaseResponse_list_app.api.schemas.responses.PlatformDataResponse__:
       properties:
         success:
@@ -424,79 +500,3 @@ components:
         success: true
         data: {}
         error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    SearchPlatformsParams:
-      properties:
-        q:
-          type: string
-          title: Q
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      title: SearchPlatformsParams
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CreatePlatformParams:
-      properties:
-        code:
-          $ref: '#/components/schemas/PlatformCode'
-        name:
-          type: string
-          title: Name
-        logo:
-          type: string
-          title: Logo
-        is_active:
-          type: boolean
-          title: Is Active
-        category:
-          $ref: '#/components/schemas/PlatformCategory'
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-      type: object
-      required:
-      - code
-      - name
-      - logo
-      - is_active
-      - category
-      - countries
-      title: CreatePlatformParams
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse

@@ -39,26 +39,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BulkStatusHistoryRequest:
-      properties:
-        entries:
-          items:
-            $ref: '#/components/schemas/StatusHistoryEntry'
-          type: array
-          title: Entries
-      type: object
-      required:
-      - entries
-      title: BulkStatusHistoryRequest
     StatusHistoryEntry:
       properties:
         platform_code:
@@ -72,6 +52,15 @@ components:
       - platform_code
       - status
       title: StatusHistoryEntry
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -93,3 +82,14 @@ components:
       - msg
       - type
       title: ValidationError
+    BulkStatusHistoryRequest:
+      properties:
+        entries:
+          items:
+            $ref: '#/components/schemas/StatusHistoryEntry'
+          type: array
+          title: Entries
+      type: object
+      required:
+      - entries
+      title: BulkStatusHistoryRequest

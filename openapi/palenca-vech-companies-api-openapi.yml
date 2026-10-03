@@ -187,62 +187,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ListCompanyDataResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        widgets_ids:
-          items:
-            type: string
-          type: array
-          title: Widgets Ids
-        company_name:
-          type: string
-          title: Company Name
-        display_name:
-          type: string
-          title: Display Name
-        private_api_key:
-          type: string
-          title: Private Api Key
-      type: object
-      required:
-      - id
-      - widgets_ids
-      - company_name
-      - display_name
-      - private_api_key
-      title: ListCompanyDataResponse
-    PaginationSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: PaginationSearchParams
-    BaseResponse_CompanyDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CompanyDataResponse'
-      type: object
-      title: BaseResponse[CompanyDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
     CompanyDataResponse:
       properties:
         created_at:
@@ -335,27 +279,72 @@ components:
         website: https://palenca.com
         priority: low
         public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
-    ValidationError:
+    PaginationSearchParams:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: PaginationSearchParams
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
           type: string
           title: Message
-        type:
-          type: string
-          title: Error Type
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: ErrorResponse
+    SearchCompaniesParams:
+      properties:
+        statuses:
+          items:
+            $ref: '#/components/schemas/CompanyStatus'
+          type: array
+        q:
+          type: string
+          title: Q
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
+      type: object
+      title: SearchCompaniesParams
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
     app__api__schemas__companies__CreateCompanyParams:
       properties:
         client_id:
@@ -420,15 +409,71 @@ components:
         display_name: Palenca
         company_name: palenca
         website: https://palenca.com
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
+    ListCompaniesDataResponse:
+      properties:
+        companies:
+          items:
+            $ref: '#/components/schemas/ListCompanyDataResponse'
+          type: array
+          title: Companies
+      type: object
+      required:
+      - companies
+      title: ListCompaniesDataResponse
+    ListCompanyDataResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        widgets_ids:
+          items:
+            type: string
+          type: array
+          title: Widgets Ids
+        company_name:
+          type: string
+          title: Company Name
+        display_name:
+          type: string
+          title: Display Name
+        private_api_key:
+          type: string
+          title: Private Api Key
+      type: object
+      required:
+      - id
+      - widgets_ids
+      - company_name
+      - display_name
+      - private_api_key
+      title: ListCompanyDataResponse
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    BaseResponse_CompanyDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyDataResponse'
+      type: object
+      title: BaseResponse[CompanyDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     BaseResponse_ListCompaniesDataResponse_:
       properties:
         success:
@@ -445,46 +490,6 @@ components:
         success: true
         data: {}
         error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    SearchCompaniesParams:
-      properties:
-        statuses:
-          items:
-            $ref: '#/components/schemas/CompanyStatus'
-          type: array
-        q:
-          type: string
-          title: Q
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      title: SearchCompaniesParams
-    CompanyStatus:
-      enum:
-      - internal_test
-      - active
-      - demo
-      - pilot
-      - sandbox
-      - read_permissions_disabled
-      - write_permissions_disabled
-      - suspended
-      title: CompanyStatus
-      description: An enumeration.
     HTTPValidationError:
       properties:
         detail:
@@ -494,29 +499,24 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ListCompaniesDataResponse:
+    ValidationError:
       properties:
-        companies:
+        loc:
           items:
-            $ref: '#/components/schemas/ListCompanyDataResponse'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Companies
-      type: object
-      required:
-      - companies
-      title: ListCompaniesDataResponse
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
+          title: Location
+        msg:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: ErrorResponse
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
