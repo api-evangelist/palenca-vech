@@ -132,6 +132,62 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    PlatformBenchmarksParams:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        country:
+          $ref: '#/components/schemas/CountryCode'
+      type: object
+      required:
+      - platform
+      - country
+      title: PlatformBenchmarksParams
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ComputeExtendedInsightsParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+      type: object
+      required:
+      - account_id
+      - company_id
+      title: ComputeExtendedInsightsParams
     IndividualAccountInsightsParams:
       properties:
         account_id:
@@ -142,6 +198,24 @@ components:
       required:
       - account_id
       title: IndividualAccountInsightsParams
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
     PlatformCode:
       enum:
       - uber
@@ -207,77 +281,3 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    ComputeExtendedInsightsParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-      type: object
-      required:
-      - account_id
-      - company_id
-      title: ComputeExtendedInsightsParams
-    PlatformBenchmarksParams:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        country:
-          $ref: '#/components/schemas/CountryCode'
-      type: object
-      required:
-      - platform
-      - country
-      title: PlatformBenchmarksParams
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

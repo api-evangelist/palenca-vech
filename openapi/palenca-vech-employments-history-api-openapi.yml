@@ -33,6 +33,119 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    BaseResponse_EmploymentHistoryBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+      type: object
+      title: BaseResponse[EmploymentHistoryBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentHistoryBaseResponse:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        employer_registration:
+          type: string
+          title: Employer Registration
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: End Date
+        job_title:
+          type: string
+          title: Job Title
+        job_title_code:
+          type: string
+          title: Job Title Code
+        federal_entity:
+          type: string
+          title: Federal Entity
+      type: object
+      title: EmploymentHistoryBaseResponse
     CreateEmploymentHistoryParams:
       properties:
         account_id:
@@ -105,116 +218,3 @@ components:
       - base_salary
       - monthly_salary
       title: Job
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    EmploymentHistoryBaseResponse:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        employer_registration:
-          type: string
-          title: Employer Registration
-        start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: End Date
-        job_title:
-          type: string
-          title: Job Title
-        job_title_code:
-          type: string
-          title: Job Title Code
-        federal_entity:
-          type: string
-          title: Federal Entity
-      type: object
-      title: EmploymentHistoryBaseResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BaseResponse_EmploymentHistoryBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
-      type: object
-      title: BaseResponse[EmploymentHistoryBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}

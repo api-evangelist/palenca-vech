@@ -32,24 +32,23 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    CreateEmploymentFileParams:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        employment_info_id:
+          type: string
+          format: uuid
+          title: Employment Info Id
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
       type: object
-      title: HTTPValidationError
-    EmploymentFilesType:
-      enum:
-      - imss_employment_record
-      - imss_rpci_pdf
-      - buro_insights_employment_record
-      - issste_employment_file
-      - end_of_rights_pdf
-      title: EmploymentFilesType
-      description: An enumeration.
+      title: CreateEmploymentFileParams
     ValidationError:
       properties:
         loc:
@@ -71,20 +70,21 @@ components:
       - msg
       - type
       title: ValidationError
-    CreateEmploymentFileParams:
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    HTTPValidationError:
       properties:
-        url:
-          type: string
-          title: Url
-        file_type:
-          $ref: '#/components/schemas/EmploymentFilesType'
-        employment_info_id:
-          type: string
-          format: uuid
-          title: Employment Info Id
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: CreateEmploymentFileParams
+      title: HTTPValidationError

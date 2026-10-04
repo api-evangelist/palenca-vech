@@ -209,200 +209,26 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    WidgetsConsoleResponse:
+    HTTPValidationError:
       properties:
-        widgets:
+        detail:
           items:
-            $ref: '#/components/schemas/WidgetConsoleResponse'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Widgets
+          title: Detail
       type: object
-      required:
-      - widgets
-      title: WidgetsConsoleResponse
-    ErrorResponse:
+      title: HTTPValidationError
+    ErrorDetailResponse:
       properties:
-        code:
-          type: string
-          title: Code
         message:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        location:
+          type: string
+          title: Location
       type: object
-      title: ErrorResponse
-    PlatformCode:
-      enum:
-      - uber
-      - didi
-      - imss
-      - rappi
-      - osmos
-      - pemex
-      - picap
-      - ifood
-      - issste
-      - cabify
-      - workday
-      - indriver
-      - uber_eats
-      - didi_food
-      - pedidos_ya
-      - noventa_nove
-      - mensajeros_urbanos
-      - rapiboy
-      - nueve_nueve_minutos
-      - carteira_trabalho
-      - mercado_pago
-      - nom_gob_cdmx
-      - nom_salud_cdmx
-      - nom_sep_cdmx
-      - nom_sep_qro
-      - nom_gob_hidalgo
-      - nom_sep_durango
-      - nom_ayto_cancun
-      - nom_sep_qroo
-      - nom_gob_qroo
-      - nom_salud_qroo
-      - nom_sep_campeche
-      - nom_gob_oaxaca
-      - nom_sep_oaxaca
-      - nom_pensiones_jal
-      - nom_gob_nl
-      - nom_gob_tamps
-      - nom_salud_tamps
-      - nom_fiscalia_tamps
-      - nom_gob_sonora
-      - nom_sep_sonora
-      - nom_salud_sonora
-      - nom_sep_bcsur
-      - nom_gob_edomex
-      - nom_sep_edomex
-      - nom_gob_tabasco
-      - nom_salud_sonora2
-      - nom_com_soc_qroo
-      - nom_pemex
-      - mc_price_shoes
-      - mc_avon
-      - mc_mary_kay
-      - mc_betterware
-      - nominativa
-      - microempreendedor_individual
-      - runa
-      - grupo_tress
-      - beat
-      - clip
-      - worky
-      - cornershop
-      title: PlatformCode
-      description: An enumeration.
-    WidgetInternalType:
-      enum:
-      - default_api_calls
-      title: WidgetInternalType
-      description: An enumeration.
-    app__api__schemas__admin__UpdateWidgetParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformCode'
-          type: array
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        hide_logo:
-          type: boolean
-          title: Hide Logo
-        hide_whatsapp:
-          type: boolean
-          title: Hide Whatsapp
-        hide_consent:
-          type: boolean
-          title: Hide Consent
-        hide_privacy_url:
-          type: boolean
-          title: Hide Privacy Url
-        hide_redirect_url:
-          type: boolean
-          title: Hide Redirect Url
-        hide_label:
-          type: boolean
-          title: Hide Label
-        require_gov_id:
-          type: boolean
-          title: Require Gov Id
-        persist_session:
-          type: boolean
-          title: Persist Session
-        font_family:
-          type: string
-          title: Font Family
-        primary_color:
-          type: string
-          title: Primary Color
-        background_color:
-          type: string
-          title: Background Color
-        text_field_style:
-          type: string
-          title: Text Field Style
-        border_radius:
-          type: string
-          title: Border Radius
-        custom_privacy_url:
-          type: string
-          title: Custom Privacy Url
-        redirect_url:
-          type: string
-          title: Redirect Url
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-        webhook_url:
-          type: string
-          title: Webhook Url
-        widget_type:
-          $ref: '#/components/schemas/WidgetType'
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-        settings:
-          type: object
-          title: Settings
-          default: {}
-      type: object
-      title: UpdateWidgetParams
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    BaseResponse_WidgetConsoleResponse_:
+      title: ErrorDetailResponse
+    BaseResponse_WidgetsConsoleResponse_:
       properties:
         success:
           type: boolean
@@ -411,13 +237,34 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/WidgetConsoleResponse'
+          $ref: '#/components/schemas/WidgetsConsoleResponse'
       type: object
-      title: BaseResponse[WidgetConsoleResponse]
+      title: BaseResponse[WidgetsConsoleResponse]
       example:
         success: true
         data: {}
         error: {}
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     WidgetConsoleResponse:
       properties:
         created_at:
@@ -551,32 +398,6 @@ components:
         updated_at: '2022-05-02T03:36:02.436Z'
         widget_type: income_verification
         settings: {}
-    BaseResponse_WidgetsConsoleResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WidgetsConsoleResponse'
-      type: object
-      title: BaseResponse[WidgetsConsoleResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
     app__api__schemas__admin__CreateWidgetParams:
       properties:
         name:
@@ -661,38 +482,217 @@ components:
           default: {}
       type: object
       title: CreateWidgetParams
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     WidgetType:
       enum:
       - income_verification
       title: WidgetType
+      description: An enumeration.
+    WidgetInternalType:
+      enum:
+      - default_api_calls
+      title: WidgetInternalType
+      description: An enumeration.
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    app__api__schemas__admin__UpdateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+        hide_label:
+          type: boolean
+          title: Hide Label
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+        persist_session:
+          type: boolean
+          title: Persist Session
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        redirect_url:
+          type: string
+          title: Redirect Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        webhook_url:
+          type: string
+          title: Webhook Url
+        widget_type:
+          $ref: '#/components/schemas/WidgetType'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: UpdateWidgetParams
+    BaseResponse_WidgetConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetConsoleResponse'
+      type: object
+      title: BaseResponse[WidgetConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    WidgetsConsoleResponse:
+      properties:
+        widgets:
+          items:
+            $ref: '#/components/schemas/WidgetConsoleResponse'
+          type: array
+          title: Widgets
+      type: object
+      required:
+      - widgets
+      title: WidgetsConsoleResponse
+    PlatformCode:
+      enum:
+      - uber
+      - didi
+      - imss
+      - rappi
+      - osmos
+      - pemex
+      - picap
+      - ifood
+      - issste
+      - cabify
+      - workday
+      - indriver
+      - uber_eats
+      - didi_food
+      - pedidos_ya
+      - noventa_nove
+      - mensajeros_urbanos
+      - rapiboy
+      - nueve_nueve_minutos
+      - carteira_trabalho
+      - mercado_pago
+      - nom_gob_cdmx
+      - nom_salud_cdmx
+      - nom_sep_cdmx
+      - nom_sep_qro
+      - nom_gob_hidalgo
+      - nom_sep_durango
+      - nom_ayto_cancun
+      - nom_sep_qroo
+      - nom_gob_qroo
+      - nom_salud_qroo
+      - nom_sep_campeche
+      - nom_gob_oaxaca
+      - nom_sep_oaxaca
+      - nom_pensiones_jal
+      - nom_gob_nl
+      - nom_gob_tamps
+      - nom_salud_tamps
+      - nom_fiscalia_tamps
+      - nom_gob_sonora
+      - nom_sep_sonora
+      - nom_salud_sonora
+      - nom_sep_bcsur
+      - nom_gob_edomex
+      - nom_sep_edomex
+      - nom_gob_tabasco
+      - nom_salud_sonora2
+      - nom_com_soc_qroo
+      - nom_pemex
+      - mc_price_shoes
+      - mc_avon
+      - mc_mary_kay
+      - mc_betterware
+      - nominativa
+      - microempreendedor_individual
+      - runa
+      - grupo_tress
+      - beat
+      - clip
+      - worky
+      - cornershop
+      title: PlatformCode
       description: An enumeration.

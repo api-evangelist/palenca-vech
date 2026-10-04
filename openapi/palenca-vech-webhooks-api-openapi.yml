@@ -197,87 +197,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ErrorResponse:
+    HTTPValidationError:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
+        detail:
           items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Errors
+          title: Detail
       type: object
-      title: ErrorResponse
-    SendWebhookTimeoutParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-      type: object
-      required:
-      - account_id
-      - webhook_id
-      title: SendWebhookTimeoutParams
-    WebhooksDataResponse:
-      properties:
-        webhooks:
-          items:
-            $ref: '#/components/schemas/WebhookDataResponse'
-          type: array
-          title: Webhooks
-      type: object
-      required:
-      - webhooks
-      title: WebhooksDataResponse
-    WebhookDataResponse:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        is_active:
-          type: boolean
-          title: Is Active
-          default: true
-        sign_request:
-          type: boolean
-          title: Sign Request
-        private_key:
-          type: string
-          title: Private Key
-      type: object
-      required:
-      - webhook_id
-      - url
-      - name
-      - is_sandbox
-      title: WebhookDataResponse
+      title: HTTPValidationError
     CreateWebhookParams:
       properties:
         url:
@@ -350,6 +278,61 @@ components:
         success: true
         data: {}
         error: {}
+    WebhookDataResponse:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+        sign_request:
+          type: boolean
+          title: Sign Request
+        private_key:
+          type: string
+          title: Private Key
+      type: object
+      required:
+      - webhook_id
+      - url
+      - name
+      - is_sandbox
+      title: WebhookDataResponse
+    SendWebhookTimeoutParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+      type: object
+      required:
+      - account_id
+      - webhook_id
+      title: SendWebhookTimeoutParams
     UpdateWebhookParams:
       properties:
         url:
@@ -396,15 +379,6 @@ components:
           title: Location
       type: object
       title: ErrorDetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -426,3 +400,29 @@ components:
       - msg
       - type
       title: ValidationError
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    WebhooksDataResponse:
+      properties:
+        webhooks:
+          items:
+            $ref: '#/components/schemas/WebhookDataResponse'
+          type: array
+          title: Webhooks
+      type: object
+      required:
+      - webhooks
+      title: WebhooksDataResponse

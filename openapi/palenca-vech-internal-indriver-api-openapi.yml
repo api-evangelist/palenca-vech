@@ -41,6 +41,88 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ReprocessEventsRequest:
+      properties:
+        year:
+          type: integer
+          maximum: 2030.0
+          minimum: 2020.0
+          title: Year
+          description: Year (e.g., 2024)
+        month:
+          type: integer
+          maximum: 12.0
+          minimum: 1.0
+          title: Month
+          description: Month (1-12)
+      type: object
+      required:
+      - year
+      - month
+      title: ReprocessEventsRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ReprocessEventsResponse:
+      properties:
+        total_accounts:
+          type: integer
+          title: Total Accounts
+        processed:
+          type: integer
+          title: Processed
+        errors:
+          type: integer
+          title: Errors
+        error_details:
+          items:
+            type: object
+          type: array
+          title: Error Details
+          default: []
+      type: object
+      required:
+      - total_accounts
+      - processed
+      - errors
+      title: ReprocessEventsResponse
     ErrorResponse:
       properties:
         code:
@@ -72,85 +154,3 @@ components:
         success: true
         data: {}
         error: {}
-    ReprocessEventsResponse:
-      properties:
-        total_accounts:
-          type: integer
-          title: Total Accounts
-        processed:
-          type: integer
-          title: Processed
-        errors:
-          type: integer
-          title: Errors
-        error_details:
-          items:
-            type: object
-          type: array
-          title: Error Details
-          default: []
-      type: object
-      required:
-      - total_accounts
-      - processed
-      - errors
-      title: ReprocessEventsResponse
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ReprocessEventsRequest:
-      properties:
-        year:
-          type: integer
-          maximum: 2030.0
-          minimum: 2020.0
-          title: Year
-          description: Year (e.g., 2024)
-        month:
-          type: integer
-          maximum: 12.0
-          minimum: 1.0
-          title: Month
-          description: Month (1-12)
-      type: object
-      required:
-      - year
-      - month
-      title: ReprocessEventsRequest

@@ -235,6 +235,42 @@ components:
           title: Account Id
       type: object
       title: LoginBaseResponse
+    ListLoginBaseResponse:
+      properties:
+        logins:
+          items:
+            $ref: '#/components/schemas/LoginBaseResponse'
+          type: array
+          title: Logins
+          default: []
+      type: object
+      title: ListLoginBaseResponse
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PaginationSearchParams:
       properties:
         items_per_page:
@@ -247,21 +283,16 @@ components:
           default: 1
       type: object
       title: PaginationSearchParams
-    ErrorResponse:
+    ErrorDetailResponse:
       properties:
-        code:
-          type: string
-          title: Code
         message:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        location:
+          type: string
+          title: Location
       type: object
-      title: ErrorResponse
+      title: ErrorDetailResponse
     InsightsStatus:
       enum:
       - computed_not_saved
@@ -270,21 +301,27 @@ components:
       - error
       title: InsightsStatus
       description: An enumeration.
-    LoginSourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - refresh
-      - connect
-      - bulk_upload
-      - console
-      - platform_retry
-      - refresh_earnings
-      - refresh_events
-      - refresh_profile
-      title: LoginSourceCode
-      description: An enumeration.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     PlatformCode:
       enum:
       - uber
@@ -350,37 +387,98 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    ListLoginBaseResponse:
+    SearchLoginsParams:
       properties:
-        logins:
-          items:
-            $ref: '#/components/schemas/LoginBaseResponse'
-          type: array
-          title: Logins
-          default: []
-      type: object
-      title: ListLoginBaseResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        start_date:
           type: string
-          title: Message
-        type:
+          title: Start Date
+        end_date:
           type: string
-          title: Error Type
+          title: End Date
+        options:
+          allOf:
+          - $ref: '#/components/schemas/PaginationSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - start_date
+      - end_date
+      title: SearchLoginsParams
+    BaseResponse_ListLoginBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ListLoginBaseResponse'
+      type: object
+      title: BaseResponse[ListLoginBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    InsightsStatusDetails:
+      enum:
+      - empty_employment_events
+      - empty_employment_history
+      - login_not_success
+      - timeout_request
+      - lambda_error
+      - pending
+      title: InsightsStatusDetails
+      description: An enumeration.
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    LoginSourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - refresh
+      - connect
+      - bulk_upload
+      - console
+      - platform_retry
+      - refresh_earnings
+      - refresh_events
+      - refresh_profile
+      title: LoginSourceCode
+      description: An enumeration.
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
     StatusDetails:
       enum:
       - bad_request
@@ -499,102 +597,4 @@ components:
       - didi_rejected
       - incomplete_profile
       title: StatusDetails
-      description: An enumeration.
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    InsightsStatusDetails:
-      enum:
-      - empty_employment_events
-      - empty_employment_history
-      - login_not_success
-      - timeout_request
-      - lambda_error
-      - pending
-      title: InsightsStatusDetails
-      description: An enumeration.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SearchLoginsParams:
-      properties:
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        options:
-          allOf:
-          - $ref: '#/components/schemas/PaginationSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      required:
-      - start_date
-      - end_date
-      title: SearchLoginsParams
-    BaseResponse_ListLoginBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ListLoginBaseResponse'
-      type: object
-      title: BaseResponse[ListLoginBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    LoginStatus:
-      enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
       description: An enumeration.

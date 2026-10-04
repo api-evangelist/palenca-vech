@@ -33,6 +33,100 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GetDailyEarningsParams:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+      type: object
+      required:
+      - platform
+      title: GetDailyEarningsParams
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BaseResponse_AccountDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    LoginTypes:
+      enum:
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
+      description: An enumeration.
     ErrorResponse:
       properties:
         code:
@@ -148,97 +242,3 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    BaseResponse_AccountDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountDataBaseResponse'
-      type: object
-      title: BaseResponse[AccountDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    LoginTypes:
-      enum:
-      - curp
-      - otp
-      - totp
-      - pilot
-      - email_otp
-      - credentials
-      - phone_voice_otp
-      - phone_whatsapp_otp
-      title: LoginTypes
-      description: An enumeration.
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GetDailyEarningsParams:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-      type: object
-      required:
-      - platform
-      title: GetDailyEarningsParams

@@ -72,6 +72,14 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    CompanyResponse:
+      properties:
+        company:
+          $ref: '#/components/schemas/CompanyDataResponse'
+      type: object
+      required:
+      - company
+      title: CompanyResponse
     CompanyDataResponse:
       properties:
         created_at:
@@ -164,6 +172,103 @@ components:
         website: https://palenca.com
         priority: low
         public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+    app__api__schemas__internal__companies__UpdateCompanyParams:
+      properties:
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+      type: object
+      required:
+      - widget_advanced_customization
+      title: UpdateCompanyParams
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ListCompaniesResponse:
+      properties:
+        companies:
+          items:
+            $ref: '#/components/schemas/CompanyDataResponse'
+          type: array
+          title: Companies
+      type: object
+      required:
+      - companies
+      title: ListCompaniesResponse
+    BaseResponse_CompanyResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyResponse'
+      type: object
+      title: BaseResponse[CompanyResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
     ErrorResponse:
       properties:
         code:
@@ -191,111 +296,6 @@ components:
           $ref: '#/components/schemas/ListCompaniesResponse'
       type: object
       title: BaseResponse[ListCompaniesResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    app__api__schemas__internal__companies__UpdateCompanyParams:
-      properties:
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-      type: object
-      required:
-      - widget_advanced_customization
-      title: UpdateCompanyParams
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    CompanyResponse:
-      properties:
-        company:
-          $ref: '#/components/schemas/CompanyDataResponse'
-      type: object
-      required:
-      - company
-      title: CompanyResponse
-    ListCompaniesResponse:
-      properties:
-        companies:
-          items:
-            $ref: '#/components/schemas/CompanyDataResponse'
-          type: array
-          title: Companies
-      type: object
-      required:
-      - companies
-      title: ListCompaniesResponse
-    CompanyStatus:
-      enum:
-      - internal_test
-      - active
-      - demo
-      - pilot
-      - sandbox
-      - read_permissions_disabled
-      - write_permissions_disabled
-      - suspended
-      title: CompanyStatus
-      description: An enumeration.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BaseResponse_CompanyResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/CompanyResponse'
-      type: object
-      title: BaseResponse[CompanyResponse]
       example:
         success: true
         data: {}

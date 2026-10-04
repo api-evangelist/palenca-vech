@@ -524,21 +524,142 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ErrorResponse:
+    ValidationError:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: ErrorResponse
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    DebugDataArgyleParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        identifier:
+          type: string
+          title: Identifier
+        data_types:
+          items:
+            $ref: '#/components/schemas/DebugDataType'
+          type: array
+      type: object
+      required:
+      - account_id
+      - user_id
+      title: DebugDataArgyleParams
+      example:
+        account_id: f1932f34-2658-4f3e-8069-0aeeb77dd14e
+        user_id: db48d579-c10d-4ed6-b857-1b1b7f4502c0
+        data_types:
+        - token
+        - webhooks
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BaseResponse_AccountDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountDataBaseResponse'
+      type: object
+      title: BaseResponse[AccountDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    RefreshArgyleTokenParams:
+      properties:
+        argyle_user_id:
+          type: string
+          title: Argyle User Id
+      type: object
+      required:
+      - argyle_user_id
+      title: RefreshArgyleTokenParams
+      example:
+        argyle_user_id: 018e1234-5678-9abc-def0-123456789abc
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
     AccountDataBaseResponse:
       properties:
         user_id:
@@ -574,141 +695,6 @@ components:
         user_id: 9334389a-c93c-4183-9894-ea8eb72f82e8
         country: mx
         platform: uber
-    CreateUserArgyleParams:
-      properties:
-        user_id:
-          type: string
-          title: User Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        gov_id:
-          type: string
-          title: Gov Id
-        redirect_url:
-          type: string
-          title: Redirect Url
-      type: object
-      title: CreateUserArgyleParams
-      example:
-        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
-        country: mx
-        platform: uber
-    BaseResponse_AccountDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountDataBaseResponse'
-      type: object
-      title: BaseResponse[AccountDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    LoginTypes:
-      enum:
-      - curp
-      - otp
-      - totp
-      - pilot
-      - email_otp
-      - credentials
-      - phone_voice_otp
-      - phone_whatsapp_otp
-      title: LoginTypes
-      description: An enumeration.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RefreshArgyleTokenParams:
-      properties:
-        argyle_user_id:
-          type: string
-          title: Argyle User Id
-      type: object
-      required:
-      - argyle_user_id
-      title: RefreshArgyleTokenParams
-      example:
-        argyle_user_id: 018e1234-5678-9abc-def0-123456789abc
-    AccountBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        identifier:
-          type: string
-          title: Identifier
-        worker_id:
-          type: string
-          title: Worker Id
-        gov_id:
-          type: string
-          title: Gov Id
-        last_successful_connection:
-          type: string
-          format: date-time
-          title: Last Successful Connection
-        warning:
-          $ref: '#/components/schemas/AccountWarning'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        message:
-          type: string
-          title: Message
-        recommendation:
-          type: string
-          title: Recommendation
-        next_step:
-          $ref: '#/components/schemas/LoginTypes'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - account_id
-      title: AccountBaseResponse
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
     StatusDetails:
       enum:
       - bad_request
@@ -828,6 +814,48 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
+    DebugDataType:
+      enum:
+      - token
+      - account
+      - data
+      - webhooks
+      title: DebugDataType
+      description: An enumeration.
+    CreateUserArgyleParams:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        gov_id:
+          type: string
+          title: Gov Id
+        redirect_url:
+          type: string
+          title: Redirect Url
+      type: object
+      title: CreateUserArgyleParams
+      example:
+        user_id: 2b0956a2-58e7-4e97-804d-2852d40f05d7
+        country: mx
+        platform: uber
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
     AccountWarning:
       enum:
       - banned
@@ -852,6 +880,78 @@ components:
       - id_mismatch
       title: AccountWarning
       description: An enumeration.
+    LoginTypes:
+      enum:
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
+      description: An enumeration.
+    AccountBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        gov_id:
+          type: string
+          title: Gov Id
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        next_step:
+          $ref: '#/components/schemas/LoginTypes'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - account_id
+      title: AccountBaseResponse
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
     BaseResponse_AccountBaseResponse_:
       properties:
         success:
@@ -868,23 +968,6 @@ components:
         success: true
         data: {}
         error: {}
-    LoginStatus:
-      enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
-      description: An enumeration.
     PlatformCode:
       enum:
       - uber
@@ -950,86 +1033,3 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    DebugDataArgyleParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        identifier:
-          type: string
-          title: Identifier
-        data_types:
-          items:
-            $ref: '#/components/schemas/DebugDataType'
-          type: array
-      type: object
-      required:
-      - account_id
-      - user_id
-      title: DebugDataArgyleParams
-      example:
-        account_id: f1932f34-2658-4f3e-8069-0aeeb77dd14e
-        user_id: db48d579-c10d-4ed6-b857-1b1b7f4502c0
-        data_types:
-        - token
-        - webhooks
-    DebugDataType:
-      enum:
-      - token
-      - account
-      - data
-      - webhooks
-      title: DebugDataType
-      description: An enumeration.
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}

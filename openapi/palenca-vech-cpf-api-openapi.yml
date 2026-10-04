@@ -34,24 +34,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidateCPFParams:
-      properties:
-        cpf:
-          type: string
-          title: Cpf
-      type: object
-      required:
-      - cpf
-      title: ValidateCPFParams
     ValidationError:
       properties:
         loc:
@@ -73,3 +55,21 @@ components:
       - msg
       - type
       title: ValidationError
+    ValidateCPFParams:
+      properties:
+        cpf:
+          type: string
+          title: Cpf
+      type: object
+      required:
+      - cpf
+      title: ValidateCPFParams
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError

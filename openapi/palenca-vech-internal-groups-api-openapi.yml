@@ -219,21 +219,27 @@ components:
       - public_api_key
       - private_api_key
       title: Company
-    ErrorResponse:
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    HTTPValidationError:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
+        detail:
           items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Errors
+          title: Detail
       type: object
-      title: ErrorResponse
+      title: HTTPValidationError
     UpdateGroupParams:
       properties:
         name:
@@ -258,6 +264,77 @@ components:
       - admin_id
       - companies
       title: UpdateGroupParams
+    BaseResponse_GroupResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/GroupResponse'
+      type: object
+      title: BaseResponse[GroupResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    app__api__schemas__internal__groups__CreateGroupParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        admin_id:
+          type: string
+          format: uuid
+          title: Admin Id
+        companies:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Companies
+        privacy_url:
+          type: string
+          title: Privacy Url
+      type: object
+      required:
+      - name
+      - admin_id
+      - companies
+      title: CreateGroupParams
     GroupAdminResponse:
       properties:
         created_at:
@@ -341,55 +418,41 @@ components:
       - public_api_key
       - private_api_key
       title: GroupAdminResponse
-    app__api__schemas__internal__groups__CreateGroupParams:
+    ErrorResponse:
       properties:
-        name:
+        code:
           type: string
-          title: Name
-        admin_id:
+          title: Code
+        message:
           type: string
-          format: uuid
-          title: Admin Id
-        companies:
+          title: Message
+        errors:
           items:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/ErrorDetailResponse'
           type: array
-          title: Companies
-        privacy_url:
-          type: string
-          title: Privacy Url
+          title: Errors
+      type: object
+      title: ErrorResponse
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    ListGroupsResponse:
+      properties:
+        groups:
+          items:
+            $ref: '#/components/schemas/GroupResponse'
+          type: array
+          title: Groups
       type: object
       required:
-      - name
-      - admin_id
-      - companies
-      title: CreateGroupParams
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BaseResponse_ListGroupsResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ListGroupsResponse'
-      type: object
-      title: BaseResponse[ListGroupsResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
+      - groups
+      title: ListGroupsResponse
     GroupResponse:
       properties:
         created_at:
@@ -424,70 +487,7 @@ components:
       - name
       - admin
       title: GroupResponse
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    ListGroupsResponse:
-      properties:
-        groups:
-          items:
-            $ref: '#/components/schemas/GroupResponse'
-          type: array
-          title: Groups
-      type: object
-      required:
-      - groups
-      title: ListGroupsResponse
-    CompanyStatus:
-      enum:
-      - internal_test
-      - active
-      - demo
-      - pilot
-      - sandbox
-      - read_permissions_disabled
-      - write_permissions_disabled
-      - suspended
-      title: CompanyStatus
-      description: An enumeration.
-    BaseResponse_GroupResponse_:
+    BaseResponse_ListGroupsResponse_:
       properties:
         success:
           type: boolean
@@ -496,9 +496,9 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/GroupResponse'
+          $ref: '#/components/schemas/ListGroupsResponse'
       type: object
-      title: BaseResponse[GroupResponse]
+      title: BaseResponse[ListGroupsResponse]
       example:
         success: true
         data: {}

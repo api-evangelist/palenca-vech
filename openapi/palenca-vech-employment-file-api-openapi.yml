@@ -32,6 +32,83 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    EmploymentEventInput:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        event_type:
+          type: string
+          title: Event Type
+        event_date:
+          type: string
+          title: Event Date
+        base_salary:
+          type: number
+          title: Base Salary
+        employer_registration:
+          type: string
+          title: Employer Registration
+      type: object
+      required:
+      - event_type
+      - event_date
+      - base_salary
+      title: EmploymentEventInput
     CreateEmploymentHistoryParams:
       properties:
         account_id:
@@ -57,29 +134,26 @@ components:
       required:
       - account_id
       title: CreateEmploymentHistoryParams
-    EmploymentEventInput:
+    CreateEmploymentEventsParams:
       properties:
-        employer:
-          type: string
-          title: Employer
-        event_type:
-          type: string
-          title: Event Type
-        event_date:
-          type: string
-          title: Event Date
-        base_salary:
-          type: number
-          title: Base Salary
-        employer_registration:
-          type: string
-          title: Employer Registration
+        employment_events:
+          items:
+            $ref: '#/components/schemas/EmploymentEventInput'
+          type: array
+          title: Employment Events
+      type: object
+      title: CreateEmploymentEventsParams
+    ReadEmploymentFileParams:
+      properties:
+        employment_history:
+          $ref: '#/components/schemas/CreateEmploymentHistoryParams'
+        employment_events:
+          $ref: '#/components/schemas/CreateEmploymentEventsParams'
       type: object
       required:
-      - event_type
-      - event_date
-      - base_salary
-      title: EmploymentEventInput
+      - employment_history
+      - employment_events
+      title: ReadEmploymentFileParams
     Job:
       properties:
         employer:
@@ -112,77 +186,3 @@ components:
       - base_salary
       - monthly_salary
       title: Job
-    CreateEmploymentEventsParams:
-      properties:
-        employment_events:
-          items:
-            $ref: '#/components/schemas/EmploymentEventInput'
-          type: array
-          title: Employment Events
-      type: object
-      title: CreateEmploymentEventsParams
-    ReadEmploymentFileParams:
-      properties:
-        employment_history:
-          $ref: '#/components/schemas/CreateEmploymentHistoryParams'
-        employment_events:
-          $ref: '#/components/schemas/CreateEmploymentEventsParams'
-      type: object
-      required:
-      - employment_history
-      - employment_events
-      title: ReadEmploymentFileParams
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError

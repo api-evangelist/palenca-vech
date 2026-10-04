@@ -94,37 +94,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
-    PaginationBaseResponse:
-      properties:
-        page:
-          type: integer
-          title: Page
-        items_per_page:
-          type: integer
-          title: Items Per Page
-        total_items:
-          type: integer
-          title: Total Items
-        total_pages:
-          type: integer
-          title: Total Pages
-      type: object
-      title: PaginationBaseResponse
     BasePaginationResponse_EmploymentsFilesBaseResponse_:
       properties:
         success:
@@ -144,6 +113,155 @@ components:
         data: {}
         error: {}
         pagination: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    PaginationBaseResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        items_per_page:
+          type: integer
+          title: Items Per Page
+        total_items:
+          type: integer
+          title: Total Items
+        total_pages:
+          type: integer
+          title: Total Pages
+      type: object
+      title: PaginationBaseResponse
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    AccountWarning:
+      enum:
+      - banned
+      - not_registered
+      - profile_unavailable
+      - needs_auth
+      - no_employment_records
+      - missing_social_security_number
+      - social_security_number_mismatch
+      - curp_has_inconsistencies
+      - curp_not_in_platform
+      - zero_quoted_weeks
+      - rpci_backup_process
+      - web_scraping_backup_process
+      - rider_account
+      - fleet_account
+      - onboarding
+      - didi_auth_app
+      - didi_auth_web
+      - invalid_captcha
+      - incomplete_profile_data
+      - id_mismatch
+      title: AccountWarning
+      description: An enumeration.
+    EmploymentsFilesBaseResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: EmploymentsFilesBaseResponse
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    LoginTypes:
+      enum:
+      - curp
+      - otp
+      - totp
+      - pilot
+      - email_otp
+      - credentials
+      - phone_voice_otp
+      - phone_whatsapp_otp
+      title: LoginTypes
+      description: An enumeration.
     AccountBaseResponse:
       properties:
         account_id:
@@ -189,6 +307,37 @@ components:
       required:
       - account_id
       title: AccountBaseResponse
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse_AccountBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountBaseResponse'
+      type: object
+      title: BaseResponse[AccountBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     PlatformCode:
       enum:
       - uber
@@ -253,49 +402,6 @@ components:
       - worky
       - cornershop
       title: PlatformCode
-      description: An enumeration.
-    EmploymentsFilesBaseResponse:
-      properties:
-        url:
-          type: string
-          title: Url
-        file_type:
-          $ref: '#/components/schemas/EmploymentFilesType'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-      type: object
-      title: EmploymentsFilesBaseResponse
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    LoginTypes:
-      enum:
-      - curp
-      - otp
-      - totp
-      - pilot
-      - email_otp
-      - credentials
-      - phone_voice_otp
-      - phone_whatsapp_otp
-      title: LoginTypes
       description: An enumeration.
     StatusDetails:
       enum:
@@ -415,110 +521,4 @@ components:
       - didi_rejected
       - incomplete_profile
       title: StatusDetails
-      description: An enumeration.
-    AccountWarning:
-      enum:
-      - banned
-      - not_registered
-      - profile_unavailable
-      - needs_auth
-      - no_employment_records
-      - missing_social_security_number
-      - social_security_number_mismatch
-      - curp_has_inconsistencies
-      - curp_not_in_platform
-      - zero_quoted_weeks
-      - rpci_backup_process
-      - web_scraping_backup_process
-      - rider_account
-      - fleet_account
-      - onboarding
-      - didi_auth_app
-      - didi_auth_web
-      - invalid_captcha
-      - incomplete_profile_data
-      - id_mismatch
-      title: AccountWarning
-      description: An enumeration.
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    BaseResponse_AccountBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountBaseResponse'
-      type: object
-      title: BaseResponse[AccountBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    EmploymentFilesType:
-      enum:
-      - imss_employment_record
-      - imss_rpci_pdf
-      - buro_insights_employment_record
-      - issste_employment_file
-      - end_of_rights_pdf
-      title: EmploymentFilesType
-      description: An enumeration.
-    LoginStatus:
-      enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
       description: An enumeration.

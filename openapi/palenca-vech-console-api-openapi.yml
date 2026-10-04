@@ -1378,7 +1378,264 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CompanyDataPrivate:
+    CreateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+          default: false
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      required:
+      - url
+      - name
+      - connect_flow_id
+      - is_sandbox
+      title: CreateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+        events:
+        - '*'
+    WebhookDataResponse:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+        sign_request:
+          type: boolean
+          title: Sign Request
+        private_key:
+          type: string
+          title: Private Key
+      type: object
+      required:
+      - webhook_id
+      - url
+      - name
+      - is_sandbox
+      title: WebhookDataResponse
+    CurrencyCode:
+      enum:
+      - mxn
+      - usd
+      - cop
+      - clp
+      - ars
+      - pen
+      - brl
+      - crc
+      - pab
+      - bob
+      - ves
+      - dop
+      - brr
+      title: CurrencyCode
+      description: An enumeration.
+    WebhookLogConsoleResponse:
+      properties:
+        id:
+          type: string
+          title: Id
+        url:
+          type: string
+          title: Url
+        action:
+          type: string
+          title: Action
+        status:
+          type: integer
+          title: Status
+        request_body:
+          type: object
+          title: Request Body
+        response_body:
+          type: object
+          title: Response Body
+        entity:
+          type: string
+          title: Entity
+        entity_id:
+          type: string
+          title: Entity Id
+        environment:
+          type: string
+          title: Environment
+        webhook_id:
+          type: string
+          title: Webhook Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      title: WebhookLogConsoleResponse
+      webhook:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
+        url: https://webhook.palenca.com
+        is_sandbox: false
+        events:
+        - '*'
+        created_at: '2022-05-02T03:36:02.436Z'
+        updated_at: '2022-05-02T03:36:02.436Z'
+      logs:
+      - created_at: '2023-03-31T20:32:12.295904+00:00'
+        updated_at: '2023-03-31T20:32:12.295927+00:00'
+        id: 8c069c49-efdf-4230-aa43-2d40f269497f
+        url: https://webhook.site/96bc26e2-bf38-4cd1-8432-4e5a13fe5d60
+        name: testing webhook
+        events:
+        - '*'
+        widget_id: 15574004-c4d6-4e59-bcba-f335993b1400
+        is_sandbox: true
+    EmploymentHistoryStatus:
+      enum:
+      - empty
+      - partial
+      - complete
+      title: EmploymentHistoryStatus
+      description: An enumeration.
+    EmploymentDataBaseResponse:
+      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        employment_info:
+          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
+        employment_history:
+          items:
+            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
+          type: array
+          title: Employment History
+      type: object
+      required:
+      - platform
+      - account_id
+      title: EmploymentDataBaseResponse
+    StatusResponse:
+      properties:
+        status_details:
+          type: string
+          title: Status Details
+        status:
+          type: string
+          title: Status
+        code:
+          type: string
+          title: Code
+        message:
+          $ref: '#/components/schemas/TranslationsResponse'
+        recommendation:
+          $ref: '#/components/schemas/TranslationsResponse'
+      type: object
+      required:
+      - message
+      - recommendation
+      title: StatusResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BaseResponse_CompanyDataPrivate_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/CompanyDataPrivate'
+      type: object
+      title: BaseResponse[CompanyDataPrivate]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_ProfileDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/ProfileDataBaseResponse'
+      type: object
+      title: BaseResponse[ProfileDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EarningDetailConsoleResponse:
       properties:
         created_at:
           type: string
@@ -1392,44 +1649,91 @@ components:
           type: string
           format: uuid
           title: Id
-        client_id:
+        account_id:
           type: string
-          title: Client Id
+          format: uuid
+          title: Account Id
+        amount:
+          type: number
+          title: Amount
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        earning_date:
+          type: string
+          format: date-time
+          title: Earning Date
+        cash_amount:
+          type: number
+          title: Cash Amount
+        count_trips:
+          type: integer
+          title: Count Trips
+        employer:
+          type: string
+          title: Employer
+        debt:
+          type: number
+          title: Debt
+        metadata:
+          type: object
+          title: Metadata
+      type: object
+      required:
+      - account_id
+      - amount
+      - currency
+      - earning_date
+      title: EarningDetailConsoleResponse
+      currency: mxn
+      cash_amount: 10.0
+      count_trips: 2
+      earning_date: '2022-05-02'
+      amount: 100.0
+    BaseResponse_WidgetsConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WidgetsConsoleResponse'
+      type: object
+      title: BaseResponse[WidgetsConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    LoginSourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - refresh
+      - connect
+      - bulk_upload
+      - console
+      - platform_retry
+      - refresh_earnings
+      - refresh_events
+      - refresh_profile
+      title: LoginSourceCode
+      description: An enumeration.
+    app__api__schemas__companies__UpdateCompanyParams:
+      properties:
         logo:
           type: string
           title: Logo
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
         display_name:
           type: string
           title: Display Name
         company_name:
           type: string
           title: Company Name
-        priority:
-          $ref: '#/components/schemas/CompanyPriority'
         website:
           type: string
           title: Website
-        public_api_key:
-          type: string
-          title: Public Api Key
-        private_api_key:
-          type: string
-          title: Private Api Key
-        public_encryption_key:
-          type: string
-          title: Public Encryption Key
-        private_encryption_key:
-          type: string
-          title: Private Encryption Key
-        require_encryption:
-          type: boolean
-          title: Require Encryption
-          default: false
-        owner:
-          type: string
-          title: Owner
         refresh:
           type: boolean
           title: Refresh
@@ -1437,90 +1741,62 @@ components:
         refresh_frequency:
           type: integer
           title: Refresh Frequency
-        retries_enabled:
+        require_encryption:
           type: boolean
-          title: Retries Enabled
+          title: Require Encryption
           default: false
-        group_id:
-          type: string
-          format: uuid
-          title: Group Id
         data_controller:
           type: boolean
           title: Data Controller
           default: true
-        widget_advanced_customization:
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+      type: object
+      title: UpdateCompanyParams
+    DateRange:
+      enum:
+      - month
+      - week
+      title: DateRange
+      description: An enumeration.
+    BaseResponse:
+      properties:
+        success:
           type: boolean
-          title: Widget Advanced Customization
-          default: false
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
       type: object
-      required:
-      - display_name
-      - company_name
-      - priority
-      - public_api_key
-      - private_api_key
-      title: CompanyDataPrivate
+      title: BaseResponse
       example:
-        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        client_id: c2644819-1879-4219-93ab-86b54fb83467
-        logo: https://palenca.com/logo.png
-        display_name: Palenca
-        status: demo
-        company_name: palenca
-        website: https://palenca.com
-        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
-        private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
-    ErrorResponse:
+        success: true
+        data: {}
+        error: {}
+    AccountsDataConsoleResponse:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
+        accounts:
           items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
+            $ref: '#/components/schemas/AccountConsoleResponse'
           type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
-    IndividualAccountInsightsParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
+          title: Accounts
       type: object
       required:
-      - account_id
-      title: IndividualAccountInsightsParams
-    WebhookDetailsConsoleResponse:
+      - accounts
+      title: AccountsDataConsoleResponse
+    WebhooksDataResponse:
       properties:
-        webhook:
-          $ref: '#/components/schemas/WebhookConsoleResponse'
-        logs:
+        webhooks:
           items:
-            $ref: '#/components/schemas/WebhookLogConsoleResponse'
+            $ref: '#/components/schemas/WebhookDataResponse'
           type: array
-          title: Logs
+          title: Webhooks
       type: object
       required:
-      - webhook
-      - logs
-      title: WebhookDetailsConsoleResponse
-    WidgetInternalType:
-      enum:
-      - default_api_calls
-      title: WidgetInternalType
-      description: An enumeration.
-    WebhookLogStatus:
-      enum:
-      - success
-      - failed
-      title: WebhookLogStatus
-      description: An enumeration.
+      - webhooks
+      title: WebhooksDataResponse
     WebhookConsoleResponse:
       $id: 9334389a-c93c-4183-9894-ea8eb72f82e8
       properties:
@@ -1594,121 +1870,29 @@ components:
       events:
       - '*'
       sign_request: false
-    ComputeExtendedInsightsParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        company_id:
-          type: string
-          format: uuid
-          title: Company Id
-      type: object
-      required:
-      - account_id
-      - company_id
-      title: ComputeExtendedInsightsParams
-    BaseResponse_WebhookDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WebhookDataResponse'
-      type: object
-      title: BaseResponse[WebhookDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CompanyStatus:
+    EmploymentStatus:
       enum:
-      - internal_test
+      - retired
+      - employed
+      - unemployed
+      - unknown
+      - potentially_retired
+      - voluntary_contributions
+      - banned
       - active
-      - demo
-      - pilot
-      - sandbox
-      - read_permissions_disabled
-      - write_permissions_disabled
-      - suspended
-      title: CompanyStatus
+      title: EmploymentStatus
       description: An enumeration.
-    HTTPValidationError:
+    PlatformBenchmarksParams:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    EarningDetailConsoleResponse:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        amount:
-          type: number
-          title: Amount
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        earning_date:
-          type: string
-          format: date-time
-          title: Earning Date
-        cash_amount:
-          type: number
-          title: Cash Amount
-        count_trips:
-          type: integer
-          title: Count Trips
-        employer:
-          type: string
-          title: Employer
-        debt:
-          type: number
-          title: Debt
-        metadata:
-          type: object
-          title: Metadata
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        country:
+          $ref: '#/components/schemas/CountryCode'
       type: object
       required:
-      - account_id
-      - amount
-      - currency
-      - earning_date
-      title: EarningDetailConsoleResponse
-      currency: mxn
-      cash_amount: 10.0
-      count_trips: 2
-      earning_date: '2022-05-02'
-      amount: 100.0
-    EmploymentFilesType:
-      enum:
-      - imss_employment_record
-      - imss_rpci_pdf
-      - buro_insights_employment_record
-      - issste_employment_file
-      - end_of_rights_pdf
-      title: EmploymentFilesType
-      description: An enumeration.
+      - platform
+      - country
+      title: PlatformBenchmarksParams
     TranslationsResponse:
       properties:
         en:
@@ -1722,6 +1906,29 @@ components:
           title: Pt
       type: object
       title: TranslationsResponse
+    WebhookLogStatus:
+      enum:
+      - success
+      - failed
+      title: WebhookLogStatus
+      description: An enumeration.
+    LoginStatus:
+      enum:
+      - created
+      - success
+      - retry
+      - incomplete
+      - error
+      - pending
+      - requires_auth
+      - profile_unavailable
+      - error_credentials
+      - error_otp
+      - pending_for_data
+      - validation_pending
+      - password_validation_pending
+      title: LoginStatus
+      description: An enumeration.
     PaginationBaseResponse:
       properties:
         page:
@@ -1738,60 +1945,6 @@ components:
           title: Total Pages
       type: object
       title: PaginationBaseResponse
-    WebhooksDataResponse:
-      properties:
-        webhooks:
-          items:
-            $ref: '#/components/schemas/WebhookDataResponse'
-          type: array
-          title: Webhooks
-      type: object
-      required:
-      - webhooks
-      title: WebhooksDataResponse
-    BaseResponse_WidgetConsoleResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WidgetConsoleResponse'
-      type: object
-      title: BaseResponse[WidgetConsoleResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    CountryCode:
-      enum:
-      - mx
-      - co
-      - br
-      - ar
-      - cl
-      - pe
-      - us
-      - cr
-      - pa
-      - ec
-      - bo
-      - ve
-      - sv
-      - do
-      title: CountryCode
-      description: An enumeration.
-    SourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - bulk_upload
-      - console
-      title: SourceCode
-      description: An enumeration.
     WidgetConsoleResponse:
       properties:
         created_at:
@@ -1925,71 +2078,118 @@ components:
         updated_at: '2022-05-02T03:36:02.436Z'
         widget_type: income_verification
         settings: {}
-    app__api__schemas__companies__CreateCompanyParams:
+    EarningsDataResponse:
       properties:
-        client_id:
-          type: string
-          title: Client Id
-        logo:
-          type: string
-          title: Logo
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        public_api_key:
-          type: string
-          title: Public Api Key
-        private_api_key:
-          type: string
-          title: Private Api Key
-        public_encryption_key:
-          type: string
-          title: Public Encryption Key
-        private_encryption_key:
-          type: string
-          title: Private Encryption Key
-        require_encryption:
-          type: boolean
-          title: Require Encryption
-          default: false
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/CompanyStatus'
-          - type: string
-          title: Status
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningConsoleDataResponse'
+          type: array
+          title: Earnings
+        income_last_month:
+          type: number
+          title: Income Last Month
+        income_last_three_months:
+          type: number
+          title: Income Last Three Months
       type: object
       required:
-      - display_name
-      - company_name
-      - website
-      title: CreateCompanyParams
-      example:
-        logo: https://palenca.com/logo.png
-        display_name: Palenca
-        company_name: palenca
-        website: https://palenca.com
-    BaseResponse_CompanyDataPrivate_:
+      - earnings
+      title: EarningsDataResponse
+    ProfileResponse:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        email:
+          type: string
+          title: Email
+        birthday:
+          type: string
+          format: date
+          title: Birthday
+      type: object
+      title: ProfileResponse
+    ComputeExtendedInsightsParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        company_id:
+          type: string
+          format: uuid
+          title: Company Id
+      type: object
+      required:
+      - account_id
+      - company_id
+      title: ComputeExtendedInsightsParams
+    WidgetInternalType:
+      enum:
+      - default_api_calls
+      title: WidgetInternalType
+      description: An enumeration.
+    EmploymentHistoryBaseResponse:
+      properties:
+        employer:
+          type: string
+          title: Employer
+        employer_registration:
+          type: string
+          title: Employer Registration
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: string
+            format: date-time
+          title: End Date
+        job_title:
+          type: string
+          title: Job Title
+        job_title_code:
+          type: string
+          title: Job Title Code
+        federal_entity:
+          type: string
+          title: Federal Entity
+      type: object
+      title: EmploymentHistoryBaseResponse
+    LoginConsoleDataResponse:
+      properties:
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        widget_id:
+          type: string
+          format: uuid
+          title: Widget Id
+        source:
+          $ref: '#/components/schemas/LoginSourceCode'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      title: LoginConsoleDataResponse
+    BaseResponse_AccountLoginsDataResponse_:
       properties:
         success:
           type: boolean
@@ -1998,13 +2198,428 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/CompanyDataPrivate'
+          $ref: '#/components/schemas/AccountLoginsDataResponse'
       type: object
-      title: BaseResponse[CompanyDataPrivate]
+      title: BaseResponse[AccountLoginsDataResponse]
       example:
         success: true
         data: {}
         error: {}
+    AccountLoginsDataResponse:
+      properties:
+        logins:
+          items:
+            $ref: '#/components/schemas/LoginConsoleDataResponse'
+          type: array
+          title: Logins
+      type: object
+      required:
+      - logins
+      title: AccountLoginsDataResponse
+    ProfileDataBaseResponse:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        external_id:
+          type: string
+          title: External Id
+        profile:
+          $ref: '#/components/schemas/ProfileResponse'
+        ids_info:
+          items:
+            $ref: '#/components/schemas/IdInfoBaseResponse'
+          type: array
+          title: Ids Info
+      type: object
+      required:
+      - account_id
+      title: ProfileDataBaseResponse
+    CompanyStatus:
+      enum:
+      - internal_test
+      - active
+      - demo
+      - pilot
+      - sandbox
+      - read_permissions_disabled
+      - write_permissions_disabled
+      - suspended
+      title: CompanyStatus
+      description: An enumeration.
+    BaseResponse_EmploymentDataBaseResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EmploymentDataBaseResponse'
+      type: object
+      title: BaseResponse[EmploymentDataBaseResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    BaseResponse_WebhookDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDataResponse'
+      type: object
+      title: BaseResponse[WebhookDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EmploymentFilesType:
+      enum:
+      - imss_employment_record
+      - imss_rpci_pdf
+      - buro_insights_employment_record
+      - issste_employment_file
+      - end_of_rights_pdf
+      title: EmploymentFilesType
+      description: An enumeration.
+    UpdateWebhookParams:
+      properties:
+        url:
+          type: string
+          title: Url
+        name:
+          type: string
+          title: Name
+        connect_flow_id:
+          type: string
+          format: uuid
+          title: Connect Flow Id
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        sign_request:
+          type: boolean
+          title: Sign Request
+        is_active:
+          type: boolean
+          title: Is Active
+        events:
+          items: {}
+          type: array
+          title: Events
+          default:
+          - '*'
+      type: object
+      title: UpdateWebhookParams
+      example:
+        url: https://domain.com/webhook
+        name: My webhook
+        is_sandbox: true
+        is_active: true
+        sign_request: false
+        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
+    WebhookActions:
+      enum:
+      - user.created
+      - user.deleted
+      - account.created
+      - account.connected
+      - account.requires_auth
+      - account.needs_auth
+      - profile.updated
+      - employment.created
+      - employment.updated
+      - earnings.updated
+      - events.updated
+      - clean_save.finished
+      - login.created
+      - login.success
+      - login.error
+      - login.incomplete
+      - login.retry
+      - login.failed_refresh
+      title: WebhookActions
+      description: An enumeration.
+    EmploymentsFilesBaseResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+        file_type:
+          $ref: '#/components/schemas/EmploymentFilesType'
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      title: EmploymentsFilesBaseResponse
+    IndividualAccountInsightsParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+      type: object
+      required:
+      - account_id
+      title: IndividualAccountInsightsParams
+    WidgetType:
+      enum:
+      - income_verification
+      title: WidgetType
+      description: An enumeration.
+    app__api__schemas__admin__UpdateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+        hide_label:
+          type: boolean
+          title: Hide Label
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+        persist_session:
+          type: boolean
+          title: Persist Session
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        redirect_url:
+          type: string
+          title: Redirect Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        webhook_url:
+          type: string
+          title: Webhook Url
+        widget_type:
+          $ref: '#/components/schemas/WidgetType'
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: UpdateWidgetParams
+    CountryCode:
+      enum:
+      - mx
+      - co
+      - br
+      - ar
+      - cl
+      - pe
+      - us
+      - cr
+      - pa
+      - ec
+      - bo
+      - ve
+      - sv
+      - do
+      title: CountryCode
+      description: An enumeration.
+    app__api__schemas__admin__CreateWidgetParams:
+      properties:
+        name:
+          type: string
+          title: Name
+        platforms:
+          items:
+            $ref: '#/components/schemas/PlatformCode'
+          type: array
+        is_sandbox:
+          type: boolean
+          title: Is Sandbox
+          default: false
+        hide_logo:
+          type: boolean
+          title: Hide Logo
+          default: false
+        hide_whatsapp:
+          type: boolean
+          title: Hide Whatsapp
+          default: false
+        hide_consent:
+          type: boolean
+          title: Hide Consent
+          default: false
+        hide_privacy_url:
+          type: boolean
+          title: Hide Privacy Url
+          default: true
+        hide_redirect_url:
+          type: boolean
+          title: Hide Redirect Url
+          default: true
+        hide_label:
+          type: boolean
+          title: Hide Label
+          default: false
+        require_gov_id:
+          type: boolean
+          title: Require Gov Id
+          default: false
+        persist_session:
+          type: boolean
+          title: Persist Session
+          default: false
+        font_family:
+          type: string
+          title: Font Family
+        primary_color:
+          type: string
+          title: Primary Color
+        background_color:
+          type: string
+          title: Background Color
+        text_field_style:
+          type: string
+          title: Text Field Style
+        border_radius:
+          type: string
+          title: Border Radius
+        redirect_url:
+          type: string
+          title: Redirect Url
+        custom_privacy_url:
+          type: string
+          title: Custom Privacy Url
+        whatsapp_number:
+          type: string
+          title: Whatsapp Number
+        countries:
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          type: array
+          default: []
+        widget_type:
+          allOf:
+          - $ref: '#/components/schemas/WidgetType'
+          default: income_verification
+        settings:
+          type: object
+          title: Settings
+          default: {}
+      type: object
+      title: CreateWidgetParams
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    EarningConsoleDataResponse:
+      properties:
+        date:
+          type: string
+          title: Date
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        gross_pay:
+          type: number
+          title: Gross Pay
+        taxes:
+          type: number
+          title: Taxes
+        deductions:
+          type: number
+          title: Deductions
+        net_pay:
+          type: number
+          title: Net Pay
+        trips:
+          type: integer
+          title: Trips
+        to_date:
+          type: string
+          format: date-time
+          title: To Date
+        from_date:
+          type: string
+          format: date-time
+          title: From Date
+        earnings:
+          items:
+            $ref: '#/components/schemas/EarningDetailConsoleResponse'
+          type: array
+          title: Earnings
+      type: object
+      title: EarningConsoleDataResponse
+    IdType:
+      enum:
+      - tax
+      - passport
+      - national
+      - social_security_number
+      - individual_taxpayer_registry
+      title: IdType
+      description: An enumeration.
     StatusDetails:
       enum:
       - bad_request
@@ -2124,6 +2739,279 @@ components:
       - incomplete_profile
       title: StatusDetails
       description: An enumeration.
+    BasePaginationResponse_WebhookDetailsConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhookDetailsConsoleResponse'
+        pagination:
+          $ref: '#/components/schemas/PaginationBaseResponse'
+      type: object
+      title: BasePaginationResponse[WebhookDetailsConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+        pagination: {}
+    CompanyDataPrivate:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        priority:
+          $ref: '#/components/schemas/CompanyPriority'
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        retries_enabled:
+          type: boolean
+          title: Retries Enabled
+          default: false
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      required:
+      - display_name
+      - company_name
+      - priority
+      - public_api_key
+      - private_api_key
+      title: CompanyDataPrivate
+      example:
+        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
+        client_id: c2644819-1879-4219-93ab-86b54fb83467
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        status: demo
+        company_name: palenca
+        website: https://palenca.com
+        public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+        private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+    IdInfoBaseResponse:
+      properties:
+        type:
+          $ref: '#/components/schemas/IdType'
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+      type: object
+      title: IdInfoBaseResponse
+    BaseResponse_EarningsDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/EarningsDataResponse'
+      type: object
+      title: BaseResponse[EarningsDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    EmploymentInfoBaseResponse:
+      properties:
+        id_type:
+          $ref: '#/components/schemas/IdType'
+        quoted_weeks:
+          type: integer
+          title: Quoted Weeks
+        discounted_weeks:
+          type: integer
+          title: Discounted Weeks
+        reintegrated_weeks:
+          type: integer
+          title: Reintegrated Weeks
+        end_of_rights:
+          type: string
+          title: End Of Rights
+        status:
+          $ref: '#/components/schemas/EmploymentStatus'
+        employment_files:
+          items:
+            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
+          type: array
+          title: Employment Files
+        employment_history_status:
+          $ref: '#/components/schemas/EmploymentHistoryStatus'
+      type: object
+      title: EmploymentInfoBaseResponse
+    BaseResponse_WebhooksDataResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/WebhooksDataResponse'
+      type: object
+      title: BaseResponse[WebhooksDataResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    app__api__schemas__companies__CreateCompanyParams:
+      properties:
+        client_id:
+          type: string
+          title: Client Id
+        logo:
+          type: string
+          title: Logo
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        public_api_key:
+          type: string
+          title: Public Api Key
+        private_api_key:
+          type: string
+          title: Private Api Key
+        public_encryption_key:
+          type: string
+          title: Public Encryption Key
+        private_encryption_key:
+          type: string
+          title: Private Encryption Key
+        require_encryption:
+          type: boolean
+          title: Require Encryption
+          default: false
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyStatus'
+          - type: string
+          title: Status
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+      type: object
+      required:
+      - display_name
+      - company_name
+      - website
+      title: CreateCompanyParams
+      example:
+        logo: https://palenca.com/logo.png
+        display_name: Palenca
+        company_name: palenca
+        website: https://palenca.com
+    BaseResponse_AccountsDataConsoleResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/AccountsDataConsoleResponse'
+      type: object
+      title: BaseResponse[AccountsDataConsoleResponse]
+      example:
+        success: true
+        data: {}
+        error: {}
     AccountWarning:
       enum:
       - banned
@@ -2148,175 +3036,90 @@ components:
       - id_mismatch
       title: AccountWarning
       description: An enumeration.
-    BaseResponse_WidgetsConsoleResponse_:
+    AccountConsoleResponse:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WidgetsConsoleResponse'
-      type: object
-      title: BaseResponse[WidgetsConsoleResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    PlatformBenchmarksParams:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
+        id:
+          type: string
+          format: uuid
+          title: Id
         country:
           $ref: '#/components/schemas/CountryCode'
-      type: object
-      required:
-      - platform
-      - country
-      title: PlatformBenchmarksParams
-    ProfileResponse:
-      properties:
+        platform:
+          $ref: '#/components/schemas/PlatformCode'
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        identifier:
+          type: string
+          title: Identifier
+        worker_id:
+          type: string
+          title: Worker Id
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        warning:
+          $ref: '#/components/schemas/AccountWarning'
+        status_details:
+          $ref: '#/components/schemas/StatusDetails'
+        last_successful_connection:
+          type: string
+          format: date-time
+          title: Last Successful Connection
+        message:
+          type: string
+          title: Message
+        recommendation:
+          type: string
+          title: Recommendation
+        source:
+          $ref: '#/components/schemas/SourceCode'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
         first_name:
           type: string
           title: First Name
         last_name:
           type: string
           title: Last Name
-        email:
+        gov_id:
           type: string
-          title: Email
-        birthday:
-          type: string
-          format: date
-          title: Birthday
-      type: object
-      title: ProfileResponse
-    app__api__schemas__admin__CreateWidgetParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformCode'
-          type: array
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-          default: false
-        hide_logo:
-          type: boolean
-          title: Hide Logo
-          default: false
-        hide_whatsapp:
-          type: boolean
-          title: Hide Whatsapp
-          default: false
-        hide_consent:
-          type: boolean
-          title: Hide Consent
-          default: false
-        hide_privacy_url:
-          type: boolean
-          title: Hide Privacy Url
-          default: true
-        hide_redirect_url:
-          type: boolean
-          title: Hide Redirect Url
-          default: true
-        hide_label:
-          type: boolean
-          title: Hide Label
-          default: false
-        require_gov_id:
-          type: boolean
-          title: Require Gov Id
-          default: false
-        persist_session:
-          type: boolean
-          title: Persist Session
-          default: false
-        font_family:
-          type: string
-          title: Font Family
-        primary_color:
-          type: string
-          title: Primary Color
-        background_color:
-          type: string
-          title: Background Color
-        text_field_style:
-          type: string
-          title: Text Field Style
-        border_radius:
-          type: string
-          title: Border Radius
-        redirect_url:
-          type: string
-          title: Redirect Url
-        custom_privacy_url:
-          type: string
-          title: Custom Privacy Url
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-          default: []
-        widget_type:
-          allOf:
-          - $ref: '#/components/schemas/WidgetType'
-          default: income_verification
-        settings:
-          type: object
-          title: Settings
-          default: {}
-      type: object
-      title: CreateWidgetParams
-    WebhookDataResponse:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        is_active:
-          type: boolean
-          title: Is Active
-          default: true
-        sign_request:
-          type: boolean
-          title: Sign Request
-        private_key:
-          type: string
-          title: Private Key
+          title: Gov Id
       type: object
       required:
-      - webhook_id
-      - url
-      - name
-      - is_sandbox
-      title: WebhookDataResponse
-    BaseResponse_EarningsDataResponse_:
+      - id
+      - user_id
+      title: AccountConsoleResponse
+    SourceCode:
+      enum:
+      - widget
+      - api
+      - legacy
+      - bulk_upload
+      - console
+      title: SourceCode
+      description: An enumeration.
+    WebhookDetailsConsoleResponse:
+      properties:
+        webhook:
+          $ref: '#/components/schemas/WebhookConsoleResponse'
+        logs:
+          items:
+            $ref: '#/components/schemas/WebhookLogConsoleResponse'
+          type: array
+          title: Logs
+      type: object
+      required:
+      - webhook
+      - logs
+      title: WebhookDetailsConsoleResponse
+    BaseResponse_WidgetConsoleResponse_:
       properties:
         success:
           type: boolean
@@ -2325,54 +3128,28 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          $ref: '#/components/schemas/EarningsDataResponse'
+          $ref: '#/components/schemas/WidgetConsoleResponse'
       type: object
-      title: BaseResponse[EarningsDataResponse]
+      title: BaseResponse[WidgetConsoleResponse]
       example:
         success: true
         data: {}
         error: {}
-    WidgetType:
-      enum:
-      - income_verification
-      title: WidgetType
-      description: An enumeration.
-    LoginStatus:
-      enum:
-      - created
-      - success
-      - retry
-      - incomplete
-      - error
-      - pending
-      - requires_auth
-      - profile_unavailable
-      - error_credentials
-      - error_otp
-      - pending_for_data
-      - validation_pending
-      - password_validation_pending
-      title: LoginStatus
-      description: An enumeration.
-    BasePaginationResponse_WebhookDetailsConsoleResponse_:
+    ErrorResponse:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WebhookDetailsConsoleResponse'
-        pagination:
-          $ref: '#/components/schemas/PaginationBaseResponse'
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      title: BasePaginationResponse[WebhookDetailsConsoleResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-        pagination: {}
+      title: ErrorResponse
     WidgetsConsoleResponse:
       properties:
         widgets:
@@ -2384,103 +3161,6 @@ components:
       required:
       - widgets
       title: WidgetsConsoleResponse
-    CurrencyCode:
-      enum:
-      - mxn
-      - usd
-      - cop
-      - clp
-      - ars
-      - pen
-      - brl
-      - crc
-      - pab
-      - bob
-      - ves
-      - dop
-      - brr
-      title: CurrencyCode
-      description: An enumeration.
-    EmploymentStatus:
-      enum:
-      - retired
-      - employed
-      - unemployed
-      - unknown
-      - potentially_retired
-      - voluntary_contributions
-      - banned
-      - active
-      title: EmploymentStatus
-      description: An enumeration.
-    BaseResponse_AccountsDataConsoleResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountsDataConsoleResponse'
-      type: object
-      title: BaseResponse[AccountsDataConsoleResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse_StatusResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/StatusResponse'
-      type: object
-      title: BaseResponse[StatusResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    ProfileDataBaseResponse:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        profile:
-          $ref: '#/components/schemas/ProfileResponse'
-        ids_info:
-          items:
-            $ref: '#/components/schemas/IdInfoBaseResponse'
-          type: array
-          title: Ids Info
-      type: object
-      required:
-      - account_id
-      title: ProfileDataBaseResponse
-    BaseResponse_EmploymentDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/EmploymentDataBaseResponse'
-      type: object
-      title: BaseResponse[EmploymentDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
     PlatformCode:
       enum:
       - uber
@@ -2546,550 +3226,7 @@ components:
       - cornershop
       title: PlatformCode
       description: An enumeration.
-    EmploymentInfoBaseResponse:
-      properties:
-        id_type:
-          $ref: '#/components/schemas/IdType'
-        quoted_weeks:
-          type: integer
-          title: Quoted Weeks
-        discounted_weeks:
-          type: integer
-          title: Discounted Weeks
-        reintegrated_weeks:
-          type: integer
-          title: Reintegrated Weeks
-        end_of_rights:
-          type: string
-          title: End Of Rights
-        status:
-          $ref: '#/components/schemas/EmploymentStatus'
-        employment_files:
-          items:
-            $ref: '#/components/schemas/EmploymentsFilesBaseResponse'
-          type: array
-          title: Employment Files
-        employment_history_status:
-          $ref: '#/components/schemas/EmploymentHistoryStatus'
-      type: object
-      title: EmploymentInfoBaseResponse
-    app__api__schemas__admin__UpdateWidgetParams:
-      properties:
-        name:
-          type: string
-          title: Name
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-        platforms:
-          items:
-            $ref: '#/components/schemas/PlatformCode'
-          type: array
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        hide_logo:
-          type: boolean
-          title: Hide Logo
-        hide_whatsapp:
-          type: boolean
-          title: Hide Whatsapp
-        hide_consent:
-          type: boolean
-          title: Hide Consent
-        hide_privacy_url:
-          type: boolean
-          title: Hide Privacy Url
-        hide_redirect_url:
-          type: boolean
-          title: Hide Redirect Url
-        hide_label:
-          type: boolean
-          title: Hide Label
-        require_gov_id:
-          type: boolean
-          title: Require Gov Id
-        persist_session:
-          type: boolean
-          title: Persist Session
-        font_family:
-          type: string
-          title: Font Family
-        primary_color:
-          type: string
-          title: Primary Color
-        background_color:
-          type: string
-          title: Background Color
-        text_field_style:
-          type: string
-          title: Text Field Style
-        border_radius:
-          type: string
-          title: Border Radius
-        custom_privacy_url:
-          type: string
-          title: Custom Privacy Url
-        redirect_url:
-          type: string
-          title: Redirect Url
-        whatsapp_number:
-          type: string
-          title: Whatsapp Number
-        webhook_url:
-          type: string
-          title: Webhook Url
-        widget_type:
-          $ref: '#/components/schemas/WidgetType'
-        countries:
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          type: array
-        settings:
-          type: object
-          title: Settings
-          default: {}
-      type: object
-      title: UpdateWidgetParams
-    EmploymentsFilesBaseResponse:
-      properties:
-        url:
-          type: string
-          title: Url
-        file_type:
-          $ref: '#/components/schemas/EmploymentFilesType'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-      type: object
-      title: EmploymentsFilesBaseResponse
-    EarningsDataResponse:
-      properties:
-        earnings:
-          items:
-            $ref: '#/components/schemas/EarningConsoleDataResponse'
-          type: array
-          title: Earnings
-        income_last_month:
-          type: number
-          title: Income Last Month
-        income_last_three_months:
-          type: number
-          title: Income Last Three Months
-      type: object
-      required:
-      - earnings
-      title: EarningsDataResponse
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    UpdateWebhookParams:
-      properties:
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        sign_request:
-          type: boolean
-          title: Sign Request
-        is_active:
-          type: boolean
-          title: Is Active
-        events:
-          items: {}
-          type: array
-          title: Events
-          default:
-          - '*'
-      type: object
-      title: UpdateWebhookParams
-      example:
-        url: https://domain.com/webhook
-        name: My webhook
-        is_sandbox: true
-        is_active: true
-        sign_request: false
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
-    AccountConsoleResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        identifier:
-          type: string
-          title: Identifier
-        worker_id:
-          type: string
-          title: Worker Id
-        user_id:
-          type: string
-          format: uuid
-          title: User Id
-        warning:
-          $ref: '#/components/schemas/AccountWarning'
-        status_details:
-          $ref: '#/components/schemas/StatusDetails'
-        last_successful_connection:
-          type: string
-          format: date-time
-          title: Last Successful Connection
-        message:
-          type: string
-          title: Message
-        recommendation:
-          type: string
-          title: Recommendation
-        source:
-          $ref: '#/components/schemas/SourceCode'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        first_name:
-          type: string
-          title: First Name
-        last_name:
-          type: string
-          title: Last Name
-        gov_id:
-          type: string
-          title: Gov Id
-      type: object
-      required:
-      - id
-      - user_id
-      title: AccountConsoleResponse
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    EmploymentHistoryBaseResponse:
-      properties:
-        employer:
-          type: string
-          title: Employer
-        employer_registration:
-          type: string
-          title: Employer Registration
-        start_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: Start Date
-        end_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: string
-            format: date-time
-          title: End Date
-        job_title:
-          type: string
-          title: Job Title
-        job_title_code:
-          type: string
-          title: Job Title Code
-        federal_entity:
-          type: string
-          title: Federal Entity
-      type: object
-      title: EmploymentHistoryBaseResponse
-    app__api__schemas__companies__UpdateCompanyParams:
-      properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        require_encryption:
-          type: boolean
-          title: Require Encryption
-          default: false
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-      type: object
-      title: UpdateCompanyParams
-    LoginConsoleDataResponse:
-      properties:
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        widget_id:
-          type: string
-          format: uuid
-          title: Widget Id
-        source:
-          $ref: '#/components/schemas/LoginSourceCode'
-        status:
-          $ref: '#/components/schemas/LoginStatus'
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      title: LoginConsoleDataResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    IdInfoBaseResponse:
-      properties:
-        type:
-          $ref: '#/components/schemas/IdType'
-        name:
-          type: string
-          title: Name
-        value:
-          type: string
-          title: Value
-      type: object
-      title: IdInfoBaseResponse
-    StatusResponse:
-      properties:
-        status_details:
-          type: string
-          title: Status Details
-        status:
-          type: string
-          title: Status
-        code:
-          type: string
-          title: Code
-        message:
-          $ref: '#/components/schemas/TranslationsResponse'
-        recommendation:
-          $ref: '#/components/schemas/TranslationsResponse'
-      type: object
-      required:
-      - message
-      - recommendation
-      title: StatusResponse
-    WebhookActions:
-      enum:
-      - user.created
-      - user.deleted
-      - account.created
-      - account.connected
-      - account.requires_auth
-      - account.needs_auth
-      - profile.updated
-      - employment.created
-      - employment.updated
-      - earnings.updated
-      - events.updated
-      - clean_save.finished
-      - login.created
-      - login.success
-      - login.error
-      - login.incomplete
-      - login.retry
-      - login.failed_refresh
-      title: WebhookActions
-      description: An enumeration.
-    AccountsDataConsoleResponse:
-      properties:
-        accounts:
-          items:
-            $ref: '#/components/schemas/AccountConsoleResponse'
-          type: array
-          title: Accounts
-      type: object
-      required:
-      - accounts
-      title: AccountsDataConsoleResponse
-    LoginSourceCode:
-      enum:
-      - widget
-      - api
-      - legacy
-      - refresh
-      - connect
-      - bulk_upload
-      - console
-      - platform_retry
-      - refresh_earnings
-      - refresh_events
-      - refresh_profile
-      title: LoginSourceCode
-      description: An enumeration.
-    DateRange:
-      enum:
-      - month
-      - week
-      title: DateRange
-      description: An enumeration.
-    AccountLoginsDataResponse:
-      properties:
-        logins:
-          items:
-            $ref: '#/components/schemas/LoginConsoleDataResponse'
-          type: array
-          title: Logins
-      type: object
-      required:
-      - logins
-      title: AccountLoginsDataResponse
-    EmploymentHistoryStatus:
-      enum:
-      - empty
-      - partial
-      - complete
-      title: EmploymentHistoryStatus
-      description: An enumeration.
-    CreateWebhookParams:
-      properties:
-        url:
-          type: string
-          title: Url
-        name:
-          type: string
-          title: Name
-        connect_flow_id:
-          type: string
-          format: uuid
-          title: Connect Flow Id
-        is_sandbox:
-          type: boolean
-          title: Is Sandbox
-        sign_request:
-          type: boolean
-          title: Sign Request
-          default: false
-        events:
-          items: {}
-          type: array
-          title: Events
-          default:
-          - '*'
-      type: object
-      required:
-      - url
-      - name
-      - connect_flow_id
-      - is_sandbox
-      title: CreateWebhookParams
-      example:
-        url: https://domain.com/webhook
-        name: My webhook
-        is_sandbox: true
-        sign_request: false
-        widget_id: b679c2fb-a096-4c26-a902-245f9bce66d9
-        events:
-        - '*'
-    EarningConsoleDataResponse:
-      properties:
-        date:
-          type: string
-          title: Date
-        currency:
-          $ref: '#/components/schemas/CurrencyCode'
-        gross_pay:
-          type: number
-          title: Gross Pay
-        taxes:
-          type: number
-          title: Taxes
-        deductions:
-          type: number
-          title: Deductions
-        net_pay:
-          type: number
-          title: Net Pay
-        trips:
-          type: integer
-          title: Trips
-        to_date:
-          type: string
-          format: date-time
-          title: To Date
-        from_date:
-          type: string
-          format: date-time
-          title: From Date
-        earnings:
-          items:
-            $ref: '#/components/schemas/EarningDetailConsoleResponse'
-          type: array
-          title: Earnings
-      type: object
-      title: EarningConsoleDataResponse
-    BaseResponse:
+    BaseResponse_StatusResponse_:
       properties:
         success:
           type: boolean
@@ -3098,147 +3235,10 @@ components:
         error:
           $ref: '#/components/schemas/ErrorResponse'
         data:
-          title: Data
+          $ref: '#/components/schemas/StatusResponse'
       type: object
-      title: BaseResponse
+      title: BaseResponse[StatusResponse]
       example:
         success: true
         data: {}
         error: {}
-    BaseResponse_WebhooksDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/WebhooksDataResponse'
-      type: object
-      title: BaseResponse[WebhooksDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse_AccountLoginsDataResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/AccountLoginsDataResponse'
-      type: object
-      title: BaseResponse[AccountLoginsDataResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    WebhookLogConsoleResponse:
-      properties:
-        id:
-          type: string
-          title: Id
-        url:
-          type: string
-          title: Url
-        action:
-          type: string
-          title: Action
-        status:
-          type: integer
-          title: Status
-        request_body:
-          type: object
-          title: Request Body
-        response_body:
-          type: object
-          title: Response Body
-        entity:
-          type: string
-          title: Entity
-        entity_id:
-          type: string
-          title: Entity Id
-        environment:
-          type: string
-          title: Environment
-        webhook_id:
-          type: string
-          title: Webhook Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      title: WebhookLogConsoleResponse
-      webhook:
-        id: 9334389a-c93c-4183-9894-ea8eb72f82e8
-        company_id: fcee4e50-c32a-4cc7-bc88-4d885ce47242
-        url: https://webhook.palenca.com
-        is_sandbox: false
-        events:
-        - '*'
-        created_at: '2022-05-02T03:36:02.436Z'
-        updated_at: '2022-05-02T03:36:02.436Z'
-      logs:
-      - created_at: '2023-03-31T20:32:12.295904+00:00'
-        updated_at: '2023-03-31T20:32:12.295927+00:00'
-        id: 8c069c49-efdf-4230-aa43-2d40f269497f
-        url: https://webhook.site/96bc26e2-bf38-4cd1-8432-4e5a13fe5d60
-        name: testing webhook
-        events:
-        - '*'
-        widget_id: 15574004-c4d6-4e59-bcba-f335993b1400
-        is_sandbox: true
-    IdType:
-      enum:
-      - tax
-      - passport
-      - national
-      - social_security_number
-      - individual_taxpayer_registry
-      title: IdType
-      description: An enumeration.
-    BaseResponse_ProfileDataBaseResponse_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/ProfileDataBaseResponse'
-      type: object
-      title: BaseResponse[ProfileDataBaseResponse]
-      example:
-        success: true
-        data: {}
-        error: {}
-    EmploymentDataBaseResponse:
-      properties:
-        platform:
-          $ref: '#/components/schemas/PlatformCode'
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        external_id:
-          type: string
-          title: External Id
-        employment_info:
-          $ref: '#/components/schemas/EmploymentInfoBaseResponse'
-        employment_history:
-          items:
-            $ref: '#/components/schemas/EmploymentHistoryBaseResponse'
-          type: array
-          title: Employment History
-      type: object
-      required:
-      - platform
-      - account_id
-      title: EmploymentDataBaseResponse

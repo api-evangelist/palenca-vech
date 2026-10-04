@@ -389,76 +389,6 @@ components:
       - end_date
       - company_id
       title: DeleteAccountsForCompanyParams
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
-    app__api__schemas__admin__UpdateCompanyParams:
-      properties:
-        logo:
-          type: string
-          title: Logo
-        display_name:
-          type: string
-          title: Display Name
-        company_name:
-          type: string
-          title: Company Name
-        website:
-          type: string
-          title: Website
-        priority:
-          allOf:
-          - $ref: '#/components/schemas/CompanyPriority'
-          default: low
-        user:
-          type: string
-          title: User
-        status:
-          $ref: '#/components/schemas/CompanyStatus'
-        owner:
-          type: string
-          title: Owner
-        refresh:
-          type: boolean
-          title: Refresh
-          default: false
-        refresh_frequency:
-          type: integer
-          title: Refresh Frequency
-        data_controller:
-          type: boolean
-          title: Data Controller
-          default: true
-        widget_advanced_customization:
-          type: boolean
-          title: Widget Advanced Customization
-          default: false
-      type: object
-      title: UpdateCompanyParams
-    OptionsSearchParams:
-      properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
-      type: object
-      title: OptionsSearchParams
     CompanyStatus:
       enum:
       - internal_test
@@ -471,6 +401,55 @@ components:
       - suspended
       title: CompanyStatus
       description: An enumeration.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    app__api__schemas__groups__CreateGroupParams:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - name
+      title: CreateGroupParams
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     app__api__schemas__companies__CreateCompanyParams:
       properties:
         client_id:
@@ -535,71 +514,6 @@ components:
         display_name: Palenca
         company_name: palenca
         website: https://palenca.com
-    CompanyPriority:
-      enum:
-      - highest
-      - high
-      - medium
-      - low
-      - lowest
-      title: CompanyPriority
-      description: An enumeration.
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     SearchUsageParams:
       properties:
         start_date:
@@ -624,12 +538,98 @@ components:
       - start_date
       - end_date
       title: SearchUsageParams
-    app__api__schemas__groups__CreateGroupParams:
+    CompanyPriority:
+      enum:
+      - highest
+      - high
+      - medium
+      - low
+      - lowest
+      title: CompanyPriority
+      description: An enumeration.
+    ErrorResponse:
       properties:
-        name:
+        code:
           type: string
-          title: Name
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      required:
-      - name
-      title: CreateGroupParams
+      title: ErrorResponse
+    OptionsSearchParams:
+      properties:
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
+      type: object
+      title: OptionsSearchParams
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}
+    app__api__schemas__admin__UpdateCompanyParams:
+      properties:
+        logo:
+          type: string
+          title: Logo
+        display_name:
+          type: string
+          title: Display Name
+        company_name:
+          type: string
+          title: Company Name
+        website:
+          type: string
+          title: Website
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/CompanyPriority'
+          default: low
+        user:
+          type: string
+          title: User
+        status:
+          $ref: '#/components/schemas/CompanyStatus'
+        owner:
+          type: string
+          title: Owner
+        refresh:
+          type: boolean
+          title: Refresh
+          default: false
+        refresh_frequency:
+          type: integer
+          title: Refresh Frequency
+        data_controller:
+          type: boolean
+          title: Data Controller
+          default: true
+        widget_advanced_customization:
+          type: boolean
+          title: Widget Advanced Customization
+          default: false
+      type: object
+      title: UpdateCompanyParams

@@ -74,6 +74,46 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     BaseResponse_CountryDataResponse_:
       properties:
         success:
@@ -90,40 +130,14 @@ components:
         success: true
         data: {}
         error: {}
-    ErrorResponse:
+    UpdateCountryParams:
       properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
-    BaseResponse_list_app.api.schemas.responses.CountryDataResponse__:
-      properties:
-        success:
+        is_active:
           type: boolean
-          title: Success
+          title: Is Active
           default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          items:
-            $ref: '#/components/schemas/CountryDataResponse'
-          type: array
-          title: Data
       type: object
-      title: BaseResponse[list[app.api.schemas.responses.CountryDataResponse]]
-      example:
-        success: true
-        data: {}
-        error: {}
+      title: UpdateCountryParams
     CountryCode:
       enum:
       - mx
@@ -142,24 +156,21 @@ components:
       - do
       title: CountryCode
       description: An enumeration.
-    UpdateCountryParams:
+    ErrorResponse:
       properties:
-        is_active:
-          type: boolean
-          title: Is Active
-          default: true
-      type: object
-      title: UpdateCountryParams
-    ErrorDetailResponse:
-      properties:
+        code:
+          type: string
+          title: Code
         message:
           type: string
           title: Message
-        location:
-          type: string
-          title: Location
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
       type: object
-      title: ErrorDetailResponse
+      title: ErrorResponse
     CountryDataResponse:
       properties:
         created_at:
@@ -217,33 +228,22 @@ components:
         calling_code: '52'
         timezone: America/Mexico_City
         flag: https://cdn.palenca.com/flags/mx.svg
-    HTTPValidationError:
+    BaseResponse_list_app.api.schemas.responses.CountryDataResponse__:
       properties:
-        detail:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/CountryDataResponse'
           type: array
-          title: Detail
+          title: Data
       type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: BaseResponse[list[app.api.schemas.responses.CountryDataResponse]]
+      example:
+        success: true
+        data: {}
+        error: {}

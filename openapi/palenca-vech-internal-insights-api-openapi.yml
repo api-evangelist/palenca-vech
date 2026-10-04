@@ -150,63 +150,6 @@ components:
       required:
       - account_id
       title: InsightsReport
-    ErrorResponse:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetailResponse'
-          type: array
-          title: Errors
-      type: object
-      title: ErrorResponse
-    BaseResponse_InsightsReport_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          $ref: '#/components/schemas/InsightsReport'
-      type: object
-      title: BaseResponse[InsightsReport]
-      example:
-        success: true
-        data: {}
-        error: {}
-    BaseResponse:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
-        data:
-          title: Data
-      type: object
-      title: BaseResponse
-      example:
-        success: true
-        data: {}
-        error: {}
-    ErrorDetailResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        location:
-          type: string
-          title: Location
-      type: object
-      title: ErrorDetailResponse
     HTTPValidationError:
       properties:
         detail:
@@ -237,3 +180,60 @@ components:
       - msg
       - type
       title: ValidationError
+    ErrorDetailResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        location:
+          type: string
+          title: Location
+      type: object
+      title: ErrorDetailResponse
+    BaseResponse_InsightsReport_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          $ref: '#/components/schemas/InsightsReport'
+      type: object
+      title: BaseResponse[InsightsReport]
+      example:
+        success: true
+        data: {}
+        error: {}
+    ErrorResponse:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetailResponse'
+          type: array
+          title: Errors
+      type: object
+      title: ErrorResponse
+    BaseResponse:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+        data:
+          title: Data
+      type: object
+      title: BaseResponse
+      example:
+        success: true
+        data: {}
+        error: {}

@@ -102,32 +102,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ImssWebScrapingParams:
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          title: Account Id
-        curp:
-          type: string
-          title: Curp
-        nss:
-          type: string
-          title: Nss
-        email:
-          type: string
-          title: Email
-      type: object
-      title: ImssWebScrapingParams
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     EmploymentEmailParams:
       properties:
         account_id:
@@ -177,3 +151,29 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ImssWebScrapingParams:
+      properties:
+        account_id:
+          type: string
+          format: uuid
+          title: Account Id
+        curp:
+          type: string
+          title: Curp
+        nss:
+          type: string
+          title: Nss
+        email:
+          type: string
+          title: Email
+      type: object
+      title: ImssWebScrapingParams

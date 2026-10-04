@@ -70,26 +70,18 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    OptionsSearchParams:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        items_per_page:
+          type: integer
+          title: Items Per Page
+          default: 100
+        page:
+          type: integer
+          title: Page
+          default: 1
       type: object
-      title: HTTPValidationError
-    SearchConsentsParams:
-      properties:
-        options:
-          allOf:
-          - $ref: '#/components/schemas/OptionsSearchParams'
-          title: Options
-          default:
-            items_per_page: 100
-            page: 1
-      type: object
-      title: SearchConsentsParams
+      title: OptionsSearchParams
     ValidationError:
       properties:
         loc:
@@ -111,15 +103,23 @@ components:
       - msg
       - type
       title: ValidationError
-    OptionsSearchParams:
+    SearchConsentsParams:
       properties:
-        items_per_page:
-          type: integer
-          title: Items Per Page
-          default: 100
-        page:
-          type: integer
-          title: Page
-          default: 1
+        options:
+          allOf:
+          - $ref: '#/components/schemas/OptionsSearchParams'
+          title: Options
+          default:
+            items_per_page: 100
+            page: 1
       type: object
-      title: OptionsSearchParams
+      title: SearchConsentsParams
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
