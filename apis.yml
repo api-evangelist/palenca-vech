@@ -216,6 +216,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -264,6 +266,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Companies
+  tags_raw:
   - companies
   properties:
   - type: OpenAPI
@@ -288,6 +292,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Consents
+  tags_raw:
   - consents
   properties:
   - type: OpenAPI
@@ -456,6 +462,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Countries
+  tags_raw:
   - countries
   properties:
   - type: OpenAPI
@@ -480,6 +488,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - CPF
+  tags_raw:
   - cpf
   properties:
   - type: OpenAPI
@@ -504,6 +514,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Cron Jobs
+  tags_raw:
   - cron-jobs
   properties:
   - type: OpenAPI
@@ -649,6 +661,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Group
+  tags_raw:
   - groups
   properties:
   - type: OpenAPI
@@ -673,6 +687,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Health
+  tags_raw:
   - health
   properties:
   - type: OpenAPI
@@ -721,6 +737,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Insights
+  tags_raw:
   - insights
   properties:
   - type: OpenAPI
@@ -769,6 +787,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Internal Accounts
+  tags_raw:
   - internal/accounts
   properties:
   - type: OpenAPI
@@ -793,6 +813,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Internal
+  tags_raw:
   - internal
   properties:
   - type: OpenAPI
@@ -962,6 +984,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Link
+  tags_raw:
   - link
   properties:
   - type: OpenAPI
@@ -986,6 +1010,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Logins
+  tags_raw:
   - logins
   properties:
   - type: OpenAPI
@@ -1010,6 +1036,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Platform
+  tags_raw:
   - platforms
   properties:
   - type: OpenAPI
@@ -1084,6 +1112,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Status History
+  tags_raw:
   - status-history
   properties:
   - type: OpenAPI
@@ -1157,6 +1187,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -1181,6 +1213,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI
@@ -1205,6 +1239,8 @@ apis:
   humanURL: https://developers.palenca.com/docs/getting-started
   baseURL: https://api.palenca.com
   tags:
+  - Widgets
+  tags_raw:
   - widgets
   properties:
   - type: OpenAPI
@@ -1229,6 +1265,9 @@ x-enrichment:
   artifacts_added: 18
   pass: local-v1
 common:
+- type: CapabilityMap
+  url: capabilities/palenca-vech-capability-edges.yml
+  name: Palenca (Vech) Business Capability Map
 - type: Overlay
   url: overlays/palenca-vech-openapi-overlay.yaml
 - type: Website
