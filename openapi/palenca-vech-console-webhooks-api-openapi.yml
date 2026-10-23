@@ -803,3 +803,9 @@ components:
         data: {}
         error: {}
         pagination: {}
+x-provenance:
+  method: harvested
+  publisher: Palenca (Vech)
+  source: https://api.palenca.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

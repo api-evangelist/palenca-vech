@@ -398,3 +398,9 @@ components:
         website: https://palenca.com
         public_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
         private_api_key: 2b4712e7-b318-4beb-bf8e-fa7c8f7b4037
+x-provenance:
+  method: harvested
+  publisher: Palenca (Vech)
+  source: https://api.palenca.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
