@@ -9,12 +9,15 @@ artifacts:
   authentication/palenca-vech-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  capabilities/palenca-vech-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
   collections/palenca-vech-accounts-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-accounts-api
   collections/palenca-vech-accounts-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-accounts-api
   collections/palenca-vech-admin-api.opencollection.json:
     method: derived
     evidence: openapi/palenca-vech-admin-api
@@ -22,11 +25,11 @@ artifacts:
     method: derived
     evidence: openapi/palenca-vech-admin-api
   collections/palenca-vech-argyle-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-argyle-api
   collections/palenca-vech-argyle-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-argyle-api
   collections/palenca-vech-check-platform-health-api.opencollection.json:
     method: derived
     evidence: openapi/palenca-vech-check-platform-health-api
@@ -34,23 +37,23 @@ artifacts:
     method: derived
     evidence: openapi/palenca-vech-check-platform-health-api
   collections/palenca-vech-companies-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-companies-api
   collections/palenca-vech-companies-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-companies-api
   collections/palenca-vech-consents-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-consents-api
   collections/palenca-vech-consents-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-consents-api
   collections/palenca-vech-console-accounts-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-accounts-api
   collections/palenca-vech-console-accounts-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-accounts-api
   collections/palenca-vech-console-api.opencollection.json:
     method: derived
     evidence: openapi/palenca-vech-console-api
@@ -58,149 +61,149 @@ artifacts:
     method: derived
     evidence: openapi/palenca-vech-console-api
   collections/palenca-vech-console-companies-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-companies-api
   collections/palenca-vech-console-companies-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-companies-api
   collections/palenca-vech-console-insights-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-insights-api
   collections/palenca-vech-console-insights-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-insights-api
   collections/palenca-vech-console-status-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-status-api
   collections/palenca-vech-console-status-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-status-api
   collections/palenca-vech-console-webhooks-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-webhooks-api
   collections/palenca-vech-console-webhooks-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-webhooks-api
   collections/palenca-vech-console-widgets-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-widgets-api
   collections/palenca-vech-console-widgets-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-console-widgets-api
   collections/palenca-vech-countries-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-countries-api
   collections/palenca-vech-countries-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-countries-api
   collections/palenca-vech-cpf-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-cpf-api
   collections/palenca-vech-cpf-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-cpf-api
   collections/palenca-vech-cron-jobs-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-cron-jobs-api
   collections/palenca-vech-cron-jobs-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-cron-jobs-api
   collections/palenca-vech-finsus-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-finsus-api
   collections/palenca-vech-finsus-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-finsus-api
   collections/palenca-vech-groups-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-groups-api
   collections/palenca-vech-groups-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-groups-api
   collections/palenca-vech-health-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-health-api
   collections/palenca-vech-health-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-health-api
   collections/palenca-vech-imss-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-imss-api
   collections/palenca-vech-imss-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-imss-api
   collections/palenca-vech-insights-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-insights-api
   collections/palenca-vech-insights-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-insights-api
   collections/palenca-vech-insights-report-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-insights-report-api
   collections/palenca-vech-insights-report-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-insights-report-api
   collections/palenca-vech-internal-accounts-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-accounts-api
   collections/palenca-vech-internal-accounts-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-accounts-api
   collections/palenca-vech-internal-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-api
   collections/palenca-vech-internal-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-api
   collections/palenca-vech-internal-bulks-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-bulks-api
   collections/palenca-vech-internal-bulks-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-bulks-api
   collections/palenca-vech-internal-companies-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-companies-api
   collections/palenca-vech-internal-companies-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-companies-api
   collections/palenca-vech-internal-groups-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-groups-api
   collections/palenca-vech-internal-groups-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-groups-api
   collections/palenca-vech-internal-indriver-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-indriver-api
   collections/palenca-vech-internal-indriver-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-indriver-api
   collections/palenca-vech-internal-insights-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-insights-api
   collections/palenca-vech-internal-insights-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-insights-api
   collections/palenca-vech-internal-status-history-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-status-history-api
   collections/palenca-vech-internal-status-history-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-internal-status-history-api
   collections/palenca-vech-link-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-link-api
   collections/palenca-vech-link-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-link-api
   collections/palenca-vech-logins-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-logins-api
   collections/palenca-vech-logins-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-logins-api
   collections/palenca-vech-ping-api.opencollection.json:
     method: derived
     evidence: openapi/palenca-vech-ping-api
@@ -208,11 +211,11 @@ artifacts:
     method: derived
     evidence: openapi/palenca-vech-ping-api
   collections/palenca-vech-platforms-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-platforms-api
   collections/palenca-vech-platforms-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-platforms-api
   collections/palenca-vech-pong-api.opencollection.json:
     method: derived
     evidence: openapi/palenca-vech-pong-api
@@ -220,47 +223,47 @@ artifacts:
     method: derived
     evidence: openapi/palenca-vech-pong-api
   collections/palenca-vech-rappi-income-distribution-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-rappi-income-distribution-api
   collections/palenca-vech-rappi-income-distribution-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-rappi-income-distribution-api
   collections/palenca-vech-rappi-start-location-recovery-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-rappi-start-location-recovery-api
   collections/palenca-vech-rappi-start-location-recovery-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-rappi-start-location-recovery-api
   collections/palenca-vech-status-history-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-status-history-api
   collections/palenca-vech-status-history-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-status-history-api
   collections/palenca-vech-uber-direct-api-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-uber-direct-api-api
   collections/palenca-vech-uber-direct-api-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-uber-direct-api-api
   collections/palenca-vech-uber-income-distribution-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-uber-income-distribution-api
   collections/palenca-vech-uber-income-distribution-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-uber-income-distribution-api
   collections/palenca-vech-users-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-users-api
   collections/palenca-vech-users-api.postman_collection.json:
+    method: derived
+    evidence: openapi/palenca-vech-users-api
+  collections/palenca-vech-v1-api.opencollection.json:
     method: unknown
     evidence: no authorship recorded
-  collections/palenca-vech-v1-api.opencollection.json:
-    method: derived
-    evidence: openapi/palenca-vech-v1-api
   collections/palenca-vech-v1-api.postman_collection.json:
-    method: derived
-    evidence: openapi/palenca-vech-v1-api
+    method: unknown
+    evidence: no authorship recorded
   collections/palenca-vech-version-api.opencollection.json:
     method: derived
     evidence: openapi/palenca-vech-version-api
@@ -268,17 +271,17 @@ artifacts:
     method: derived
     evidence: openapi/palenca-vech-version-api
   collections/palenca-vech-webhooks-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-webhooks-api
   collections/palenca-vech-webhooks-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-webhooks-api
   collections/palenca-vech-widgets-api.opencollection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-widgets-api
   collections/palenca-vech-widgets-api.postman_collection.json:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: openapi/palenca-vech-widgets-api
   components/palenca-vech-components.yml:
     method: searched
     evidence: declared in the artifact
@@ -294,127 +297,13 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  integrations/_index.yml:
     method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+    evidence: carries an API Evangelist house phrase
+  integrations/palenca-vech-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -498,6 +387,21 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/palenca-vech-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -509,27 +413,150 @@ artifacts:
     evidence: declared in the artifact
   openapi/_original/palenca-vech-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://api.palenca.com/openapi.json (sha256 c16d9473b250, fetched
+      2026-10-04)
+  openapi/palenca-vech-accounts-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/palenca-vech-admin-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-argyle-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/palenca-vech-check-platform-health-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-companies-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-consents-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-console-accounts-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/palenca-vech-console-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-console-companies-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-console-insights-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-console-status-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-console-webhooks-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-console-widgets-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-countries-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-cpf-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-cron-jobs-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-employment-file-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-employment-files-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-employments-history-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-finsus-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-get-earnings-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-groups-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-health-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-imss-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-insights-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-insights-report-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-accounts-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-bulks-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-companies-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-groups-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-indriver-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-insights-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-internal-status-history-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-link-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-logins-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/palenca-vech-ping-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-platforms-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/palenca-vech-pong-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/palenca-vech-v1-api-openapi.yml:
+  openapi/palenca-vech-rappi-income-distribution-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-rappi-start-location-recovery-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-status-history-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-uber-direct-api-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-uber-income-distribution-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-users-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/palenca-vech-version-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-webhooks-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/palenca-vech-widgets-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/palenca-vech-openapi-overlay.yaml:
